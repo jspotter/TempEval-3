@@ -23,26 +23,11 @@ public class Runner {
 
 	private static final String traindir = 
 		"data/TBAQ-cleaned/AQUAINT";
-	private static final String trainfile =
-		"eventdata/event-train.txt";
-	private static final String testfile =
-		"eventdata/event-test.txt";
 	
 	private static StanfordCoreNLP pipeline;
+	private static ArrayList<Annotation> annotations;
 	
-	private static void train() {
-		BufferedWriter trainwriter = null, testwriter = null;
-		try {
-			trainwriter = new BufferedWriter(
-					new FileWriter(trainfile));
-			testwriter = new BufferedWriter(
-					new FileWriter(testfile));
-		} catch(IOException e) {
-			System.out.println("Unable to open output files.");
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		
+	private static void annotate() {		
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
@@ -63,7 +48,7 @@ public class Runner {
 				continue;
 			}
 			
-			//System.out.println(text.indexOf("<TEXT>") + " " + text.indexOf("</TEXT>"));
+			// Hacky way of getting training file content
 			text = text.substring(text.indexOf("<TEXT>") + 6,
 					text.indexOf("</TEXT>"));
 	
@@ -72,14 +57,8 @@ public class Runner {
 			pipeline.annotate(annotation);
 	
 			// Train event tagger
-			EventTagger.train(pipeline, annotation, trainwriter, testwriter);
-		}
-		
-		try {
-			trainwriter.close();
-			testwriter.close();
-		} catch(IOException e) {
-			e.printStackTrace();
+			EventTagger.annotate(annotation);
+			EventTagger.printAnnotations(annotation, new PrintWriter(System.out));
 		}
 	}
 
@@ -103,6 +82,6 @@ public class Runner {
 		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
 		//Element text = texts[0];
 		
-		train();
+		annotate();
 	}
 }

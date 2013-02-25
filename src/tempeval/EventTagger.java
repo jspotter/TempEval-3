@@ -17,35 +17,17 @@ import edu.stanford.nlp.util.*;
 
 public class EventTagger {
 
-	public static void train(StanfordCoreNLP pipeline, Annotation annotation,
-			BufferedWriter trainwriter, BufferedWriter testwriter) {
+	public static void annotate(Annotation annotation) {
 		// Printing results
 		PrintWriter out = new PrintWriter(System.out);
-		PrintWriter xmlOut = null;
-		
-		// Initial event ID
-		int eventID = 1;
 		
 		// Keep track of current event type
 		String curEventType = "O";
 
-		// An Annotation is a Map and you can get and use the various analyses individually.
+		// Add event information to each event-tagged token
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
-			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-				// this is the text of the token
-				//String word = token.get(TextAnnotation.class);
-				// this is the POS tag of the token
-				//String pos = token.get(PartOfSpeechAnnotation.class);
-				// this is the NER label of the token
-				//String ne = token.get(NamedEntityTagAnnotation.class);
-
-				//Timex timex = token.get(TimexAnnotation.class);
-
-				//System.out.println(word + " : " + pos + " : " + ne);
-				//if (timex != null)
-				//	System.out.println(timex.toString());
-				
+			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {				
 				String word = token.get(TextAnnotation.class);
 				if (word.startsWith("<EVENT")) {
 					int start = word.indexOf("class=\"") + 7;
@@ -63,19 +45,26 @@ public class EventTagger {
 						|| word.contains("SIGNAL>")) {
 					continue;
 				} else {
-					try {
-						trainwriter.append(word + " " + curEventType + "\n");
-						testwriter.append(word + "\n");
-					} catch(IOException e) {
-						e.printStackTrace();
-						System.exit(-1);
-					}
+					token.set(EventClassAnnotation.class, curEventType);
 				}
 			}
 		}
-		
-		// Print
-		//pipeline.prettyPrint(annotation, out);
+	}
+	
+	public static void printAnnotations(Annotation annotation, PrintWriter out) {
+		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+		for(CoreMap sentence: sentences) {
+			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	
+				String word = token.getString(TextAnnotation.class);
+				String event = token.getString(EventClassAnnotation.class);
+				
+				out.print(word + " ");
+				if(event != null)
+					out.println(event);
+				else
+					out.println("O");
+			}
+		}
 	}
 
 }
