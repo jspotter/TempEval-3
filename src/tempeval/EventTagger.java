@@ -27,42 +27,55 @@ public class EventTagger {
 		// Add event information to each event-tagged token
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
-			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {				
+			
+			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+			
+			// Keep track of tokens to remove
+			Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
+			
+			// Annotate each token
+			for (CoreLabel token: tokens) {				
 				String word = token.get(TextAnnotation.class);
 				if (word.startsWith("<EVENT")) {
 					int start = word.indexOf("class=\"") + 7;
 					String intermediate = word.substring(start);
 					int end = intermediate.indexOf("\"");
 					curEventType = intermediate.substring(0, end);
-					
-					continue;
+					tokensToRemove.add(token);
 				} else if (word.startsWith("</EVENT")) {
 					curEventType = "O";
-					continue;
+					tokensToRemove.add(token);;
 				} else if (word.contains("<TIMEX3") 
 						|| word.contains("TIMEX3>")
 						|| word.contains("<SIGNAL")
 						|| word.contains("SIGNAL>")) {
-					continue;
+					tokensToRemove.add(token);;
 				} else {
 					token.set(EventClassAnnotation.class, curEventType);
 				}
 			}
+			
+			// Remove tokens corresponding to tags
+			for (CoreLabel token: tokensToRemove) {
+				tokens.remove(token);
+			}
 		}
 	}
 	
-	public static void printAnnotations(Annotation annotation, PrintWriter out) {
+	public static void printAnnotations(Annotation annotation, BufferedWriter out) throws IOException {
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
-			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	
+			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
 				String word = token.getString(TextAnnotation.class);
 				String event = token.getString(EventClassAnnotation.class);
 				
-				out.print(word + " ");
+				out.write(word + " ");
 				if(event != null)
-					out.println(event);
+					out.write(event);
 				else
-					out.println("O");
+					out.write("O");
+				out.write("\n");
+				out.flush();
 			}
 		}
 	}

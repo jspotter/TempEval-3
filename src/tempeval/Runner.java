@@ -27,6 +27,10 @@ public class Runner {
 	private static StanfordCoreNLP pipeline;
 	private static ArrayList<Annotation> annotations;
 	
+	/*
+	 * Builds up annotation object with built in CoreNLP annotations as
+	 * well as events.
+	 */
 	private static void annotate() {		
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
@@ -39,7 +43,10 @@ public class Runner {
 				BufferedReader rd = new BufferedReader(new FileReader(child));
 				while (true) {
 					String line = rd.readLine();
-					if (line == null) break;
+					if (line == null) {
+						rd.close();
+						break;
+					}
 					text += line;
 				}
 			} catch(IOException e) {
@@ -58,8 +65,21 @@ public class Runner {
 	
 			// Train event tagger
 			EventTagger.annotate(annotation);
-			EventTagger.printAnnotations(annotation, new PrintWriter(System.out));
+			annotations.add(annotation);
 		}
+		
+		// Write annotations
+		/*
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter("sample.out"));
+			for(Annotation a: annotations) {
+				EventTagger.printAnnotations(a, out);
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		*/
 	}
 
 	/**
@@ -72,6 +92,7 @@ public class Runner {
 		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
 		props.put("annotators", "tokenize, ssplit");
 		pipeline = new StanfordCoreNLP(props);
+		annotations = new ArrayList<Annotation>();
 
 		// Get XML file
 		//Document trainDoc = XMLParser.parse(trainfile);
