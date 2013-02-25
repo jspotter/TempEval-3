@@ -85,26 +85,23 @@ public class XMLParser {
 	/**
 	 * Parses file.
 	 */
-	public static Document parse(String filename) {
-		Document doc = null;
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
-			factory.setIgnoringElementContentWhitespace(true);
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			builder.setErrorHandler(new MyErrorHandler());
-			doc = builder.parse(new File(filename));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return doc;
+	public static Document parse(String filename) throws Exception {
+		return parse(new File(filename));
+	}
+	
+	public static Document parse(File file) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setValidating(false);
+		factory.setIgnoringElementContentWhitespace(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		builder.setErrorHandler(new MyErrorHandler());
+		return builder.parse(file);
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Document doc = parse(testfile);
 		Element root = doc.getDocumentElement();
 		String text = getElementTextByTagNameNR(root, "TEXT");

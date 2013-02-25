@@ -31,13 +31,17 @@ public class Runner {
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
-	private static void annotate() {		
+	private static void annotate() {
+		
+		// Read each training file in training directory
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
 			
 			System.out.println("Training on file " + child.getName());
+			
+			// Read
 			String text = "";
 			try {
 				BufferedReader rd = new BufferedReader(new FileReader(child));
@@ -55,17 +59,31 @@ public class Runner {
 				continue;
 			}
 			
+			// Parse XML
+			Document doc = null;
+			try {
+				doc = XMLParser.parse(child);
+			} catch(Exception e) {
+				e.printStackTrace();
+				continue;
+			}
+			
 			// Hacky way of getting training file content
 			text = text.substring(text.indexOf("<TEXT>") + 6,
 					text.indexOf("</TEXT>"));
 	
-			// Annotate
+			// Annotate with CoreNLP tags
 			Annotation annotation = new Annotation(text);
 			pipeline.annotate(annotation);
 	
-			// Train event tagger
+			// Annotate with events
 			EventTagger.annotate(annotation);
-			annotations.add(annotation);
+			
+			// Annotate with same-sentence event-timex pairs
+			EventRelTagger.annotateEventTimex(annotation, doc);
+			
+			// Finally, add this annotation as a training example
+			annotations.add(annotation);			
 		}
 		
 		// Write annotations
