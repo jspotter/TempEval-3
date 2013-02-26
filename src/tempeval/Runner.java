@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.w3c.dom.*;
 
+
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.*;
@@ -31,7 +32,7 @@ public class Runner {
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
-	private static void annotate() {
+	private static void annotate() throws Exception {
 		
 		// Read each training file in training directory
 		File directory = new File(traindir);
@@ -39,41 +40,29 @@ public class Runner {
 			if (child.getName().startsWith("."))
 				continue;
 			
-			System.out.println("Training on file " + child.getName());
 			
-			// Read
-			String text = "";
-			try {
-				BufferedReader rd = new BufferedReader(new FileReader(child));
-				while (true) {
-					String line = rd.readLine();
-					if (line == null) {
-						rd.close();
-						break;
-					}
-					text += line;
+			System.out.println("Training on fi8le " + child.getName());
+			
+			String file_text = "";
+			String curr_line;
+			BufferedReader br = new BufferedReader(new FileReader(child));
+			
+			while ((curr_line = br.readLine()) != null) {
+					file_text += curr_line;
 				}
-			} catch(IOException e) {
-				System.out.println("*** Unable to read file. ***");
-				e.printStackTrace();
-				continue;
-			}
-			
+		
 			// Parse XML
-			Document doc = null;
-			try {
-				doc = XMLParser.parse(child);
-			} catch(Exception e) {
-				e.printStackTrace();
-				continue;
-			}
+			Document doc = XMLParser.parse(child);
+		
+			//NodeList e = doc.getElementsByTagName("TEXT");
+			//Element ee = (Element) e.item(0);
+		
 			
-			// Hacky way of getting training file content
-			text = text.substring(text.indexOf("<TEXT>") + 6,
-					text.indexOf("</TEXT>"));
+			//Concealed Hacky way of getting training file content
+			file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
 	
 			// Annotate with CoreNLP tags
-			Annotation annotation = new Annotation(text);
+			Annotation annotation = new Annotation(file_text);
 			pipeline.annotate(annotation);
 	
 			// Annotate with events
@@ -121,6 +110,10 @@ public class Runner {
 		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
 		//Element text = texts[0];
 		
-		annotate();
+		try {
+			annotate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

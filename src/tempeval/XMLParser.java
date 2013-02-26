@@ -97,6 +97,13 @@ public class XMLParser {
 		builder.setErrorHandler(new MyErrorHandler());
 		return builder.parse(file);
 	}
+	
+	//assumes user enters full tagname including < > brackets
+	public static String getRawTextByTagName(String text, String startTagName, String endTagName){
+		String result = text.substring(text.indexOf(startTagName) + startTagName.length(),
+				text.indexOf(endTagName));
+		return result;
+	}
 
 	/**
 	 * @param args
