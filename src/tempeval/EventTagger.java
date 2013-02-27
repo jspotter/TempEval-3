@@ -46,10 +46,10 @@ public class EventTagger {
 			this.polarity = null;
 			this.pos = null;
 		}
-		
+
 		private void getAuxEventInfo(Document doc) {
 			Element root = doc.getDocumentElement();
-			
+
 			Element[] auxEventInfoElems = 
 					XMLParser.getElementsByTagNameNR(root, "MAKEINSTANCE");
 			for(Element e : auxEventInfoElems) {
@@ -74,7 +74,7 @@ public class EventTagger {
 		public String currTimeTemporalFunction;
 		public String currTimeFunctionInDocument;
 
-		private TimeInfo(String currTimeType, String currTimeId, String currTimeValue, 
+		private TimeInfo(String currTimeId, String currTimeType, String currTimeValue, 
 				String currTimeTemporalFunction, String currTimeFunctionInDocument){
 			this.currTimeType = currTimeType;
 			this.currTimeId = currTimeId;
@@ -180,9 +180,8 @@ public class EventTagger {
 					tokensToRemove.add(token);
 				} else if (currTag == "EVENT") {
 					token.set(EventAnnotation.class, currEvent);
-				} else if (currTag == "TIME"){
+				} else if (currTag == "TIME") {
 					token.set(TimeAnnotation.class, currTime);
-					tokensToRemove.add(token);
 				}
 			}
 
@@ -192,11 +191,11 @@ public class EventTagger {
 			}
 		}
 	}
-	
+
 	public static void testEventTagger(ArrayList<Annotation> annotations, String filepath){
-	    
+
 		String data = "";
-		
+
 		for(Annotation annotation : annotations){
 			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 			for(CoreMap sentence: sentences) {
@@ -211,16 +210,16 @@ public class EventTagger {
 				}
 			}
 		}
-	 
-		 AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(filepath);
+
+		AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(filepath);
 
 		String tagged_data = classifier.classifyToString(data);
-		
-		
-	     //System.out.println(tagged_data);
 
-	      
-	  
+
+		//System.out.println(tagged_data);
+
+
+
 	}
 
 	/*

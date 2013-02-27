@@ -42,7 +42,6 @@ public class EventRelTagger {
 			// Iterate through tokens and store all events and timexes. Relies on the
 			// invariant that no token will be both an event and a timex.
 			for (CoreLabel token: tokens) {
-				System.out.println(token.get(TextAnnotation.class));
 				EventTagger.EventInfo eventInfo = token.get(EventAnnotation.class);
 				EventTagger.TimeInfo timeInfo = token.get(TimeAnnotation.class);
 
@@ -102,9 +101,11 @@ public class EventRelTagger {
 			String relatedToEventInstance = e.getAttribute("relatedToEventInstance");
 			String relType = e.getAttribute("relType");
 
-			if (timeID != null && relatedToEventInstance != null && relType != null) {
+			if (timeID.length() > 0 && relatedToEventInstance.length() > 0
+					&& relType.length() > 0) {
 				MapUtils.doublePut(result, timeID, relatedToEventInstance, relType);
-			} else if (eventInstanceID != null && relatedToTime != null && relType != null) {
+			} else if (eventInstanceID.length() > 0 && relatedToTime.length() > 0
+					&& relType.length() > 0) {
 				MapUtils.doublePut(result, relatedToTime, eventInstanceID, relType);
 			}
 		}
@@ -128,7 +129,7 @@ public class EventRelTagger {
 		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
 		props.put("annotators", "tokenize, ssplit");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		
+
 		String file_text = "";
 		String curr_line;
 		BufferedReader br = new BufferedReader(new FileReader(sampleFile));
@@ -136,30 +137,30 @@ public class EventRelTagger {
 		while ((curr_line = br.readLine()) != null) {
 			file_text += curr_line;
 		}
-		
+
 		br.close();
-		
+
 		file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
 		System.out.println(file_text);
 		Annotation annotation = new Annotation(file_text);
 
 		pipeline.annotate(annotation);
 		EventTagger.annotate(annotation, doc);
-		
+
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
 		Map<String, Map<String, String>> relationships = getEventTimexRelationships(doc);
-		
+
 		System.out.println("About to print extracted information");
-		
+
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
 			EventTagger.TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
 			EventTagger.EventInfo eventInfo = pair.second.get(EventAnnotation.class);
-			
+
 			String tid = timeInfo.currTimeId;
 			String eiid = eventInfo.currEiid;
-			
+
 			System.out.print(tid + " " + eiid + " ");
-			
+
 			String relType = MapUtils.doubleGet(relationships, tid, eiid);
 			if (relType != null) {
 				System.out.println(relType);
