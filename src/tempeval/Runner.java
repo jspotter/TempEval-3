@@ -23,63 +23,61 @@ import edu.stanford.nlp.util.StringUtils;
 public class Runner {
 
 	private static final String traindir = 
-		"data/TBAQ-cleaned/AQUAINT";
-	
+			"data/TBAQ-cleaned/AQUAINT";
+
 	private static StanfordCoreNLP pipeline;
 	private static ArrayList<Annotation> annotations;
-	
+
 	/*
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
 	private static void annotate() throws Exception {
-		
+
 		// Read each training file in training directory
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
-			
-			
-			System.out.println("Training on fi8le " + child.getName());
-			
+
+			System.out.println("Training on file " + child.getName());
+
 			String file_text = "";
 			String curr_line;
 			BufferedReader br = new BufferedReader(new FileReader(child));
-			
+
 			while ((curr_line = br.readLine()) != null) {
-					file_text += curr_line;
-				}
-		
+				file_text += curr_line;
+			}
+
 			// Parse XML
 			Document doc = XMLParser.parse(child);
-		
+
 			//NodeList e = doc.getElementsByTagName("TEXT");
 			//Element ee = (Element) e.item(0);
-		
-			
+
+
 			//Concealed Hacky way of getting training file content
 			file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
-	
+
 			// Annotate with CoreNLP tags
 			//Should we create separate annotations for the event tagging and relationship tagging?
 			Annotation annotation = new Annotation(file_text);
-			
-			
+
 			pipeline.annotate(annotation);
-	
+
 			// Annotate with events
-			EventTagger.annotate(annotation);
-			
+			EventTagger.annotate(annotation, doc);
+
 			// Annotate with same-sentence event-timex pairs
-			EventRelTagger.annotateEventTimex(annotation, doc);
-			
+			EventRelTagger.trainEventTimex(annotation, doc);
+
 			// Finally, add this annotation as a training example
 			annotations.add(annotation);			
 		}
-		
+
 		// Write annotations
-		
+
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("sample.out"));
 			for(Annotation a: annotations) {
@@ -89,14 +87,14 @@ public class Runner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws IOException {
-		
+
 		// Create pipeline
 		Properties props = new Properties();
 		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
@@ -112,7 +110,7 @@ public class Runner {
 		//Element root = trainDoc.getDocumentElement();
 		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
 		//Element text = texts[0];
-		
+
 		try {
 			annotate();
 		} catch (Exception e) {

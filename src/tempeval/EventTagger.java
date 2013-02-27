@@ -3,6 +3,10 @@ package tempeval;
 import java.io.*;
 import java.util.*;
 
+import org.xml.sax.*;
+import org.w3c.dom.*;
+import org.w3c.dom.Document;
+
 import edu.stanford.nlp.io.*;
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
@@ -22,77 +26,77 @@ public class EventTagger {
 	 * tags and adding their information to the tokens they contain. Also
 	 * strips out TIMEX3 and SIGNAL tags.
 	 */
-	
 
-	
-	
-	private static class EventInfo{
-		private String currEventType;
-		private String currEventId;
-		
-		private EventInfo(String currEventType, String currEventID){
+
+
+
+	public static class EventInfo{
+		public String currEventType;
+		public String currEventId;
+		public String currEiid;
+		public String tense;
+		public String aspect;
+		public String polarity;
+		public String pos;
+
+		private EventInfo(String currEventType, String currEventID) {
 			this.currEventType = currEventType;
 			this.currEventId = currEventID;
+			this.currEiid = null;
+			this.tense = null;
+			this.aspect = null;
+			this.polarity = null;
+			this.pos = null;
 		}
 		
-		private String getEventType(){
-			return this.currEventType;
-		}
-		
-		private String getEventId(){
-			return this.currEventId;
+		private void getAuxEventInfo(Document doc) {
+			Element root = doc.getDocumentElement();
+			
+			Element[] auxEventInfoElems = 
+					XMLParser.getElementsByTagNameNR(root, "MAKEINSTANCE");
+			for(Element e : auxEventInfoElems) {
+				String id = e.getAttribute("eventID");
+				if(id != null && id.equals(currEventId)) {
+					currEiid = e.getAttribute("eiid");
+					tense = e.getAttribute("tense");
+					aspect = e.getAttribute("aspect");
+					polarity = e.getAttribute("polarity");
+					pos = e.getAttribute("pos");
+					return;
+				}
+			}
 		}
 	}
-	
-	private static class TimeInfo{
+
+	public static class TimeInfo{
 		//could have added others, but on TempEval site it was stated that Type and
-		private String currTimeType;
-		private String currTimeId;
-		private String currTimeValue;
-		private String currTimeTemporalFunction;
-		private String currTimefunctionInDocument;
-		
-		private TimeInfo(String currTimeType, String currTimeId, String currTimeValue, String currTimeTemporalFunction, String currTimefunctionInDocument){
+		public String currTimeType;
+		public String currTimeId;
+		public String currTimeValue;
+		public String currTimeTemporalFunction;
+		public String currTimeFunctionInDocument;
+
+		private TimeInfo(String currTimeType, String currTimeId, String currTimeValue, 
+				String currTimeTemporalFunction, String currTimeFunctionInDocument){
 			this.currTimeType = currTimeType;
 			this.currTimeId = currTimeId;
 			this.currTimeValue = currTimeValue;
 			this.currTimeTemporalFunction = currTimeTemporalFunction;
-			this.currTimefunctionInDocument = currTimefunctionInDocument;
+			this.currTimeFunctionInDocument = currTimeFunctionInDocument;
 		}
-		
-		private String getTimeType(){
-			return this.currTimeType;
-		}
-		
-		private String getTimeId(){
-			return this.currTimeId;
-		}
-		
-		private String getTimeVal(){
-			return this.currTimeValue;
-		}
-		
-		private String getTimeTemporalFunction(){
-			return this.currTimeTemporalFunction;
-		}
-		
-		private String getFunctionInDocument(){
-			return this.currTimefunctionInDocument;
-		}
-
 	}
-	
-	
+
+
 	private static TimeInfo getCurrentTimeInfo(String word, CoreLabel token){
-		
+
 		String extract = new String(word);
-		
+
 		String TimeIdString = "tid=\"";
 		String TimeTypeString = "type=\"";
 		String TimeValueString = "value=\"";
 		String TimeTemporalFString = "temporalFunction=\"";
 		String TimeFunctionInDocumentString = "functionInDocument=\"";
-		
+
 		int start = extract.indexOf(TimeIdString) + TimeIdString.length();
 		int end = extract.indexOf("\"", start);
 		String currTimeId = extract.substring(start, end);
@@ -100,42 +104,52 @@ public class EventTagger {
 		start = extract.indexOf(TimeTypeString) + TimeTypeString.length();
 		end = extract.indexOf("\"", start);
 		String currTimeType = extract.substring(start, end);
-		
+
 		start = extract.indexOf(TimeValueString) +TimeValueString.length();
 		end = extract.indexOf("\"", start);
 		String currTimeValue = extract.substring(start, end);
-		
+
 		start = extract.indexOf(TimeTemporalFString) + TimeTemporalFString.length();
 		end = extract.indexOf("\"", start);
 		String currTimeTemporalF = extract.substring(start, end);
-		
-		start = extract.indexOf(TimeFunctionInDocumentString) +TimeFunctionInDocumentString.length();
+
+		start = extract.indexOf(TimeFunctionInDocumentString) 
+				+ TimeFunctionInDocumentString.length();
 		end = extract.indexOf("\"", start);
 		String currTimeFunctionInDocument = extract.substring(start, end);
-	
-		
-		return new TimeInfo(currTimeId, currTimeType, currTimeValue, currTimeTemporalF, currTimeFunctionInDocument);
+
+
+		return new TimeInfo(currTimeId, currTimeType, currTimeValue, 
+				currTimeTemporalF, currTimeFunctionInDocument);
 	}
-	private static EventInfo getCurrentEventInfo(String word, CoreLabel token){		
+
+	/*
+	 * Extracts information about a single event from training data.
+	 */
+	private static EventInfo getCurrentEventInfo(String word, CoreLabel token, Document doc) {
 		String extract = new String(word);
-		
+
 		String EventIdString = "eid=\"";
 		String EventTypeString = "class=\"";
-		
+
 		int start = extract.indexOf(EventIdString) + EventIdString.length();
 		int end = extract.indexOf("\"", start);
 		String currEventId = extract.substring(start, end);
-		
+
 		start = extract.indexOf(EventTypeString) + EventTypeString.length();
 		end = extract.indexOf("\"", start);
 		String currEventType = extract.substring(start, end);
-		
-		
-		return new EventInfo(currEventType, currEventId);
+
+		EventInfo result = new EventInfo(currEventType, currEventId);
+		result.getAuxEventInfo(doc);
+		return result;
 	}
-	
-	public static void annotate(Annotation annotation) {
-		
+
+	/*
+	 * Add event information to the provided annotation.
+	 */
+	public static void annotate(Annotation annotation, Document doc) {
+
 		// Keep track of current event type
 		EventInfo currEvent = null;
 		TimeInfo currTime = null;
@@ -144,57 +158,60 @@ public class EventTagger {
 		// Add event information to each event-tagged token
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
-			
+
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-			
+
 			// Keep track of tokens to remove
 			Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
-			
+
 			// Annotate each token
-			for (CoreLabel token: tokens) {				
+			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
-				
+
 				// Assign currTag type
-					
 				if(word.startsWith("<EVENT")){
-						currTag = "EVENT";
-						currEvent = getCurrentEventInfo(word, token);
-						tokensToRemove.add(token);
+					currTag = "EVENT";
+					currEvent = getCurrentEventInfo(word, token, doc);
+					tokensToRemove.add(token);
 				} else if(word.startsWith("<TIMEX3")){
-						currTime = getCurrentTimeInfo(word, token);
-						currTag = "TIME";
-						tokensToRemove.add(token);
+					currTime = getCurrentTimeInfo(word, token);
+					currTag = "TIME";
+					tokensToRemove.add(token);
 				}  else if (word.startsWith("</")) {
 					currTag = "O";
 					tokensToRemove.add(token);
-				} else if (currTag == "EVENT"){
-					token.set(EventClassAnnotation.class, currEvent.getEventType());
-					token.set(EventIdAnnotation.class, currEvent.getEventId());
+				} else if (currTag == "EVENT") {
+					token.set(EventAnnotation.class, currEvent);
 				} else if (currTag == "TIME"){
-					//TODO assign appropriate annotation to token, create classes for annotations
+					token.set(TimeAnnotation.class, currTime);
 					tokensToRemove.add(token);
 				}
 			}
-			
+
 			// Remove tokens corresponding to tags
 			for (CoreLabel token: tokensToRemove) {
 				tokens.remove(token);
 			}
 		}
 	}
-	
+
 	/*
 	 * Prints event annotations in two-column format.
 	 */
-	public static void printEventAnnotations(Annotation annotation, BufferedWriter out) throws IOException {
+	public static void printEventAnnotations(Annotation annotation, BufferedWriter out) 
+			throws IOException {
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
 			for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
 				String word = token.getString(TextAnnotation.class);
-				String event = token.getString(EventClassAnnotation.class);
-				
+				EventInfo eventInfo = token.get(EventAnnotation.class);
+				String event = "";
+				if (eventInfo != null) {
+					event = eventInfo.currEventType;
+				}
+
 				out.write(word + " ");
-				if(event != "")
+				if(!event.equals(""))
 					out.write(event);
 				else
 					out.write("O");
