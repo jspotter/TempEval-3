@@ -135,12 +135,13 @@ public class TimexEventTagger {
 	 * Gets a distance bucket string based on distance
 	 */
 	private static String getDistanceBucket(int distance) {
+		if (distance == 0)
+			return "0";
 		if (distance <= 2)
-			return "0-2";
-		else if (distance <= 5)
+			return "1-2";
+		if (distance <= 5)
 			return "3-5";
-		else
-			return ">5";
+		return ">5";
 	}
 
 	/*
@@ -148,7 +149,6 @@ public class TimexEventTagger {
 	 */
 	private static void addDistanceFeature(List<String> features, CoreLabel timeToken,
 			CoreLabel eventToken) {
-
 		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		
@@ -168,6 +168,26 @@ public class TimexEventTagger {
 	}
 
 	/*
+	 * Interleaving words feature for timex-event tagging
+	 */
+	private static void addInterleavingWordsFeature(List<String> features, CoreLabel timeToken,
+			CoreLabel eventToken) {
+		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		
+		//TODO this
+	}
+	
+	/*
+	 * Interleaving commma feature for timex-event tagging
+	 */
+	private static void addInterleavingCommaFeature(List<String> features, CoreLabel timeToken,
+			CoreLabel eventToken) {
+		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+	}
+	
+	/*
 	 * Creates a single datum from a training example
 	 */
 	private static Datum<String, String> getDatum(CoreLabel timeToken, CoreLabel eventToken,
@@ -180,6 +200,8 @@ public class TimexEventTagger {
 
 		// FEATURES
 		addDistanceFeature(features, timeToken, eventToken);
+		//addInterleavingWordsFeature(features, timeToken, eventToken);
+		addInterleavingCommaFeature(features, timeToken, eventToken);
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
