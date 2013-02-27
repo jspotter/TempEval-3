@@ -151,14 +151,20 @@ public class EventRelTagger {
 
 		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		
+		int timeOffset = timeToken.get(TokenOffsetAnnotation.class);
+		int eventOffset = eventToken.get(TokenOffsetAnnotation.class);
+		
+		//System.out.println(timeInfo.currTimeId + " " + timeOffset + " "
+		//		+ eventInfo.currEiid + " " + eventOffset);
 
 		int distance;
-		if (timeToken.beginPosition() < eventToken.beginPosition())
-			distance = eventToken.beginPosition() - timeToken.beginPosition() - timeInfo.numTokens;
+		if (timeOffset < eventOffset)
+			distance = eventOffset - timeOffset - timeInfo.numTokens;
 		else
-			distance = timeToken.beginPosition() - eventToken.beginPosition() - timeInfo.numTokens;
+			distance = timeOffset - eventOffset - timeInfo.numTokens;
 		features.add(DISTANCE_STRING + "=" + getDistanceBucket(distance));
-		System.out.print(distance + " ");
+		//System.out.print(distance + " ");
 	}
 
 	/*
@@ -178,6 +184,7 @@ public class EventRelTagger {
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
 		label = (label == null ? "O" : label);
+		//System.out.println(label);
 
 		return new BasicDatum<String, String>(features, label);
 	}
@@ -228,6 +235,7 @@ public class EventRelTagger {
 			System.out.println(pair.first.get(TimeAnnotation.class).currTimeId + " "
 					+ pair.second.get(EventAnnotation.class).currEiid + " "
 					+ guess + " " + correct);
+			testClassifier.justificationOf(datum);
 		}
 	}
 

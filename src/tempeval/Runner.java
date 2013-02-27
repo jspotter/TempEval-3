@@ -63,6 +63,7 @@ public class Runner {
 		EventRelTagger.initTagger();
 
 		// Read each training file in training directory
+		int filesRead = 0;
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
 			Annotation annotation = getAnnotation(child);
@@ -83,8 +84,8 @@ public class Runner {
 			// Finally, add this annotation as a training example
 			annotations.add(annotation);
 			
-			// Uncomment to test just one file
-			//break;
+			// Uncomment to test just ten files
+			if (++filesRead >= 10) break;
 		}
 		
 		EventRelTagger.doneClassifying();
@@ -147,7 +148,7 @@ public class Runner {
 			e.printStackTrace();
 		}
 		
-		String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
-		EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
+		//String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
+		//EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
 	}
 }

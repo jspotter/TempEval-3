@@ -167,6 +167,7 @@ public class EventTagger {
 			Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
 
 			// Annotate each token
+			int curTokenNum = 0;
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
 
@@ -184,9 +185,11 @@ public class EventTagger {
 					tokensToRemove.add(token);
 				} else if (currTag == "EVENT") {
 					token.set(EventAnnotation.class, currEvent);
+					token.set(TokenOffsetAnnotation.class, curTokenNum++);
 					currEvent.numTokens++;
 				} else if (currTag == "TIME") {
 					token.set(TimeAnnotation.class, currTime);
+					token.set(TokenOffsetAnnotation.class, curTokenNum++);
 					currTime.numTokens++;
 				}
 			}
