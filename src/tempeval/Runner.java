@@ -60,7 +60,7 @@ public class Runner {
 	 */
 	private static void annotate() throws Exception {
 		
-		EventRelTagger.initTagger();
+		TimexEventTagger.initTagger();
 
 		// Read each training file in training directory
 		int filesRead = 0;
@@ -79,7 +79,7 @@ public class Runner {
 			EventTagger.annotate(annotation, doc);
 
 			// Annotate with same-sentence event-timex pairs
-			EventRelTagger.trainEventTimex(annotation, doc);
+			TimexEventTagger.trainEventTimex(annotation, doc);
 
 			// Finally, add this annotation as a training example
 			annotations.add(annotation);
@@ -88,8 +88,8 @@ public class Runner {
 			if (++filesRead >= 10) break;
 		}
 		
-		EventRelTagger.doneClassifying();
-		EventRelTagger.loadTestClassifier();
+		TimexEventTagger.doneClassifying();
+		TimexEventTagger.loadTestClassifier();
 		
 		for (File child : directory.listFiles()) {
 			Annotation annotation = getAnnotation(child);
@@ -105,8 +105,10 @@ public class Runner {
 			EventTagger.annotate(annotation, doc);
 
 			// Annotate with same-sentence event-timex pairs
-			EventRelTagger.testEventTimex(annotation, doc);
+			TimexEventTagger.testEventTimex(annotation, doc);
 		}
+		
+		TimexEventTagger.doneTesting();
 
 		// Write annotations
 		/*try {

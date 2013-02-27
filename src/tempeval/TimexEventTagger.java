@@ -17,7 +17,7 @@ import org.w3c.dom.*;
 import java.io.*;
 import java.util.*;
 
-public class EventRelTagger {
+public class TimexEventTagger {
 
 	private static final String CLASSIFIER_FILENAME = "classifiers/timex-event-model.ser.gz";
 
@@ -237,6 +237,14 @@ public class EventRelTagger {
 					+ guess + " " + correct);
 			testClassifier.justificationOf(datum);
 		}
+	}
+	
+	/*
+	 * Deletes classifier file
+	 */
+	public static void doneTesting() {
+		File file = new File(CLASSIFIER_FILENAME);
+		file.delete();
 	}
 
 	/*
