@@ -3,21 +3,22 @@ package tempeval;
 import java.io.*;
 import java.util.*;
 
-import org.xml.sax.*;
 import org.w3c.dom.*;
 import org.w3c.dom.Document;
 
-import edu.stanford.nlp.io.*;
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.*;
-import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.*;
-import edu.stanford.nlp.time.Timex;
-import edu.stanford.nlp.time.TimeAnnotations.TimexAnnotation;
-import edu.stanford.nlp.trees.*;
 import edu.stanford.nlp.util.*;
+
+import edu.stanford.nlp.ie.crf.*;
+import edu.stanford.nlp.ie.AbstractSequenceClassifier;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
+import edu.stanford.nlp.util.StringUtils;
 
 public class EventTagger {
 
@@ -26,9 +27,6 @@ public class EventTagger {
 	 * tags and adding their information to the tokens they contain. Also
 	 * strips out TIMEX3 and SIGNAL tags.
 	 */
-
-
-
 
 	public static class EventInfo{
 		public String currEventType;
@@ -193,6 +191,36 @@ public class EventTagger {
 				tokens.remove(token);
 			}
 		}
+	}
+	
+	public static void testEventTagger(ArrayList<Annotation> annotations, String filepath){
+	    
+		String data = "";
+		
+		for(Annotation annotation : annotations){
+			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+			for(CoreMap sentence: sentences) {
+
+				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+
+				Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
+
+				for (CoreLabel token: tokens) {
+					String word = token.get(TextAnnotation.class);
+					data += word + " ";
+				}
+			}
+		}
+	 
+		 AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(filepath);
+
+		String tagged_data = classifier.classifyToString(data);
+		
+		
+	     //System.out.println(tagged_data);
+
+	      
+	  
 	}
 
 	/*

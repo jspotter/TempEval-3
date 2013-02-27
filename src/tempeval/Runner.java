@@ -110,11 +110,14 @@ public class Runner {
 		//Element root = trainDoc.getDocumentElement();
 		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
 		//Element text = texts[0];
-
+		
 		try {
 			annotate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
+		EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
 	}
 }
