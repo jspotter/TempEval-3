@@ -62,7 +62,10 @@ public class Runner {
 			file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
 	
 			// Annotate with CoreNLP tags
+			//Should we create separate annotations for the event tagging and relationship tagging?
 			Annotation annotation = new Annotation(file_text);
+			
+			
 			pipeline.annotate(annotation);
 	
 			// Annotate with events
@@ -76,17 +79,17 @@ public class Runner {
 		}
 		
 		// Write annotations
-		/*
+		
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("sample.out"));
 			for(Annotation a: annotations) {
-				EventTagger.printAnnotations(a, out);
+				EventTagger.printEventAnnotations(a, out);
 			}
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		*/
+		
 	}
 
 	/**
