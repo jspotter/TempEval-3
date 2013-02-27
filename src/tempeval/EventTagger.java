@@ -148,7 +148,8 @@ public class EventTagger {
 	}
 
 	/*
-	 * Add event information to the provided annotation.
+	 * Add event information to the provided annotation. Also add other
+	 * information, like token number and next/previous tokens.
 	 */
 	public static void annotate(Annotation annotation, Document doc) {
 
@@ -161,6 +162,8 @@ public class EventTagger {
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
 
+			CoreLabel lastToken = null;
+			AuxTokenInfo lastTokenAux = null;
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 
 			// Keep track of tokens to remove
@@ -171,26 +174,52 @@ public class EventTagger {
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
 
-				// Assign currTag type
-				if(word.startsWith("<EVENT")){
+				// Assign currTag type if we're looking at a tag
+				if(word.startsWith("<EVENT")) {
 					currTag = "EVENT";
 					currEvent = getCurrentEventInfo(word, token, doc);
 					tokensToRemove.add(token);
-				} else if(word.startsWith("<TIMEX3")){
+				} else if(word.startsWith("<TIMEX3")) {
 					currTime = getCurrentTimeInfo(word, token);
 					currTag = "TIME";
+					tokensToRemove.add(token);
+				} else if (word.startsWith("<SIGNAL")) {
+					currTag = "SIGNAL";
 					tokensToRemove.add(token);
 				}  else if (word.startsWith("</")) {
 					currTag = "O";
 					tokensToRemove.add(token);
-				} else if (currTag == "EVENT") {
-					token.set(EventAnnotation.class, currEvent);
-					token.set(TokenOffsetAnnotation.class, curTokenNum++);
-					currEvent.numTokens++;
-				} else if (currTag == "TIME") {
-					token.set(TimeAnnotation.class, currTime);
-					token.set(TokenOffsetAnnotation.class, curTokenNum++);
-					currTime.numTokens++;
+
+				// Otherwise, we're looking at a token
+				} else {
+
+					// Handle general token annotations
+					AuxTokenInfo aux = new AuxTokenInfo();
+					aux.tokenOffset = curTokenNum++;
+					aux.prev = lastToken;
+					aux.next = null;
+					if (lastTokenAux != null)
+						lastTokenAux.next = token;
+
+					token.set(AuxTokenInfoAnnotation.class, aux);
+
+					lastToken = token;
+					lastTokenAux = aux;
+
+					// Handle event-specific token annotations
+					if (currTag == "EVENT") {
+						token.set(EventAnnotation.class, currEvent);
+						currEvent.numTokens++;
+
+					// Handle time-specific token annotations
+					} else if (currTag == "TIME") {
+						token.set(TimeAnnotation.class, currTime);
+						currTime.numTokens++;
+
+					// Handle signal-specific token annotations
+					} else if (currTag == "SIGNAL") {
+						token.set(SignalAnnotation.class, true);
+					}
 				}
 			}
 

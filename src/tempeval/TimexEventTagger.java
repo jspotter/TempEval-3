@@ -21,7 +21,8 @@ public class TimexEventTagger {
 
 	private static final String CLASSIFIER_FILENAME = "classifiers/timex-event-model.ser.gz";
 
-	private static final String DISTANCE_STRING = "DIST";
+	private static final String DISTANCE_STRING = "__DIST__";
+	private static final String INTERLEAVING_COMMA_STRING = "__COMMA__";
 
 	private static LinearClassifier<String, String> trainClassifier, testClassifier;
 	private static LinearClassifierFactory<String, String> factory;
@@ -137,10 +138,12 @@ public class TimexEventTagger {
 	private static String getDistanceBucket(int distance) {
 		if (distance == 0)
 			return "0";
-		if (distance <= 2)
-			return "1-2";
+		if (distance <= 1)
+			return "1";
+		if (distance <= 3)
+			return "2-3";
 		if (distance <= 5)
-			return "3-5";
+			return "4-5";
 		return ">5";
 	}
 
@@ -151,9 +154,11 @@ public class TimexEventTagger {
 			CoreLabel eventToken) {
 		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
+		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
 		
-		int timeOffset = timeToken.get(TokenOffsetAnnotation.class);
-		int eventOffset = eventToken.get(TokenOffsetAnnotation.class);
+		int timeOffset = auxTimeInfo.tokenOffset;
+		int eventOffset = auxEventInfo.tokenOffset;
 		
 		//System.out.println(timeInfo.currTimeId + " " + timeOffset + " "
 		//		+ eventInfo.currEiid + " " + eventOffset);
@@ -185,6 +190,25 @@ public class TimexEventTagger {
 			CoreLabel eventToken) {
 		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
+		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
+		
+		CoreLabel next;
+		AuxTokenInfo cur = auxTimeInfo;
+		while(true) {
+			next = cur.next;
+			if (next == null || next.get(TimeAnnotation.class) == null)
+				break;
+			cur = next.get(AuxTokenInfoAnnotation.class);
+		}
+		
+		int timeOffset = auxTimeInfo.tokenOffset;
+		int eventOffset = auxEventInfo.tokenOffset;
+		
+		if (timeOffset < eventOffset && next != null 
+				&& next.get(TextAnnotation.class).equals(",")) {
+			features.add(INTERLEAVING_COMMA_STRING + "=TRUE");
+		}
 	}
 	
 	/*
