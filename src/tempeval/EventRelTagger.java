@@ -1,10 +1,13 @@
 package tempeval;
 
 import edu.stanford.nlp.classify.*;
+import edu.stanford.nlp.io.IOUtils;
+import edu.stanford.nlp.ling.BasicDatum;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
+import edu.stanford.nlp.ling.Datum;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
@@ -16,7 +19,22 @@ import java.util.*;
 
 public class EventRelTagger {
 
-	private static LinearClassifier<String, String> classifier;
+	private static final String CLASSIFIER_FILENAME = "classifiers/timex-event-model.ser.gz";
+
+	private static final String DISTANCE_STRING = "DIST";
+
+	private static LinearClassifier<String, String> trainClassifier, testClassifier;
+	private static LinearClassifierFactory<String, String> factory;
+	private static List<Datum<String, String>> trainingData;
+
+	public static void initTagger() {
+		factory = new LinearClassifierFactory<String, String>();
+		factory.useConjugateGradientAscent();
+		factory.setVerbose(true);
+		factory.setSigma(10.0);
+
+		trainingData = new ArrayList<Datum<String, String>>();
+	}
 
 	/*
 	 * Get all same-sentence event-timex pairs for a document. First element of each pair
@@ -113,12 +131,109 @@ public class EventRelTagger {
 		return result;
 	}
 
-	public static void trainEventTimex(Annotation annotation, Document doc) {
-		//TODO extract JUST the links between events and timex's from parsed XML (doc)
-		//TODO use extracted information to annotate event tokens with relationships to 
-		//     timex's in the SAME SENTENCE ONLY
+	/*
+	 * Gets a distance bucket string based on distance
+	 */
+	private static String getDistanceBucket(int distance) {
+		if (distance <= 2)
+			return "0-2";
+		else if (distance <= 5)
+			return "3-5";
+		else
+			return ">5";
 	}
 
+	/*
+	 * Minimum window feature for timex-event tagging
+	 */
+	private static void addDistanceFeature(List<String> features, CoreLabel timeToken,
+			CoreLabel eventToken) {
+
+		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+
+		int distance;
+		if (timeToken.beginPosition() < eventToken.beginPosition())
+			distance = eventToken.beginPosition() - timeToken.beginPosition() - timeInfo.numTokens;
+		else
+			distance = timeToken.beginPosition() - eventToken.beginPosition() - timeInfo.numTokens;
+		features.add(DISTANCE_STRING + "=" + getDistanceBucket(distance));
+		System.out.print(distance + " ");
+	}
+
+	/*
+	 * Creates a single datum from a training example
+	 */
+	private static Datum<String, String> getDatum(CoreLabel timeToken, CoreLabel eventToken,
+			Set<Pair<CoreLabel, CoreLabel>> pairs, Map<String, Map<String, String>> relationships) {
+
+		List<String> features = new ArrayList<String>();
+
+		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+
+		// FEATURES
+		addDistanceFeature(features, timeToken, eventToken);
+
+		// LABEL
+		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
+		label = (label == null ? "O" : label);
+
+		return new BasicDatum<String, String>(features, label);
+	}
+
+	/*
+	 * Train classifier on relationships between same-sentence timexes and events.
+	 */
+	public static void trainEventTimex(Annotation annotation, Document doc) {
+		// Find all possible same-sentence timex event pairs
+		// Extract JUST the links between events and timex's from parsed XML (doc)
+		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
+		Map<String, Map<String, String>> relationships = getEventTimexRelationships(doc);
+
+		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
+			trainingData.add(getDatum(pair.first, pair.second, pairs, relationships));
+		}
+	}
+
+	/*
+	 * Zips classifier into file
+	 */
+	public static void doneClassifying() {
+		trainClassifier = factory.trainClassifier(trainingData);
+		LinearClassifier.writeClassifier(trainClassifier, CLASSIFIER_FILENAME);
+	}
+
+	/*
+	 * Loads test classifier from file (presumably written from training)
+	 */
+	public static void loadTestClassifier() {
+		testClassifier = LinearClassifier.readClassifier(CLASSIFIER_FILENAME);
+	}
+
+	/*
+	 * Tests classifier
+	 */
+	public static void testEventTimex(Annotation annotation, Document doc) {
+		// Find all possible same-sentence timex event pairs
+		// Extract JUST the links between events and timex's from parsed XML (doc)
+		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
+		Map<String, Map<String, String>> relationships = getEventTimexRelationships(doc);
+
+		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
+			Datum<String, String> datum = getDatum(pair.first, pair.second, pairs, relationships);
+			String guess = testClassifier.classOf(datum);
+			String correct = datum.label();
+			
+			System.out.println(pair.first.get(TimeAnnotation.class).currTimeId + " "
+					+ pair.second.get(EventAnnotation.class).currEiid + " "
+					+ guess + " " + correct);
+		}
+	}
+
+	/*
+	 * Main program to test functionality
+	 */
 	public static void main(String[] args) throws Exception {
 		System.out.println("Testing event-timex training functionality");
 		File sampleFile = new File("data/TBAQ-cleaned/AQUAINT/APW19980807.0261.tml");

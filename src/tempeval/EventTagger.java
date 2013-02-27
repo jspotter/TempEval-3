@@ -36,6 +36,7 @@ public class EventTagger {
 		public String aspect;
 		public String polarity;
 		public String pos;
+		public int numTokens;
 
 		private EventInfo(String currEventType, String currEventID) {
 			this.currEventType = currEventType;
@@ -45,6 +46,7 @@ public class EventTagger {
 			this.aspect = null;
 			this.polarity = null;
 			this.pos = null;
+			this.numTokens = 0;
 		}
 
 		private void getAuxEventInfo(Document doc) {
@@ -73,14 +75,16 @@ public class EventTagger {
 		public String currTimeValue;
 		public String currTimeTemporalFunction;
 		public String currTimeFunctionInDocument;
+		public int numTokens;
 
 		private TimeInfo(String currTimeId, String currTimeType, String currTimeValue, 
-				String currTimeTemporalFunction, String currTimeFunctionInDocument){
+				String currTimeTemporalFunction, String currTimeFunctionInDocument) {
 			this.currTimeType = currTimeType;
 			this.currTimeId = currTimeId;
 			this.currTimeValue = currTimeValue;
 			this.currTimeTemporalFunction = currTimeTemporalFunction;
 			this.currTimeFunctionInDocument = currTimeFunctionInDocument;
+			this.numTokens = 0;
 		}
 	}
 
@@ -180,8 +184,10 @@ public class EventTagger {
 					tokensToRemove.add(token);
 				} else if (currTag == "EVENT") {
 					token.set(EventAnnotation.class, currEvent);
+					currEvent.numTokens++;
 				} else if (currTag == "TIME") {
 					token.set(TimeAnnotation.class, currTime);
+					currTime.numTokens++;
 				}
 			}
 

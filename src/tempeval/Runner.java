@@ -27,44 +27,52 @@ public class Runner {
 
 	private static StanfordCoreNLP pipeline;
 	private static ArrayList<Annotation> annotations;
+	
+	private static Annotation getAnnotation(File child) throws Exception {
+		if (child.getName().startsWith("."))
+			return null;
+
+		System.out.println("Examining file " + child.getName());
+
+		String file_text = "";
+		String curr_line;
+		BufferedReader br = new BufferedReader(new FileReader(child));
+
+		while ((curr_line = br.readLine()) != null) {
+			file_text += curr_line;
+		}
+
+		//NodeList e = doc.getElementsByTagName("TEXT");
+		//Element ee = (Element) e.item(0);
+
+
+		//Concealed Hacky way of getting training file content
+		file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
+
+		// Annotate with CoreNLP tags
+		//Should we create separate annotations for the event tagging and relationship tagging?
+		return new Annotation(file_text);
+	}
 
 	/*
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
 	private static void annotate() throws Exception {
+		
+		EventRelTagger.initTagger();
 
 		// Read each training file in training directory
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
-			if (child.getName().startsWith("."))
+			Annotation annotation = getAnnotation(child);
+			if (annotation == null)
 				continue;
-
-			System.out.println("Training on file " + child.getName());
-
-			String file_text = "";
-			String curr_line;
-			BufferedReader br = new BufferedReader(new FileReader(child));
-
-			while ((curr_line = br.readLine()) != null) {
-				file_text += curr_line;
-			}
-
+			
+			pipeline.annotate(annotation);
+			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
-
-			//NodeList e = doc.getElementsByTagName("TEXT");
-			//Element ee = (Element) e.item(0);
-
-
-			//Concealed Hacky way of getting training file content
-			file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
-
-			// Annotate with CoreNLP tags
-			//Should we create separate annotations for the event tagging and relationship tagging?
-			Annotation annotation = new Annotation(file_text);
-
-			pipeline.annotate(annotation);
 
 			// Annotate with events
 			EventTagger.annotate(annotation, doc);
@@ -73,12 +81,34 @@ public class Runner {
 			EventRelTagger.trainEventTimex(annotation, doc);
 
 			// Finally, add this annotation as a training example
-			annotations.add(annotation);			
+			annotations.add(annotation);
+			
+			// Uncomment to test just one file
+			//break;
+		}
+		
+		EventRelTagger.doneClassifying();
+		EventRelTagger.loadTestClassifier();
+		
+		for (File child : directory.listFiles()) {
+			Annotation annotation = getAnnotation(child);
+			if (annotation == null)
+				continue;
+			
+			pipeline.annotate(annotation);
+			
+			// Parse XML
+			Document doc = XMLParser.parse(child);
+
+			// Annotate with events
+			EventTagger.annotate(annotation, doc);
+
+			// Annotate with same-sentence event-timex pairs
+			EventRelTagger.testEventTimex(annotation, doc);
 		}
 
 		// Write annotations
-
-		try {
+		/*try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("sample.out"));
 			for(Annotation a: annotations) {
 				EventTagger.printEventAnnotations(a, out);
@@ -86,7 +116,7 @@ public class Runner {
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
 
