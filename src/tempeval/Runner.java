@@ -150,7 +150,9 @@ public class Runner {
 			e.printStackTrace();
 		}
 		
-		//String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
-		//EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
+		/*
+		String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
+		EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
+		*/
 	}
 }

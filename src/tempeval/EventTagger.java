@@ -229,19 +229,27 @@ public class EventTagger {
 			}
 		}
 	}
+	
+	/*
+	 * Helper method for testEventTagger
+	 */
+	public static String getWordEventType(int index, String [] tagged_data_array){
+		String tag = tagged_data_array[index];
+		int start = tag.lastIndexOf("/");
+		return tag.substring(start + 1);
+	}
 
+	/*
+	 * Method to run at test time, that given our annotations and a filepath pointing to the 
+	 * event extraction classifier, will annotate tokens classified as Events with the appropriate EventInfo object
+	 */
 	public static void testEventTagger(ArrayList<Annotation> annotations, String filepath){
 
 		String data = "";
-
 		for(Annotation annotation : annotations){
 			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 			for(CoreMap sentence: sentences) {
-
 				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-
-				Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
-
 				for (CoreLabel token: tokens) {
 					String word = token.get(TextAnnotation.class);
 					data += word + " ";
@@ -250,13 +258,27 @@ public class EventTagger {
 		}
 
 		AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(filepath);
-
-		String tagged_data = classifier.classifyToString(data);
-
-
-		//System.out.println(tagged_data);
-
-
+		String [] tagged_data_array = classifier.classifyToString(data).split("\\s+");
+		
+		//Perform a mapping from tagged_data_array event classifications to annotations, all classifier output appears to tokenize identically to the coreNLP annotator
+		int count = 0;
+		for(Annotation annotation : annotations){
+			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+			for(CoreMap sentence: sentences) {
+				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+				for (CoreLabel token: tokens) {
+					String word = token.get(TextAnnotation.class);
+					String event_type = getWordEventType(count, tagged_data_array);
+					if(!event_type.equals("O")){
+						//TODO discern correct method of setting EventId for newly found events
+						
+						// temporarily commented out so that we may run classifier on training data without running into errors
+						//token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
+					}
+					count++;
+				}
+			}
+		}
 
 	}
 
