@@ -21,6 +21,10 @@ import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
 import edu.stanford.nlp.util.StringUtils;
 
 public class EventTagger {
+	
+	private static final String CRF_CLASSIFIER_FILENAME = "classifiers/event-model.ser.gz";
+	
+	private static AbstractSequenceClassifier classifier;
 
 	/*
 	 * Adds event annotations to annotation object by stripping out EVENT
@@ -238,12 +242,17 @@ public class EventTagger {
 		int start = tag.lastIndexOf("/");
 		return tag.substring(start + 1);
 	}
+	
+	public static void loadTestClassifier() {
+		classifier = 
+				CRFClassifier.getClassifierNoExceptions(CRF_CLASSIFIER_FILENAME);
+	}
 
 	/*
 	 * Method to run at test time, that given our annotations and a filepath pointing to the 
 	 * event extraction classifier, will annotate tokens classified as Events with the appropriate EventInfo object
 	 */
-	public static void testEventTagger(ArrayList<Annotation> annotations, String filepath){
+	public static void testEventTagger(ArrayList<Annotation> annotations) {
 
 		String data = "";
 		for(Annotation annotation : annotations){
@@ -257,7 +266,6 @@ public class EventTagger {
 			}
 		}
 
-		AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(filepath);
 		String [] tagged_data_array = classifier.classifyToString(data).split("\\s+");
 		
 		//Perform a mapping from tagged_data_array event classifications to annotations, all classifier output appears to tokenize identically to the coreNLP annotator

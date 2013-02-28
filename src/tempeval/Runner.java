@@ -27,19 +27,18 @@ public class Runner {
 
 	private static StanfordCoreNLP pipeline;
 	private static ArrayList<Annotation> annotations;
-	
-	private static Annotation getAnnotation(File child) throws Exception {
-		if (child.getName().startsWith("."))
-			return null;
 
-		System.out.println("Examining file " + child.getName());
-
-		String file_text = "";
-		String curr_line;
+	/*
+	 * Gets training text. This is everything in the <TEXT> tag INCLUDING
+	 * EVENT, TIMEX, and SIGNAL tags themselves.
+	 */
+	private static String getTrainingText(File child) throws IOException {
+		String fileText = "";
+		String currLine;
 		BufferedReader br = new BufferedReader(new FileReader(child));
 
-		while ((curr_line = br.readLine()) != null) {
-			file_text += curr_line;
+		while ((currLine = br.readLine()) != null) {
+			fileText += currLine;
 		}
 
 		//NodeList e = doc.getElementsByTagName("TEXT");
@@ -47,11 +46,16 @@ public class Runner {
 
 
 		//Concealed Hacky way of getting training file content
-		file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
+		fileText = XMLParser.getRawTextByTagName(fileText, "<TEXT>", "</TEXT>");
+		return fileText;
+	}
 
-		// Annotate with CoreNLP tags
-		//Should we create separate annotations for the event tagging and relationship tagging?
-		return new Annotation(file_text);
+	/*
+	 * Gets test text. This is everything in the <TEXT> tag EXCLUDING
+	 * EVENT, TIMEX, and SIGNAL tags themselves.
+	 */
+	private static String getTestingText(Document doc) {
+		return XMLParser.getElementTextByTagNameNR(doc.getDocumentElement(), "TEXT");
 	}
 
 	/*
@@ -59,21 +63,21 @@ public class Runner {
 	 * well as events.
 	 */
 	private static void annotate() throws Exception {
-		
+
 		TimexEventTagger.initTagger();
 
 		// Read each training file in training directory
 		int filesRead = 0;
 		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
-			Annotation annotation = getAnnotation(child);
-			if (annotation == null)
+			if (child.getName().startsWith("."))
 				continue;
-			
-			pipeline.annotate(annotation);
 			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
+			
+			Annotation annotation = new Annotation(getTrainingText(child));
+			pipeline.annotate(annotation);
 
 			// Annotate with events
 			EventTagger.annotate(annotation, doc);
@@ -83,31 +87,34 @@ public class Runner {
 
 			// Finally, add this annotation as a training example
 			annotations.add(annotation);
-			
+
 			// Uncomment to test just ten files
 			if (++filesRead >= 10) break;
 		}
-		
+
 		TimexEventTagger.doneClassifying();
-		TimexEventTagger.loadTestClassifier();
 		
+		EventTagger.loadTestClassifier();
+		TimexEventTagger.loadTestClassifier();
+
+		// Test
 		for (File child : directory.listFiles()) {
-			Annotation annotation = getAnnotation(child);
-			if (annotation == null)
+			if (child.getName().startsWith("."))
 				continue;
-			
-			pipeline.annotate(annotation);
 			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
 
+			Annotation annotation = new Annotation(getTestingText(doc));
+			pipeline.annotate(annotation);
+
 			// Annotate with events
-			EventTagger.annotate(annotation, doc);
+			EventTagger.testEventTagger(annotations);
 
 			// Annotate with same-sentence event-timex pairs
 			TimexEventTagger.testEventTimex(annotation, doc);
 		}
-		
+
 		TimexEventTagger.doneTesting();
 
 		// Write annotations
@@ -143,16 +150,16 @@ public class Runner {
 		//Element root = trainDoc.getDocumentElement();
 		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
 		//Element text = texts[0];
-		
+
 		try {
 			annotate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		/*
 		String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
 		EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
-		*/
+		 */
 	}
 }
