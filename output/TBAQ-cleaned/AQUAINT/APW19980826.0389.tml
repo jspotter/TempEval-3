@@ -1,9 +1,21 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980826.0389</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-26" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-26</TIMEX3></DCT>
 
 <TITLE>Bomb-interrupted talks concluded; Tanzania toll rises to 12</TITLE>
+
+<EXTRAINFO>
+APW19980826.0389 
+ NEWS STORY 
+ 08/26/1998 07:37:00
+w1676 &Cx1f; wstm-
+r i &Cx13;  &Cx11;  BC-Kenya-EmbassyBombings     08-26 0266
+BC-Kenya-Embassy Bombings
+Bomb-interrupted talks concluded; Tanzania toll rises to 12
+</EXTRAINFO>
 
 <TEXT>
 

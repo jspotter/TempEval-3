@@ -33,6 +33,9 @@ public class Runner {
 			"data/TBAQ-cleaned/AQUAINT";
 	private static final String OUTPUT_DIR =
 			"output/TBAQ-cleaned/AQUAINT";
+	
+	private static final String EVENT_TRAIN_FILE = 
+			"classifiers/training/event.out";
 
 	private static StanfordCoreNLP pipeline;
 
@@ -67,7 +70,8 @@ public class Runner {
 	 * well as events.
 	 */
 	private static void train() throws Exception {
-
+		
+		BufferedWriter event_train_out = new BufferedWriter(new FileWriter(EVENT_TRAIN_FILE));
 		TimexEventTagger.initTagger();
 
 		// Read each training file in training directory
@@ -89,10 +93,13 @@ public class Runner {
 			// Annotate with events
 			EventTagger.annotate(annotation, doc);
 
+			//Print out file to train classifier upon
+			EventTagger.printEventAnnotations(annotation, event_train_out);
+			
 			// Annotate with same-sentence event-timex pairs
 			TimexEventTagger.trainEventTimex(annotation, doc);
 		}
-
+		event_train_out.close();
 		TimexEventTagger.doneClassifying();
 	}
 	
@@ -102,7 +109,8 @@ public class Runner {
 		String id = XMLParser.getElementTextByTagNameNR(root, "DOCID");
 		String dct = XMLParser.getRawTextByTagName(rawText, "<DCT>", "</DCT>");
 		String title = XMLParser.getElementTextByTagNameNR(root, "TITLE");
-		DocInfo info = new DocInfo(filename, id, dct, title);
+		String extra = XMLParser.getElementTextByTagNameNR(root, "EXTRAINFO");
+		DocInfo info = new DocInfo(filename, id, dct, title, extra);
 		annotation.set(DocInfoAnnotation.class, info);
 	}
 	

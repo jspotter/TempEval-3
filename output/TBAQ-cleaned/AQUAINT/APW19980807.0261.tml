@@ -1,9 +1,20 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980807.0261</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-07" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-07</TIMEX3></DCT>
 
 <TITLE>Explosions rock U.S. embassies in Tanzania, Kenya</TITLE>
+
+<EXTRAINFO>
+APW19980807.0261  NEWS STORY  08/07/1998 06:18:00
+w2213 &Cx1f; wstm-
+u i &Cx13;  &Cx11;  URGENT     08-07 0122
+URGENT
+BC-Kenya-Explosion, 5th Ld-Writethru
+&UR; Explosions rock U.S. embassies in Tanzania, Kenya &QL;  &UR; Eds: UPDATES with explosion near U.S. Embassy in Tanzania. &QL;  &UR; AP Photos Planned &QL;  &UR; By CHEGE MBITIRU &QC;  &UR; Associated Press Writer &QC;
+</EXTRAINFO>
 
 <TEXT>
 

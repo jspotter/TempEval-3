@@ -1,9 +1,20 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980813.1117</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-13" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-13</TIMEX3></DCT>
 
 <TITLE>Security Council condemns Kenya, Tanzania bombings</TITLE>
+
+<EXTRAINFO>
+APW19980813.1117  NEWS STORY  08/13/1998 17:42:00
+w1081 &Cx1f; wstm-
+r i &Cx13;  &Cx11;  BC-UN-EmbassyBombing 1stLd-Writethru   08-13 0234
+BC-UN-Embassy Bombing, 1st Ld-Writethru,0234
+Security Council condemns Kenya, Tanzania bombings
+&UR; Eds: UPDATES with council adopting resolution; final resolutionsponsored by US, Tanzania and Kenya, quotes from US. &QL;
+</EXTRAINFO>
 
 <TEXT>
 

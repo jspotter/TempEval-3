@@ -104,10 +104,12 @@ public class AnnotationWriter {
 		out.write("\n\n</TEXT>\n\n");
 	}
 	
+	//TODO
 	private static void writeEventInstances(ArrayList<EventInfo> events, BufferedWriter out) {
 		
 	}
 	
+	//TODO
 	private static void writeTimexEventLinks(ArrayList<LinkInfo> links, BufferedWriter out) {
 		
 	}
@@ -122,8 +124,10 @@ public class AnnotationWriter {
 		DocInfo info = annotation.get(DocInfoAnnotation.class);
 		
 		out.write(HEADER);
+		out.write("<DOCID>" + info.id + "</DOCID>\n\n");
 		out.write("<DCT>" + info.dct + "</DCT>\n\n");
 		out.write("<TITLE>" + info.title + "</TITLE>\n\n");
+		out.write("<EXTRAINFO>" + info.extra + "</EXTRAINFO>\n\n");
 		
 		writeText(annotation, out, events, links);
 		writeEventInstances(events, out);

@@ -1,9 +1,20 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980808.0022</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-08" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-08</TIMEX3></DCT>
 
 <TITLE>Bomb blasts rock U.S. embassies in Tanzania, Kenya</TITLE>
+
+<EXTRAINFO>
+APW19980808.0022  NEWS STORY  08/08/1998 00:53:00
+w1425 &Cx1f; wstm-
+u i &Cx13;  &Cx11;  BC-Kenya-EmbassyBombings 2ndLd   08-08 0257
+BC-Kenya-Embassy Bombings, 2nd Ld,0256
+Bomb blasts rock U.S. embassies in Tanzania, Kenya; at least 82
+killed &QL;  &UR; Eds: CORRECTS that at least 75 dead in Kenya. &QL;  &UR; With Bombing Scenes, Kenya-Tanzania-Thumbnails, Terror Attacks &QL;  &UR; AP Photos NAI101-125, ROM108, JOH1, LON104-107; AP GraphicKENYA,KENYA2,KENYA3,KENYA TANZANIA &QL;  &UR; By KARIN DAVIES &QC;  &UR; Associated Press Writer &QC;
+</EXTRAINFO>
 
 <TEXT>
 

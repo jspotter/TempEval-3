@@ -1,9 +1,19 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980911.0475</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-09-11" temporalFunction="false" functionInDocument="CREATION_TIME">1998-09-11</TIMEX3></DCT>
 
 <TITLE>Tanzania expels Iraqis, Libyan questioned in U.S. embassy bombings</TITLE>
+
+<EXTRAINFO>
+APW19980911.0475  NEWS STORY  09/11/1998 08:36:00
+w1124 &Cx1f; wstm-
+u i &Cx13;  &Cx11;  BC-Tanzania-EmbassyBombi     09-11 0352
+BC-Tanzania-Embassy Bombing
+Tanzania expels Iraqis, Libyan questioned in U.S. embassy bombings
+</EXTRAINFO>
 
 <TEXT>
 

@@ -135,7 +135,8 @@ public class EventTagger {
 				} else if (word.startsWith("<SIGNAL")) {
 					currTag = "SIGNAL";
 					tokensToRemove.add(token);
-				}  else if (word.startsWith("</")) {
+					//added in "<" so we won't take TLINKS and MAKEINSTANCES
+				}else if (word.startsWith("</") || word.startsWith("<")) {
 					currTag = "O";
 					tokensToRemove.add(token);
 
@@ -237,6 +238,7 @@ public class EventTagger {
 	/*
 	 * Prints event annotations in two-column format.
 	 */
+	
 	public static void printEventAnnotations(Annotation annotation, BufferedWriter out) 
 			throws IOException {
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
@@ -258,6 +260,7 @@ public class EventTagger {
 				out.flush();
 			}
 		}
+		
 	}
-
+ 
 }

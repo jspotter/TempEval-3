@@ -1,9 +1,28 @@
 <?xml version="1.0" ?>
 <TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
 
+<DOCID>APW19980818.0515</DOCID>
+
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-18" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-18</TIMEX3></DCT>
 
 <TITLE>Paying tribute, Albright visits bombing sites in East Africa</TITLE>
+
+<EXTRAINFO>
+APW19980818.0515 
+ NEWS STORY 
+ 08/18/1998 09:44:00
+w1141 &Cx1f; wstm-
+u i &Cx13;  &Cx11;  BC-EmbassyBombings 5thLd-Writethru   08-18 0798
+BC-Embassy Bombings, 5th Ld-Writethru
+Precede DAR ES SALAAM
+&UR; Paying tribute, Albright visits bombing sites in East Africa &QL; 
+ &UR; Eds: UPDATES with Albright arrival in Nairobi, Boeing engine
+overheated, additional comment by Tanzanian foreign minister, 200
+Americans leave Pakistan. Changes dateline, byline. &QL; 
+ &UR; AP Photos &QL; 
+ &UR; By DAVE CARPENTER &QC; 
+ &UR; Associated Press Writer &QC;
+</EXTRAINFO>
 
 <TEXT>
 
