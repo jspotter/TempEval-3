@@ -33,6 +33,8 @@ public class TimexEventTagger {
 
 	private static final String DISTANCE_STRING = "__DIST__";
 	private static final String INTERLEAVING_COMMA_STRING = "__COMMA__";
+	private static final String TIME_TYPE_STRING = "__TIMETYPE__";
+	private static final String EVENT_TYPE_STRING = "__EVENTTYPE__";
 
 	private static LinearClassifier<String, String> trainClassifier, testClassifier;
 	private static LinearClassifierFactory<String, String> factory;
@@ -221,6 +223,16 @@ public class TimexEventTagger {
 		}
 	}
 	
+	private static void addTimexTypeFeature(List<String> features, CoreLabel timeToken) {
+		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		features.add(TIME_TYPE_STRING + "=" + timeInfo.currTimeType);
+	}
+	
+	private static void addEventTypeFeature(List<String> features, CoreLabel eventToken) {
+		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		features.add(EVENT_TYPE_STRING + "=" + eventInfo.currEventType);
+	}
+	
 	/*
 	 * Creates a single datum from a training example
 	 */
@@ -236,6 +248,8 @@ public class TimexEventTagger {
 		addDistanceFeature(features, timeToken, eventToken);
 		//addInterleavingWordsFeature(features, timeToken, eventToken);
 		addInterleavingCommaFeature(features, timeToken, eventToken);
+		addTimexTypeFeature(features, timeToken);
+		//addEventTypeFeature(features, eventToken);
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);

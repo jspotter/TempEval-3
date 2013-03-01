@@ -18,9 +18,12 @@ import dataclasses.TimeInfo;
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.*;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.*;
+import edu.stanford.nlp.time.TimeAnnotations.TimexAnnotation;
+import edu.stanford.nlp.time.Timex;
 import edu.stanford.nlp.util.*;
 
 import edu.stanford.nlp.ie.crf.*;
@@ -193,6 +196,22 @@ public class EventTagger {
 		classifier = 
 				CRFClassifier.getClassifierNoExceptions(CRF_CLASSIFIER_FILENAME);
 	}
+	
+	private static String getTense(String pos) {
+		if (pos.equals("VB"))
+			return "INFINITIVE";
+		if (pos.equals("VBD"))
+			return "PAST";
+		if (pos.equals("VBG"))
+			return "PRESPART";
+		if (pos.equals("VBN"))
+			return "PAST";
+		if (pos.equals("VBP"))
+			return "PRESENT";
+		if (pos.equals("VBZ"))
+			return "PRESENT";
+		return "UNKNOWN";
+	}
 
 	/*
 	 * Method to run at test that given our annotations will annotate tokens classified as Events with the appropriate EventInfo object
@@ -213,22 +232,58 @@ public class EventTagger {
 
 
 		String [] tagged_data_array = classifier.classifyToString(data).split("\\s+");
+		int nextEventID = 0;
 
 		//Perform a mapping from tagged_data_array event classifications to annotations, 
 		//all classifier output appears to tokenize identically to the coreNLP annotator
 		int count = 0;
+		int curTokenNum = 0;
 		sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
+			
+			CoreLabel lastToken = null;
+			AuxTokenInfo lastTokenAux = null;
+			
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
-				String event_type = getWordEventType(count, tagged_data_array);
-				if(!event_type.equals("O")) {
+				String pos = token.get(PartOfSpeechAnnotation.class);
+				String eventType = getWordEventType(count, tagged_data_array);
+				if(!eventType.equals("O")) {
 					
 					// No event ID needed - this will be handled by
 					// the AnnotationWriter.
-					token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
+					int id = nextEventID++;
+					EventInfo info = new EventInfo(eventType, "e" + id);
+					info.currEiid = "ei" + id;
+					info.aspect = "NONE";	//TODO fix
+					info.polarity = "POS";	//TODO fix
+					info.pos = pos;
+					info.tense = getTense(pos);
+					token.set(EventAnnotation.class, info);
 				}
+				
+				// Handle timexes
+				Timex timex = token.get(TimexAnnotation.class);
+				if (timex != null) {
+					TimeInfo info = new TimeInfo(timex.tid(), timex.timexType(),
+							timex.value(), null, null);
+					token.set(TimeAnnotation.class, info);
+				}
+				
+				// Handle general token annotations
+				AuxTokenInfo aux = new AuxTokenInfo();
+				aux.tokenOffset = curTokenNum++;
+				aux.prev = lastToken;
+				aux.next = null;
+				if (lastTokenAux != null)
+					lastTokenAux.next = token;
+
+				token.set(AuxTokenInfoAnnotation.class, aux);
+
+				lastToken = token;
+				lastTokenAux = aux;
+				
 				count++;
 			}
 		}
