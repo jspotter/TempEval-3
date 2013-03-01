@@ -1,7 +1,9 @@
 package tempeval;
 
 import dataclasses.AuxTokenInfo;
+import dataclasses.DocInfo;
 import dataclasses.EventInfo;
+import dataclasses.LinkInfo;
 import dataclasses.TimeInfo;
 import edu.stanford.nlp.classify.*;
 import edu.stanford.nlp.io.IOUtils;
@@ -18,7 +20,9 @@ import edu.stanford.nlp.util.Pair;
 import org.w3c.dom.*;
 
 import annotationclasses.AuxTokenInfoAnnotation;
+import annotationclasses.DocInfoAnnotation;
 import annotationclasses.EventAnnotation;
+import annotationclasses.LinkInfoAnnotation;
 import annotationclasses.TimeAnnotation;
 
 import helperclasses.MapUtils;
@@ -168,10 +172,10 @@ public class TimexEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
 		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
-		
+
 		int timeOffset = auxTimeInfo.tokenOffset;
 		int eventOffset = auxEventInfo.tokenOffset;
-		
+
 		//System.out.println(timeInfo.currTimeId + " " + timeOffset + " "
 		//		+ eventInfo.currEiid + " " + eventOffset);
 
@@ -191,10 +195,10 @@ public class TimexEventTagger {
 			CoreLabel eventToken) {
 		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
-		
+
 		//TODO this
 	}
-	
+
 	/*
 	 * Interleaving commma feature for timex-event tagging
 	 */
@@ -204,7 +208,7 @@ public class TimexEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
 		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
-		
+
 		CoreLabel next;
 		AuxTokenInfo cur = auxTimeInfo;
 		while(true) {
@@ -213,26 +217,26 @@ public class TimexEventTagger {
 				break;
 			cur = next.get(AuxTokenInfoAnnotation.class);
 		}
-		
+
 		int timeOffset = auxTimeInfo.tokenOffset;
 		int eventOffset = auxEventInfo.tokenOffset;
-		
+
 		if (timeOffset < eventOffset && next != null 
 				&& next.get(TextAnnotation.class).equals(",")) {
 			features.add(INTERLEAVING_COMMA_STRING + "=TRUE");
 		}
 	}
-	
+
 	private static void addTimexTypeFeature(List<String> features, CoreLabel timeToken) {
 		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
 		features.add(TIME_TYPE_STRING + "=" + timeInfo.currTimeType);
 	}
-	
+
 	private static void addEventTypeFeature(List<String> features, CoreLabel eventToken) {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		features.add(EVENT_TYPE_STRING + "=" + eventInfo.currEventType);
 	}
-	
+
 	/*
 	 * Creates a single datum from a training example
 	 */
@@ -292,6 +296,10 @@ public class TimexEventTagger {
 	 * Tests classifier
 	 */
 	public static void testEventTimex(Annotation annotation, Document doc) {
+
+		int nextLinkID = 0;
+		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
+
 		// Find all possible same-sentence timex event pairs
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
@@ -301,11 +309,21 @@ public class TimexEventTagger {
 			Datum<String, String> datum = getDatum(pair.first, pair.second, pairs, relationships);
 			String guess = testClassifier.classOf(datum);
 			String correct = datum.label();
-			
+
 			System.out.println(pair.first.get(TimeAnnotation.class).currTimeId + " "
 					+ pair.second.get(EventAnnotation.class).currEiid + " "
 					+ guess + " " + correct);
 			testClassifier.justificationOf(datum);
+
+			if (!guess.equals("0")) {
+				System.out.println("guessed something in file " + docInfo.filename);
+				int id = nextLinkID++;
+				TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
+				EventInfo eventInfo = pair.second.get(EventAnnotation.class);
+				LinkInfo link = new LinkInfo("" + id, guess, timeInfo,
+						null, eventInfo);
+				pair.first.set(LinkInfoAnnotation.class, link);
+			}
 		}
 	}
 
