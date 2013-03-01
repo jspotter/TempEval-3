@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
+
+<DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-13" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-13</TIMEX3></DCT>
+
+<TITLE>Security Council condemns Kenya, Tanzania bombings</TITLE>
+
+<TEXT>
+
+ UNITED NATIONS -LRB- AP -RRB- _ The Security Council <EVENT eid="e0" class="OCCURRENCE">condemned</EVENT> the <EVENT eid="e1" class="OCCURRENCE">bombing</EVENT> of the U.S. embassies in Kenya and Tanzania on <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-4">Thursday</TIMEX3> and <EVENT eid="e2" class="REPORTING">called</EVENT> on all states to <EVENT eid="e3" class="OCCURRENCE">cooperate</EVENT> with authorities in <EVENT eid="e4" class="OCCURRENCE">finding</EVENT> those responsible. A <EVENT eid="e5" class="OCCURRENCE">resolution</EVENT>, co-sponsored by Kenya, Tanzania and the United States and unanimously <EVENT eid="e6" class="OCCURRENCE">adopted</EVENT>,`` <EVENT eid="e7" class="OCCURRENCE">expresses</EVENT> its deep sorrow, sympathy and condolences to the families of the innocent victims of the terrorist bomb <EVENT eid="e8" class="OCCURRENCE">attacks</EVENT> at this difficult time.'' It strongly <EVENT eid="e9" class="OCCURRENCE">condemns</EVENT> the`` terrorist bomb <EVENT eid="e10" class="OCCURRENCE">attacks</EVENT>.'' And it <EVENT eid="e11" class="OCCURRENCE">stresses</EVENT> that every nation`` has the duty to <EVENT eid="e12" class="OCCURRENCE">refrain</EVENT> from <EVENT eid="e13" class="OCCURRENCE">organizing</EVENT>, <EVENT eid="e14" class="OCCURRENCE">instigating</EVENT>, <EVENT eid="e15" class="OCCURRENCE">assisting</EVENT> or <EVENT eid="e16" class="OCCURRENCE">participating</EVENT> in terrorist acts in another state.'' The almost simultaneous <EVENT eid="e17" class="OCCURRENCE">attacks <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7 at the U.S. embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania, <EVENT eid="e18" class="OCCURRENCE">killed</EVENT> 257 people and <EVENT eid="e19" class="OCCURRENCE">injured</EVENT> more than 5,500.`` The <EVENT eid="e20" class="OCCURRENCE">incidents</EVENT> of <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7 underscore that terrorists know no boundaries, and that the <EVENT eid="e21" class="OCCURRENCE">suppression</EVENT> of international terrorism, the <EVENT eid="e22" class="OCCURRENCE">arrest</EVENT>, the <EVENT eid="e23" class="OCCURRENCE">conviction</EVENT> and the <EVENT eid="e24" class="OCCURRENCE">punishment</EVENT> of its perpetrators are essential to the <EVENT eid="e25" class="OCCURRENCE">maintenance</EVENT> of international peace and security,'' <EVENT eid="e26" class="REPORTING">said</EVENT> the U.S. Deputy Ambassador Peter Burleigh.
+
+</TEXT>
+
+</TimeML>
+

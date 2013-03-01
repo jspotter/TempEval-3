@@ -2,10 +2,10 @@ package tempeval;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
 
-public class TimeAnnotation implements CoreAnnotation<EventTagger.TimeInfo> {
+public class TimeAnnotation implements CoreAnnotation<TimeInfo> {
 
 	@Override
-	public Class<EventTagger.TimeInfo> getType() {
-		return EventTagger.TimeInfo.class;
+	public Class<TimeInfo> getType() {
+		return TimeInfo.class;
 	}
 }

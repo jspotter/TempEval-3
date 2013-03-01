@@ -61,8 +61,8 @@ public class TimexEventTagger {
 			// Iterate through tokens and store all events and timexes. Relies on the
 			// invariant that no token will be both an event and a timex.
 			for (CoreLabel token: tokens) {
-				EventTagger.EventInfo eventInfo = token.get(EventAnnotation.class);
-				EventTagger.TimeInfo timeInfo = token.get(TimeAnnotation.class);
+				EventInfo eventInfo = token.get(EventAnnotation.class);
+				TimeInfo timeInfo = token.get(TimeAnnotation.class);
 
 				// Handle event tokens
 				if (eventInfo != null) {
@@ -152,8 +152,8 @@ public class TimexEventTagger {
 	 */
 	private static void addDistanceFeature(List<String> features, CoreLabel timeToken,
 			CoreLabel eventToken) {
-		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
-		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
 		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
 		
@@ -177,8 +177,8 @@ public class TimexEventTagger {
 	 */
 	private static void addInterleavingWordsFeature(List<String> features, CoreLabel timeToken,
 			CoreLabel eventToken) {
-		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
-		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		
 		//TODO this
 	}
@@ -188,8 +188,8 @@ public class TimexEventTagger {
 	 */
 	private static void addInterleavingCommaFeature(List<String> features, CoreLabel timeToken,
 			CoreLabel eventToken) {
-		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
-		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 		AuxTokenInfo auxTimeInfo = timeToken.get(AuxTokenInfoAnnotation.class);
 		AuxTokenInfo auxEventInfo = eventToken.get(AuxTokenInfoAnnotation.class);
 		
@@ -219,8 +219,8 @@ public class TimexEventTagger {
 
 		List<String> features = new ArrayList<String>();
 
-		EventTagger.TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
-		EventTagger.EventInfo eventInfo = eventToken.get(EventAnnotation.class);
+		TimeInfo timeInfo = timeToken.get(TimeAnnotation.class);
+		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 
 		// FEATURES
 		addDistanceFeature(features, timeToken, eventToken);
@@ -284,14 +284,6 @@ public class TimexEventTagger {
 			testClassifier.justificationOf(datum);
 		}
 	}
-	
-	/*
-	 * Deletes classifier file //TODO eventually remove this method
-	 */
-	public static void doneTesting() {
-		File file = new File(CLASSIFIER_FILENAME);
-		file.delete();
-	}
 
 	/*
 	 * Main program to test functionality
@@ -330,8 +322,8 @@ public class TimexEventTagger {
 		System.out.println("About to print extracted information");
 
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
-			EventTagger.TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
-			EventTagger.EventInfo eventInfo = pair.second.get(EventAnnotation.class);
+			TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
+			EventInfo eventInfo = pair.second.get(EventAnnotation.class);
 
 			String tid = timeInfo.currTimeId;
 			String eiid = eventInfo.currEiid;

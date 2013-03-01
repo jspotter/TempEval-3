@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
+
+<DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-07" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-07</TIMEX3></DCT>
+
+<TITLE>Explosions rock U.S. embassies in Tanzania, Kenya</TITLE>
+
+<TEXT>
+
+ NAIROBI, Kenya -LRB- AP -RRB- _ Suspected bombs <EVENT eid="e0" class="OCCURRENCE">exploded</EVENT> outside the U.S. embassies in the Kenyan and Tanzanian capitals <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3>, <EVENT eid="e1" class="OCCURRENCE">killing</EVENT> dozens of people, witnesses <EVENT eid="e2" class="REPORTING">said</EVENT>. The American ambassador to Kenya was among hundreds <EVENT eid="e3" class="OCCURRENCE">injured</EVENT>, a local TV <EVENT eid="e4" class="REPORTING">said</EVENT>.`` It was definitely a bomb,'' <EVENT eid="e5" class="REPORTING">said</EVENT> a U.S. Embassy official in Nairobi, who <EVENT eid="e6" class="OCCURRENCE">refused</EVENT> to <EVENT eid="e7" class="OCCURRENCE">identify</EVENT> himself.`` You can <EVENT eid="e8" class="PERCEPTION">see</EVENT> a huge crater behind the building, and a bomb <EVENT eid="e9" class="OCCURRENCE">went</EVENT> off at the embassy in Tanzania at the same time,'' he <EVENT eid="e10" class="REPORTING">said</EVENT>.
+
+</TEXT>
+
+</TimeML>
+

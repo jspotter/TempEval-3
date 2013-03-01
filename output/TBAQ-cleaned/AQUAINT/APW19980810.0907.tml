@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
+
+<DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-10" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-10</TIMEX3></DCT>
+
+<TITLE>Figures on the dead and injured in the twin embassy bombings</TITLE>
+
+<TEXT>
+
+ NAIROBI, Kenya -LRB- AP -RRB- _ The following are the latest figures as of <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-1">Monday</TIMEX3> for the dead and injured in the <EVENT eid="e0" class="OCCURRENCE">bombings</EVENT> of the U.S. Embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania. The source for the Kenyan figures is the Department of Relief and Rehabilitation in the office of President Daniel arap Moi. The source for the Tanzanian figures is the U.S. Embassy in Dar es Salaam. KENYA: Total Dead: 192 Americans: 12 <EVENT eid="e1" class="OCCURRENCE">Injured</EVENT>: 4,877 Hospitalized: 542 <EVENT eid="e2" class="OCCURRENCE">Treated</EVENT> and <EVENT eid="e3" class="OCCURRENCE">discharged</EVENT>: 4,257 TANZANIA: Total dead: 10 Americans: 0 <EVENT eid="e4" class="OCCURRENCE">Injured</EVENT>: 74 Hospitalized: 6
+
+</TEXT>
+
+</TimeML>
+

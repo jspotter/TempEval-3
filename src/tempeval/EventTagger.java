@@ -22,76 +22,10 @@ import edu.stanford.nlp.util.StringUtils;
 
 public class EventTagger {
 
-	private static final String CRF_CLASSIFIER_FILENAME = "classifiers/event-model.ser.gz";
+	private static final String CRF_CLASSIFIER_FILENAME = 
+			"classifiers/event-model.ser.gz";
 
 	private static AbstractSequenceClassifier classifier;
-
-	/*
-	 * Adds event annotations to annotation object by stripping out EVENT
-	 * tags and adding their information to the tokens they contain. Also
-	 * strips out TIMEX3 and SIGNAL tags.
-	 */
-
-	public static class EventInfo{
-		public String currEventType;
-		public String currEventId;
-		public String currEiid;
-		public String tense;
-		public String aspect;
-		public String polarity;
-		public String pos;
-		public int numTokens;
-
-		private EventInfo(String currEventType, String currEventID) {
-			this.currEventType = currEventType;
-			this.currEventId = currEventID;
-			this.currEiid = null;
-			this.tense = null;
-			this.aspect = null;
-			this.polarity = null;
-			this.pos = null;
-			this.numTokens = 0;
-		}
-
-		private void getAuxEventInfo(Document doc) {
-			Element root = doc.getDocumentElement();
-
-			Element[] auxEventInfoElems = 
-					XMLParser.getElementsByTagNameNR(root, "MAKEINSTANCE");
-			for(Element e : auxEventInfoElems) {
-				String id = e.getAttribute("eventID");
-				if(id != null && id.equals(currEventId)) {
-					currEiid = e.getAttribute("eiid");
-					tense = e.getAttribute("tense");
-					aspect = e.getAttribute("aspect");
-					polarity = e.getAttribute("polarity");
-					pos = e.getAttribute("pos");
-					return;
-				}
-			}
-		}
-	}
-
-	public static class TimeInfo{
-		//could have added others, but on TempEval site it was stated that Type and
-		public String currTimeType;
-		public String currTimeId;
-		public String currTimeValue;
-		public String currTimeTemporalFunction;
-		public String currTimeFunctionInDocument;
-		public int numTokens;
-
-		private TimeInfo(String currTimeId, String currTimeType, String currTimeValue, 
-				String currTimeTemporalFunction, String currTimeFunctionInDocument) {
-			this.currTimeType = currTimeType;
-			this.currTimeId = currTimeId;
-			this.currTimeValue = currTimeValue;
-			this.currTimeTemporalFunction = currTimeTemporalFunction;
-			this.currTimeFunctionInDocument = currTimeFunctionInDocument;
-			this.numTokens = 0;
-		}
-	}
-
 
 	private static TimeInfo getCurrentTimeInfo(String word, CoreLabel token){
 
@@ -132,7 +66,8 @@ public class EventTagger {
 	/*
 	 * Extracts information about a single event from training data.
 	 */
-	private static EventInfo getCurrentEventInfo(String word, CoreLabel token, Document doc) {
+	private static EventInfo getCurrentEventInfo(String word, CoreLabel token, 
+			Document doc) {
 		String extract = new String(word);
 
 		String EventIdString = "eid=\"";
@@ -163,7 +98,8 @@ public class EventTagger {
 		String currTag = "O";
 
 		// Add event information to each event-tagged token
-		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+		List<CoreMap> sentences = 
+				annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
 
 			CoreLabel lastToken = null;
@@ -255,7 +191,8 @@ public class EventTagger {
 	public static void testEventTagger(Annotation annotation) {
 
 		String data = "";
-		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+		List<CoreMap> sentences = 
+				annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 			for (CoreLabel token: tokens) {
@@ -267,7 +204,8 @@ public class EventTagger {
 
 		String [] tagged_data_array = classifier.classifyToString(data).split("\\s+");
 
-		//Perform a mapping from tagged_data_array event classifications to annotations, all classifier output appears to tokenize identically to the coreNLP annotator
+		//Perform a mapping from tagged_data_array event classifications to annotations, 
+		//all classifier output appears to tokenize identically to the coreNLP annotator
 		int count = 0;
 		sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		for(CoreMap sentence: sentences) {
@@ -275,11 +213,11 @@ public class EventTagger {
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
 				String event_type = getWordEventType(count, tagged_data_array);
-				if(!event_type.equals("O")){
-					//TODO discern correct method of setting EventId for newly found events
-
-					// temporarily commented out so that we may run classifier on training data without running into errors
-					//token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
+				if(!event_type.equals("O")) {
+					
+					// No event ID needed - this will be handled by
+					// the AnnotationWriter.
+					token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
 				}
 				count++;
 			}

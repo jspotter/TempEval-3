@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<TimeML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://timeml.org/timeMLdocs/TimeML_1.2.1.xsd">
+
+<DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-11" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-11</TIMEX3></DCT>
+
+<TITLE>Philippine president condemns bombings in Kenya and Tanzania</TITLE>
+
+<TEXT>
+
+ MANILA, Philippines -LRB- AP -RRB- _ Philippine President Joseph Estrada on <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-2">Tuesday <EVENT eid="e0" class="OCCURRENCE">condemned</EVENT> the <EVENT eid="e1" class="OCCURRENCE">bombings</EVENT> of the U.S. embassies in Kenya and Tanzania and <EVENT eid="e2" class="OCCURRENCE">offered</EVENT> condolences to the victims and their families.`` We <EVENT eid="e3" class="OCCURRENCE">extend</EVENT> our heartfelt sympathies to the victims of these <EVENT eid="e4" class="OCCURRENCE">outrages</EVENT> and to their families in Kenya, Tanzania and the United States,'' Estrada <EVENT eid="e5" class="REPORTING">said</EVENT> in a statement.`` No cause is so great that it can justify wanton <EVENT eid="e6" class="OCCURRENCE">murder</EVENT> and <EVENT eid="e7" class="OCCURRENCE">maiming</EVENT> of the innocent.'' In all, the <EVENT eid="e8" class="OCCURRENCE">bombings</EVENT> in Kenya and Tanzania <TIMEX3 tid="t1" type="DATE" value="null">last</TIMEX3> week <EVENT eid="e9" class="REPORTING">claimed</EVENT> at least 217 lives and <EVENT eid="e10" class="OCCURRENCE">injured</EVENT> nearly 5,000.
+
+</TEXT>
+
+</TimeML>
+

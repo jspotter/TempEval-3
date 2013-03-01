@@ -41,9 +41,9 @@ public class Runner {
 		while ((currLine = br.readLine()) != null) {
 			fileText += currLine;
 		}
+		
+		br.close();
 
-		//Concealed Hacky way of getting training file content
-		fileText = XMLParser.getRawTextByTagName(fileText, "<TEXT>", "</TEXT>");
 		return fileText;
 	}
 
@@ -64,7 +64,6 @@ public class Runner {
 		TimexEventTagger.initTagger();
 
 		// Read each training file in training directory
-		int filesRead = 0;
 		File directory = new File(TRAIN_DIR);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
@@ -75,6 +74,8 @@ public class Runner {
 			// Parse XML
 			Document doc = XMLParser.parse(child);
 			
+			String trainingText = getTrainingText(child);
+			trainingText = XMLParser.getRawTextByTagName(trainingText, "<TEXT>", "</TEXT>");
 			Annotation annotation = new Annotation(getTrainingText(child));
 			pipeline.annotate(annotation);
 
@@ -89,11 +90,10 @@ public class Runner {
 	}
 	
 	private static void addDocumentInfo(Annotation annotation, Document doc, 
-			String filename) {
+			String rawText, String filename) {
 		Element root = doc.getDocumentElement();
-		Element dctElem = XMLParser.getElementByTagNameNR(root, "DCT");
 		String id = XMLParser.getElementTextByTagNameNR(root, "DOCID");
-		String dct = XMLParser.getElementTextByTagNameNR(dctElem, "TIMEX");
+		String dct = XMLParser.getRawTextByTagName(rawText, "<DCT>", "</DCT>");
 		String title = XMLParser.getElementTextByTagNameNR(root, "TITLE");
 		DocInfo info = new DocInfo(filename, id, dct, title);
 		annotation.set(DocInfoAnnotation.class, info);
@@ -104,6 +104,7 @@ public class Runner {
 		TimexEventTagger.loadTestClassifier();
 
 		// Test
+		int numFiles = 0;
 		File directory = new File(TRAIN_DIR);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
@@ -113,13 +114,14 @@ public class Runner {
 			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
+			String rawText = getTrainingText(child);
 
 			// Do initial annotation
 			Annotation annotation = new Annotation(getTestingText(doc));
 			pipeline.annotate(annotation);
 			
 			// Add document information
-			addDocumentInfo(annotation, doc, child.getName());
+			addDocumentInfo(annotation, doc, rawText, child.getName());
 
 			// Annotate with events
 			EventTagger.testEventTagger(annotation);
@@ -128,12 +130,13 @@ public class Runner {
 			TimexEventTagger.testEventTimex(annotation, doc);
 			
 			// Write this annotation
-			AnnotationWriter.writeAnnotation(annotation,
-					new BufferedWriter(new FileWriter(OUTPUT_DIR
-							+ "/" + child.getName())));
+			BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_DIR
+					+ "/" + child.getName()));
+			AnnotationWriter.writeAnnotation(annotation, out);
+			out.close();
+			
+			if (++numFiles >= 10) break;
 		}
-
-		TimexEventTagger.doneTesting(); //TODO remove this eventually		
 	}
 
 	/**
@@ -143,8 +146,8 @@ public class Runner {
 
 		// Create pipeline
 		Properties props = new Properties();
-		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
-		props.put("annotators", "tokenize, ssplit");
+		props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
+		//props.put("annotators", "tokenize, ssplit");
 		pipeline = new StanfordCoreNLP(props);
 
 		train();
