@@ -81,6 +81,10 @@ public class Runner {
 			if (child.getName().startsWith("."))
 				continue;
 			
+			// Save first ten files for testing //TODO change
+			if (++numFiles < 10)
+				continue;
+			
 			System.out.println("Training on file " + child.getName());
 			
 			// Parse XML
@@ -153,6 +157,7 @@ public class Runner {
 			AnnotationWriter.writeAnnotation(annotation, out);
 			out.close();
 			
+			// Only test on first ten files //TODO change
 			if (++numFiles >= 10) break;
 		}
 	}
