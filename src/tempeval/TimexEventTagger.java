@@ -286,7 +286,7 @@ public class TimexEventTagger {
 	}
 	
 	/*
-	 * Deletes classifier file
+	 * Deletes classifier file //TODO eventually remove this method
 	 */
 	public static void doneTesting() {
 		File file = new File(CLASSIFIER_FILENAME);

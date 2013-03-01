@@ -24,6 +24,8 @@ public class Runner {
 
 	private static final String traindir = 
 			"data/TBAQ-cleaned/AQUAINT";
+	private static final String outputdir =
+			"output/TBAQ-cleaned/AQUAINT";
 
 	private static StanfordCoreNLP pipeline;
 	private static ArrayList<Annotation> annotations;
@@ -40,10 +42,6 @@ public class Runner {
 		while ((currLine = br.readLine()) != null) {
 			fileText += currLine;
 		}
-
-		//NodeList e = doc.getElementsByTagName("TEXT");
-		//Element ee = (Element) e.item(0);
-
 
 		//Concealed Hacky way of getting training file content
 		fileText = XMLParser.getRawTextByTagName(fileText, "<TEXT>", "</TEXT>");
@@ -62,7 +60,7 @@ public class Runner {
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
-	private static void annotate() throws Exception {
+	private static void train() throws Exception {
 
 		TimexEventTagger.initTagger();
 
@@ -87,17 +85,22 @@ public class Runner {
 
 			// Finally, add this annotation as a training example
 			annotations.add(annotation);
-
-			// Uncomment to test just ten files
-			if (++filesRead >= 10) break;
 		}
 
 		TimexEventTagger.doneClassifying();
-		
+	}
+	
+	private static void addDocumentInfo(Annotation annotation, Document doc) {
+		DocInfo info = new DocInfo("", "", "", ""); //TODO add actual document info
+		annotation.set(DocInfoAnnotation.class, info);
+	}
+	
+	private static void test() throws Exception {
 		EventTagger.loadTestClassifier();
 		TimexEventTagger.loadTestClassifier();
 
 		// Test
+		File directory = new File(traindir);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
@@ -105,8 +108,12 @@ public class Runner {
 			// Parse XML
 			Document doc = XMLParser.parse(child);
 
+			// Do initial annotation
 			Annotation annotation = new Annotation(getTestingText(doc));
 			pipeline.annotate(annotation);
+			
+			// Add document information
+			addDocumentInfo(annotation, doc);
 
 			// Annotate with events
 			EventTagger.testEventTagger(annotations);
@@ -115,7 +122,7 @@ public class Runner {
 			TimexEventTagger.testEventTimex(annotation, doc);
 		}
 
-		TimexEventTagger.doneTesting();
+		TimexEventTagger.doneTesting(); //TODO remove this eventually
 
 		// Write annotations
 		/*try {
@@ -127,13 +134,12 @@ public class Runner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 
 		// Create pipeline
 		Properties props = new Properties();
@@ -142,24 +148,7 @@ public class Runner {
 		pipeline = new StanfordCoreNLP(props);
 		annotations = new ArrayList<Annotation>();
 
-		// Get XML file
-		//Document trainDoc = XMLParser.parse(trainfile);
-		//Document testDoc = XMLParser.parse(testfile);
-
-		// Get text of XML file
-		//Element root = trainDoc.getDocumentElement();
-		//Element[] texts = XMLParser.getElementsByTagNameNR(root, "TEXT");
-		//Element text = texts[0];
-
-		try {
-			annotate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		/*
-		String CRFClassifierFilePath = "classifiers/event-model.ser.gz";
-		EventTagger.testEventTagger(annotations, CRFClassifierFilePath);
-		 */
+		train();
+		test();
 	}
 }
