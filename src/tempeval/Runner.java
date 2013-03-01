@@ -100,7 +100,7 @@ public class Runner {
 			// Annotate with same-sentence event-timex pairs
 			TimexEventTagger.trainEventTimex(annotation, doc);
 			
-			if (++numFiles >= 10) break;
+			//if (++numFiles >= 10) break;
 		}
 		event_train_out.close();
 		TimexEventTagger.doneClassifying();

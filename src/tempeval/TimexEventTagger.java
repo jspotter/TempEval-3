@@ -315,7 +315,7 @@ public class TimexEventTagger {
 					+ guess + " " + correct);
 			testClassifier.justificationOf(datum);
 
-			if (!guess.equals("0")) {
+			if (!guess.equals("O")) {
 				System.out.println("guessed something in file " + docInfo.filename);
 				int id = nextLinkID++;
 				TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);

@@ -85,18 +85,16 @@ public class AnnotationWriter {
 					curEndTag = "</EVENT>";
 					events.add(event);
 					
-				// Handle if this is a link
-				} else if (link != null) {
-					out.write(curEndTag + space + text);
-					curType = "";
-					curEndTag = "";
-					links.add(link);
-					
 				// Handle normal tokens
 				} else {
 					out.write(curEndTag + space + text);
 					curType = "";
 					curEndTag = "";
+				}
+				
+				// Handle links
+				if (link != null) {
+					links.add(link);
 				}
 			}
 		}
@@ -104,14 +102,29 @@ public class AnnotationWriter {
 		out.write("\n\n</TEXT>\n\n");
 	}
 	
-	//TODO
-	private static void writeEventInstances(ArrayList<EventInfo> events, BufferedWriter out) {
-		
+	private static void writeEventInstances(ArrayList<EventInfo> events, BufferedWriter out)
+			throws IOException {
+		for (EventInfo event: events) {
+			out.write("<MAKEINSTANCE eventID=\"" + event.currEventId 
+					+ "\" eiid=\"" + event.currEiid + "\" tense=\"" + event.tense
+					+ "\" aspect=\"" + event.aspect + "\" polarity=\"" + event.polarity
+					+ "\" pos=\"" + event.pos + "\"/>\n");
+		}
 	}
 	
-	//TODO
-	private static void writeTimexEventLinks(ArrayList<LinkInfo> links, BufferedWriter out) {
-		
+	private static void writeTimexEventLinks(ArrayList<LinkInfo> links, BufferedWriter out)
+			throws IOException {
+		for (LinkInfo link: links) {
+			String instanceString = "";
+			if (link.time != null)
+				instanceString = "timeID=\"" + link.time.currTimeId + "\"";
+			else
+				instanceString = "eventInstanceID=\"" + link.eventInstance.currEiid + "\"";
+			
+			out.write("<TLINK lid=\"" + link.id + "\" relType=\"" + link.type
+					+ "\" " + instanceString + " relatedToEventInstance=\"" + link.relatedTo.currEiid
+					+ "\" origin=\"USER\"/>\n"); //TODO fix origin
+		}
 	}
 	
 	public static void writeAnnotation(Annotation annotation, BufferedWriter out)
