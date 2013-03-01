@@ -1,5 +1,6 @@
-package tempeval;
+package annotationclasses;
 
+import dataclasses.DocInfo;
 import edu.stanford.nlp.ling.CoreAnnotation;
 
 public class DocInfoAnnotation implements CoreAnnotation<DocInfo> {

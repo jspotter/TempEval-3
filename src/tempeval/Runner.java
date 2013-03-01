@@ -1,9 +1,16 @@
 package tempeval;
 
+import helperclasses.AnnotationWriter;
+import helperclasses.XMLParser;
+
 import java.io.*;
 import java.util.*;
 
 import org.w3c.dom.*;
+
+import annotationclasses.DocInfoAnnotation;
+
+import dataclasses.DocInfo;
 
 
 import edu.stanford.nlp.io.IOUtils;
@@ -56,7 +63,7 @@ public class Runner {
 	}
 
 	/*
-	 * Builds up annotation object with built in CoreNLP annotations as
+	 * Builds up annotation object wih built in CoreNLP annotations as
 	 * well as events.
 	 */
 	private static void train() throws Exception {

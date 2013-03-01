@@ -1,4 +1,4 @@
-package tempeval;
+package dataclasses;
 
 public class DocInfo {
 	public String filename;

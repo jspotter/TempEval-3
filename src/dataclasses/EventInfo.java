@@ -1,7 +1,10 @@
-package tempeval;
+package dataclasses;
+
+import helperclasses.XMLParser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 
 /*
  * Adds event annotations to annotation object by stripping out EVENT

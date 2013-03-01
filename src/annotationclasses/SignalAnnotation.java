@@ -1,4 +1,4 @@
-package tempeval;
+package annotationclasses;
 
 import edu.stanford.nlp.ling.CoreAnnotation;
 

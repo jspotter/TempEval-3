@@ -1,5 +1,6 @@
-package tempeval;
+package annotationclasses;
 
+import dataclasses.LinkInfo;
 import edu.stanford.nlp.ling.CoreAnnotation;
 
 public class LinkInfoAnnotation implements CoreAnnotation<LinkInfo> {

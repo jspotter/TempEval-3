@@ -1,5 +1,8 @@
 package tempeval;
 
+import dataclasses.AuxTokenInfo;
+import dataclasses.EventInfo;
+import dataclasses.TimeInfo;
 import edu.stanford.nlp.classify.*;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.BasicDatum;
@@ -13,6 +16,13 @@ import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 
 import org.w3c.dom.*;
+
+import annotationclasses.AuxTokenInfoAnnotation;
+import annotationclasses.EventAnnotation;
+import annotationclasses.TimeAnnotation;
+
+import helperclasses.MapUtils;
+import helperclasses.XMLParser;
 
 import java.io.*;
 import java.util.*;

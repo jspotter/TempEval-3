@@ -1,5 +1,6 @@
-package tempeval;
+package annotationclasses;
 
+import dataclasses.EventInfo;
 import edu.stanford.nlp.ling.CoreAnnotation;
 
 public class EventAnnotation implements CoreAnnotation<EventInfo> {

@@ -1,9 +1,17 @@
-package tempeval;
+package helperclasses;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import annotationclasses.DocInfoAnnotation;
+import annotationclasses.EventAnnotation;
+import annotationclasses.LinkInfoAnnotation;
+
+import dataclasses.DocInfo;
+import dataclasses.EventInfo;
+import dataclasses.LinkInfo;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;

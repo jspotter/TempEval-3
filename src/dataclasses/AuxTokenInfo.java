@@ -1,4 +1,4 @@
-package tempeval;
+package dataclasses;
 
 import edu.stanford.nlp.ling.CoreLabel;
 

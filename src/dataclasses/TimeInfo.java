@@ -1,4 +1,4 @@
-package tempeval;
+package dataclasses;
 
 public class TimeInfo{
 	//could have added others, but on TempEval site it was stated that Type and

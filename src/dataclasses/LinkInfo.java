@@ -1,4 +1,4 @@
-package tempeval;
+package dataclasses;
 
 public class LinkInfo {
 	public String id;

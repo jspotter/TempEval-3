@@ -6,6 +6,15 @@ import java.util.*;
 import org.w3c.dom.*;
 import org.w3c.dom.Document;
 
+import annotationclasses.AuxTokenInfoAnnotation;
+import annotationclasses.EventAnnotation;
+import annotationclasses.SignalAnnotation;
+import annotationclasses.TimeAnnotation;
+
+import dataclasses.AuxTokenInfo;
+import dataclasses.EventInfo;
+import dataclasses.TimeInfo;
+
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.*;
@@ -25,7 +34,7 @@ public class EventTagger {
 	private static final String CRF_CLASSIFIER_FILENAME = 
 			"classifiers/event-model.ser.gz";
 
-	private static AbstractSequenceClassifier classifier;
+	private static AbstractSequenceClassifier classifier = null;
 
 	private static TimeInfo getCurrentTimeInfo(String word, CoreLabel token){
 
@@ -185,8 +194,8 @@ public class EventTagger {
 	}
 
 	/*
-	 * Method to run at test time, that given our annotations and a filepath pointing to the 
-	 * event extraction classifier, will annotate tokens classified as Events with the appropriate EventInfo object
+	 * Method to run at test that given our annotations will annotate tokens classified as Events with the appropriate EventInfo object
+	 * Must call loadTestClassifier first!
 	 */
 	public static void testEventTagger(Annotation annotation) {
 
