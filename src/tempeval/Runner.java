@@ -22,13 +22,12 @@ import edu.stanford.nlp.util.StringUtils;
 
 public class Runner {
 
-	private static final String traindir = 
+	private static final String TRAIN_DIR = 
 			"data/TBAQ-cleaned/AQUAINT";
-	private static final String outputdir =
+	private static final String OUTPUT_DIR =
 			"output/TBAQ-cleaned/AQUAINT";
 
 	private static StanfordCoreNLP pipeline;
-	private static ArrayList<Annotation> annotations;
 
 	/*
 	 * Gets training text. This is everything in the <TEXT> tag INCLUDING
@@ -66,10 +65,12 @@ public class Runner {
 
 		// Read each training file in training directory
 		int filesRead = 0;
-		File directory = new File(traindir);
+		File directory = new File(TRAIN_DIR);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
+			
+			System.out.println("Training on file " + child.getName());
 			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
@@ -82,16 +83,19 @@ public class Runner {
 
 			// Annotate with same-sentence event-timex pairs
 			TimexEventTagger.trainEventTimex(annotation, doc);
-
-			// Finally, add this annotation as a training example
-			annotations.add(annotation);
 		}
 
 		TimexEventTagger.doneClassifying();
 	}
 	
-	private static void addDocumentInfo(Annotation annotation, Document doc) {
-		DocInfo info = new DocInfo("", "", "", ""); //TODO add actual document info
+	private static void addDocumentInfo(Annotation annotation, Document doc, 
+			String filename) {
+		Element root = doc.getDocumentElement();
+		Element dctElem = XMLParser.getElementByTagNameNR(root, "DCT");
+		String id = XMLParser.getElementTextByTagNameNR(root, "DOCID");
+		String dct = XMLParser.getElementTextByTagNameNR(dctElem, "TIMEX");
+		String title = XMLParser.getElementTextByTagNameNR(root, "TITLE");
+		DocInfo info = new DocInfo(filename, id, dct, title);
 		annotation.set(DocInfoAnnotation.class, info);
 	}
 	
@@ -100,10 +104,12 @@ public class Runner {
 		TimexEventTagger.loadTestClassifier();
 
 		// Test
-		File directory = new File(traindir);
+		File directory = new File(TRAIN_DIR);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
+			
+			System.out.println("Testing on file " + child.getName());
 			
 			// Parse XML
 			Document doc = XMLParser.parse(child);
@@ -113,27 +119,21 @@ public class Runner {
 			pipeline.annotate(annotation);
 			
 			// Add document information
-			addDocumentInfo(annotation, doc);
+			addDocumentInfo(annotation, doc, child.getName());
 
 			// Annotate with events
-			EventTagger.testEventTagger(annotations);
+			EventTagger.testEventTagger(annotation);
 
 			// Annotate with same-sentence event-timex pairs
 			TimexEventTagger.testEventTimex(annotation, doc);
+			
+			// Write this annotation
+			AnnotationWriter.writeAnnotation(annotation,
+					new BufferedWriter(new FileWriter(OUTPUT_DIR
+							+ "/" + child.getName())));
 		}
 
-		TimexEventTagger.doneTesting(); //TODO remove this eventually
-
-		// Write annotations
-		/*try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("sample.out"));
-			for(Annotation a: annotations) {
-				EventTagger.printEventAnnotations(a, out);
-			}
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
+		TimexEventTagger.doneTesting(); //TODO remove this eventually		
 	}
 
 	/**
@@ -146,7 +146,6 @@ public class Runner {
 		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
 		props.put("annotators", "tokenize, ssplit");
 		pipeline = new StanfordCoreNLP(props);
-		annotations = new ArrayList<Annotation>();
 
 		train();
 		test();

@@ -21,9 +21,9 @@ import edu.stanford.nlp.ling.CoreAnnotations.AnswerAnnotation;
 import edu.stanford.nlp.util.StringUtils;
 
 public class EventTagger {
-	
+
 	private static final String CRF_CLASSIFIER_FILENAME = "classifiers/event-model.ser.gz";
-	
+
 	private static AbstractSequenceClassifier classifier;
 
 	/*
@@ -194,7 +194,7 @@ public class EventTagger {
 					currTag = "O";
 					tokensToRemove.add(token);
 
-				// Otherwise, we're looking at a token
+					// Otherwise, we're looking at a token
 				} else {
 
 					// Handle general token annotations
@@ -215,12 +215,12 @@ public class EventTagger {
 						token.set(EventAnnotation.class, currEvent);
 						currEvent.numTokens++;
 
-					// Handle time-specific token annotations
+						// Handle time-specific token annotations
 					} else if (currTag == "TIME") {
 						token.set(TimeAnnotation.class, currTime);
 						currTime.numTokens++;
 
-					// Handle signal-specific token annotations
+						// Handle signal-specific token annotations
 					} else if (currTag == "SIGNAL") {
 						token.set(SignalAnnotation.class, true);
 					}
@@ -233,7 +233,7 @@ public class EventTagger {
 			}
 		}
 	}
-	
+
 	/*
 	 * Helper method for testEventTagger
 	 */
@@ -242,7 +242,7 @@ public class EventTagger {
 		int start = tag.lastIndexOf("/");
 		return tag.substring(start + 1);
 	}
-	
+
 	public static void loadTestClassifier() {
 		classifier = 
 				CRFClassifier.getClassifierNoExceptions(CRF_CLASSIFIER_FILENAME);
@@ -252,39 +252,36 @@ public class EventTagger {
 	 * Method to run at test time, that given our annotations and a filepath pointing to the 
 	 * event extraction classifier, will annotate tokens classified as Events with the appropriate EventInfo object
 	 */
-	public static void testEventTagger(ArrayList<Annotation> annotations) {
+	public static void testEventTagger(Annotation annotation) {
 
 		String data = "";
-		for(Annotation annotation : annotations){
-			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-			for(CoreMap sentence: sentences) {
-				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-				for (CoreLabel token: tokens) {
-					String word = token.get(TextAnnotation.class);
-					data += word + " ";
-				}
+		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+		for(CoreMap sentence: sentences) {
+			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+			for (CoreLabel token: tokens) {
+				String word = token.get(TextAnnotation.class);
+				data += word + " ";
 			}
 		}
 
+
 		String [] tagged_data_array = classifier.classifyToString(data).split("\\s+");
-		
+
 		//Perform a mapping from tagged_data_array event classifications to annotations, all classifier output appears to tokenize identically to the coreNLP annotator
 		int count = 0;
-		for(Annotation annotation : annotations){
-			List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-			for(CoreMap sentence: sentences) {
-				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-				for (CoreLabel token: tokens) {
-					String word = token.get(TextAnnotation.class);
-					String event_type = getWordEventType(count, tagged_data_array);
-					if(!event_type.equals("O")){
-						//TODO discern correct method of setting EventId for newly found events
-						
-						// temporarily commented out so that we may run classifier on training data without running into errors
-						//token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
-					}
-					count++;
+		sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
+		for(CoreMap sentence: sentences) {
+			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+			for (CoreLabel token: tokens) {
+				String word = token.get(TextAnnotation.class);
+				String event_type = getWordEventType(count, tagged_data_array);
+				if(!event_type.equals("O")){
+					//TODO discern correct method of setting EventId for newly found events
+
+					// temporarily commented out so that we may run classifier on training data without running into errors
+					//token.set(EventAnnotation.class, new EventInfo(event_type, "0"));
 				}
+				count++;
 			}
 		}
 
