@@ -7,6 +7,14 @@ import edu.stanford.nlp.pipeline.Annotation;
 
 
 public class ConsecutiveEventTagger {
+	
+	/*
+	 * TODO
+	 */
+	public static void initTagger() {
+		
+	}
+	
 	/*
 	 * TODO
 	 */

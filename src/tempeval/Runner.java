@@ -73,6 +73,9 @@ public class Runner {
 		
 		BufferedWriter event_train_out = new BufferedWriter(new FileWriter(EVENT_TRAIN_FILE));
 		TimexEventTagger.initTagger();
+		DCTEventTagger.initTagger();
+		SameSentenceEventTagger.initTagger();
+		ConsecutiveEventTagger.initTagger();
 
 		// Read each training file in training directory
 		int numFiles = 0;
@@ -113,7 +116,7 @@ public class Runner {
 			//Annotate with consecutive-sentence main event pairs
 			ConsecutiveEventTagger.train(annotation, doc);
 			
-			//if (++numFiles >= 10) break;
+			if (++numFiles >= 20) break;
 		}
 		event_train_out.close();
 		TimexEventTagger.doneClassifying();

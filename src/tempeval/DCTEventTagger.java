@@ -6,6 +6,14 @@ import edu.stanford.nlp.classify.LinearClassifier;
 import edu.stanford.nlp.pipeline.Annotation;
 
 public class DCTEventTagger {
+	
+	/*
+	 * TODO
+	 */
+	public static void initTagger() {
+		
+	}
+	
 	/*
 	 * TODO
 	 */
