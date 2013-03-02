@@ -66,7 +66,7 @@ public class Runner {
 	}
 
 	/*
-	 * Builds up annotation object wih built in CoreNLP annotations as
+	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
 	 */
 	private static void train() throws Exception {
@@ -102,12 +102,24 @@ public class Runner {
 			EventTagger.printEventAnnotations(annotation, event_train_out);
 			
 			// Annotate with same-sentence event-timex pairs
-			TimexEventTagger.trainEventTimex(annotation, doc);
+			TimexEventTagger.train(annotation, doc);
+		
+			//Annotate with document creation time-event pairs
+			DCTEventTagger.train(annotation, doc);
+			
+			//Annotate with same-sentence event-event pairs
+			SameSentenceEventTagger.train(annotation, doc);
+			
+			//Annotate with consecutive-sentence main event pairs
+			ConsecutiveEventTagger.train(annotation, doc);
 			
 			//if (++numFiles >= 10) break;
 		}
 		event_train_out.close();
 		TimexEventTagger.doneClassifying();
+		DCTEventTagger.doneClassifying();
+		SameSentenceEventTagger.doneClassifying();
+		ConsecutiveEventTagger.doneClassifying();
 	}
 	
 	private static void addDocumentInfo(Annotation annotation, Document doc, 
@@ -124,6 +136,9 @@ public class Runner {
 	private static void test() throws Exception {
 		EventTagger.loadTestClassifier();
 		TimexEventTagger.loadTestClassifier();
+		DCTEventTagger.loadTestClassifier();
+		SameSentenceEventTagger.loadTestClassifier();
+		ConsecutiveEventTagger.loadTestClassifier();
 
 		// Test
 		int numFiles = 0;
@@ -146,10 +161,20 @@ public class Runner {
 			addDocumentInfo(annotation, doc, rawText, child.getName());
 
 			// Annotate with events
-			EventTagger.testEventTagger(annotation);
+			EventTagger.test(annotation);
 
 			// Annotate with same-sentence event-timex pairs
-			TimexEventTagger.testEventTimex(annotation, doc);
+			TimexEventTagger.test(annotation, doc);
+			
+			
+			//Annotate with document creation time-event pairs
+			DCTEventTagger.test(annotation, doc);
+			
+			//Annotate with same-sentence event-event pairs
+			SameSentenceEventTagger.test(annotation, doc);
+			
+			//Annotate with consecutive-sentence main event pairs
+			ConsecutiveEventTagger.test(annotation, doc);
 			
 			// Write this annotation
 			BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_DIR

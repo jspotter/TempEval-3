@@ -266,7 +266,7 @@ public class TimexEventTagger {
 	/*
 	 * Train classifier on relationships between same-sentence timexes and events.
 	 */
-	public static void trainEventTimex(Annotation annotation, Document doc) {
+	public static void train(Annotation annotation, Document doc) {
 		// Find all possible same-sentence timex event pairs
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
@@ -295,7 +295,7 @@ public class TimexEventTagger {
 	/*
 	 * Tests classifier
 	 */
-	public static void testEventTimex(Annotation annotation, Document doc) {
+	public static void test(Annotation annotation, Document doc) {
 
 		int nextLinkID = 0;
 		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);

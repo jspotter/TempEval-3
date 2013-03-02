@@ -217,7 +217,7 @@ public class EventTagger {
 	 * Method to run at test that given our annotations will annotate tokens classified as Events with the appropriate EventInfo object
 	 * Must call loadTestClassifier first!
 	 */
-	public static void testEventTagger(Annotation annotation) {
+	public static void test(Annotation annotation) {
 
 		String data = "";
 		List<CoreMap> sentences = 
