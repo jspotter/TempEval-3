@@ -10,14 +10,14 @@ public class DCTEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void initTagger() {
+	public DCTEventTagger() {
 		
 	}
 	
 	/*
 	 * TODO
 	 */
-	public static void train(Annotation annotation, Document doc) {
+	public void train(Annotation annotation, Document doc) {
 		
 		
 	}
@@ -25,7 +25,7 @@ public class DCTEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void test(Annotation annotation, Document doc) {
+	public void test(Annotation annotation, Document doc) {
 
 
 	}
@@ -33,14 +33,14 @@ public class DCTEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void loadTestClassifier() {
+	public void loadTestClassifier() {
 		
 	}
 	
 	/*
 	 * TODO
 	 */
-	public static void doneClassifying() {
+	public void doneClassifying() {
 
 	}
 }

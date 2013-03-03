@@ -37,7 +37,7 @@ public class EventTagger {
 	private static final String CRF_CLASSIFIER_FILENAME = 
 			"classifiers/event-model.ser.gz";
 
-	private static AbstractSequenceClassifier classifier = null;
+	private AbstractSequenceClassifier classifier = null;
 
 	private static TimeInfo getCurrentTimeInfo(String word, CoreLabel token){
 
@@ -102,7 +102,7 @@ public class EventTagger {
 	 * Add event information to the provided annotation. Also add other
 	 * information, like token number and next/previous tokens.
 	 */
-	public static void annotate(Annotation annotation, Document doc) {
+	public void annotate(Annotation annotation, Document doc) {
 
 		// Keep track of current event type
 		EventInfo currEvent = null;
@@ -186,13 +186,13 @@ public class EventTagger {
 	/*
 	 * Helper method for testEventTagger
 	 */
-	public static String getWordEventType(int index, String [] tagged_data_array){
+	public String getWordEventType(int index, String [] tagged_data_array){
 		String tag = tagged_data_array[index];
 		int start = tag.lastIndexOf("/");
 		return tag.substring(start + 1);
 	}
 
-	public static void loadTestClassifier() {
+	public void loadTestClassifier() {
 		classifier = 
 				CRFClassifier.getClassifierNoExceptions(CRF_CLASSIFIER_FILENAME);
 	}
@@ -217,7 +217,7 @@ public class EventTagger {
 	 * Method to run at test that given our annotations will annotate tokens classified as Events with the appropriate EventInfo object
 	 * Must call loadTestClassifier first!
 	 */
-	public static void test(Annotation annotation) {
+	public void test(Annotation annotation) {
 
 		String data = "";
 		List<CoreMap> sentences = 

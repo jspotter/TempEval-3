@@ -40,8 +40,8 @@ public class SameSentenceEventTagger {
 	private static LinearClassifierFactory<String, String> factory;
 	private static List<Datum<String, String>> trainingData;
 
-	public static void initTagger() {
-		factory = new LinearClassifierFactory<String, String>();
+	public SameSentenceEventTagger() {
+		factory = new LinearClassifierFactory<String, String>(); // jp
 		factory.useConjugateGradientAscent();
 		factory.setVerbose(true);
 		factory.setSigma(10.0);
@@ -52,7 +52,7 @@ public class SameSentenceEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void train(Annotation annotation, Document doc) {
+	public void train(Annotation annotation, Document doc) {
 		
 		
 	}
@@ -60,7 +60,7 @@ public class SameSentenceEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void test(Annotation annotation, Document doc) {
+	public void test(Annotation annotation, Document doc) {
 
 
 	}
@@ -68,14 +68,14 @@ public class SameSentenceEventTagger {
 	/*
 	 * TODO
 	 */
-	public static void loadTestClassifier() {
+	public void loadTestClassifier() {
 		
 	}
 	
 	/*
 	 * TODO
 	 */
-	public static void doneClassifying() {
+	public void doneClassifying() {
 
 	}
 }

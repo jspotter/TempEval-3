@@ -16,6 +16,10 @@ import edu.stanford.nlp.ling.Datum;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
+import features.DistanceFeature;
+import features.EventTypeFeature;
+import features.InterleavingCommaFeature;
+import features.TimexTypeFeature;
 
 import org.w3c.dom.*;
 
@@ -35,17 +39,24 @@ public class TimexEventTagger {
 
 	private static final String CLASSIFIER_FILENAME = "classifiers/timex-event-model.ser.gz";
 
-	private static LinearClassifier<String, String> trainClassifier, testClassifier;
-	private static LinearClassifierFactory<String, String> factory;
-	private static List<Datum<String, String>> trainingData;
+	private LinearClassifier<String, String> trainClassifier, testClassifier;
+	private LinearClassifierFactory<String, String> factory;
+	private List<Datum<String, String>> trainingData;
+	private DistanceFeature distance;
+	private InterleavingCommaFeature comma;
+	private TimexTypeFeature timex;
 
-	public static void initTagger() {
+	public TimexEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
 		factory.useConjugateGradientAscent();
 		factory.setVerbose(true);
 		factory.setSigma(10.0);
 
 		trainingData = new ArrayList<Datum<String, String>>();
+		
+		distance = new DistanceFeature();
+		comma = new InterleavingCommaFeature();
+		timex = new TimexTypeFeature();
 	}
 
 	/*
@@ -146,7 +157,7 @@ public class TimexEventTagger {
 	/*
 	 * Creates a single datum from a training example
 	 */
-	private static Datum<String, String> getDatum(CoreLabel timeToken, CoreLabel eventToken,
+	private Datum<String, String> getDatum(CoreLabel timeToken, CoreLabel eventToken,
 			Set<Pair<CoreLabel, CoreLabel>> pairs, Map<String, Map<String, String>> relationships) {
 
 		List<String> features = new ArrayList<String>();
@@ -155,11 +166,9 @@ public class TimexEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 
 		// FEATURES
-		FeatureFactory.addDistanceFeature(features, timeToken, eventToken);
-		//FeatureFactory.addInterleavingWordsFeature(features, timeToken, eventToken);
-		FeatureFactory.addInterleavingCommaFeature(features, timeToken, eventToken);
-		FeatureFactory.addTimexTypeFeature(features, timeToken);
-		//FeatureFactory.addEventTypeFeature(features, eventToken);
+		distance.add(features, timeToken, eventToken);
+		comma.add(features, timeToken, eventToken);
+		timex.add(features, timeToken, null);
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
@@ -172,7 +181,7 @@ public class TimexEventTagger {
 	/*
 	 * Train classifier on relationships between same-sentence timexes and events.
 	 */
-	public static void train(Annotation annotation, Document doc) {
+	public void train(Annotation annotation, Document doc) {
 		// Find all possible same-sentence timex event pairs
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
@@ -186,7 +195,7 @@ public class TimexEventTagger {
 	/*
 	 * Zips classifier into file
 	 */
-	public static void doneClassifying() {
+	public void doneClassifying() {
 		trainClassifier = factory.trainClassifier(trainingData);
 		LinearClassifier.writeClassifier(trainClassifier, CLASSIFIER_FILENAME);
 	}
@@ -194,14 +203,14 @@ public class TimexEventTagger {
 	/*
 	 * Loads test classifier from file (presumably written from training)
 	 */
-	public static void loadTestClassifier() {
+	public void loadTestClassifier() {
 		testClassifier = LinearClassifier.readClassifier(CLASSIFIER_FILENAME);
 	}
 
 	/*
 	 * Tests classifier
 	 */
-	public static void test(Annotation annotation, Document doc) {
+	public void test(Annotation annotation, Document doc) {
 
 		int nextLinkID = 0;
 		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
@@ -237,6 +246,8 @@ public class TimexEventTagger {
 	 * Main program to test functionality
 	 */
 	public static void main(String[] args) throws Exception {
+		TimexEventTagger tagger = new TimexEventTagger();
+		
 		System.out.println("Testing event-timex training functionality");
 		File sampleFile = new File("data/TBAQ-cleaned/AQUAINT/APW19980807.0261.tml");
 		Document doc = XMLParser.parse(sampleFile);
@@ -262,7 +273,7 @@ public class TimexEventTagger {
 		Annotation annotation = new Annotation(file_text);
 
 		pipeline.annotate(annotation);
-		EventTagger.annotate(annotation, doc);
+		new EventTagger().annotate(annotation, doc);
 
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
 		Map<String, Map<String, String>> relationships = getEventTimexRelationships(doc);

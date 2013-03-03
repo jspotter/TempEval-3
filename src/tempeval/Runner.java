@@ -38,6 +38,11 @@ public class Runner {
 			"classifiers/training/event.out";
 
 	private static StanfordCoreNLP pipeline;
+	private static EventTagger eventTagger;
+	private static TimexEventTagger timexEventTagger;
+	private static DCTEventTagger dctEventTagger;
+	private static SameSentenceEventTagger sameSentenceEventTagger;
+	private static ConsecutiveEventTagger consecutiveEventTagger;
 
 	/*
 	 * Gets training text. This is everything in the <TEXT> tag INCLUDING
@@ -72,10 +77,6 @@ public class Runner {
 	private static void train() throws Exception {
 		
 		BufferedWriter event_train_out = new BufferedWriter(new FileWriter(EVENT_TRAIN_FILE));
-		TimexEventTagger.initTagger();
-		DCTEventTagger.initTagger();
-		SameSentenceEventTagger.initTagger();
-		ConsecutiveEventTagger.initTagger();
 
 		// Read each training file in training directory
 		int numFiles = 0;
@@ -99,30 +100,30 @@ public class Runner {
 			pipeline.annotate(annotation);
 
 			// Annotate with events
-			EventTagger.annotate(annotation, doc);
+			eventTagger.annotate(annotation, doc);
 
 			//Print out file to train classifier upon
 			EventTagger.printEventAnnotations(annotation, event_train_out);
 			
 			// Annotate with same-sentence event-timex pairs
-			TimexEventTagger.train(annotation, doc);
+			timexEventTagger.train(annotation, doc);
 		
 			//Annotate with document creation time-event pairs
-			DCTEventTagger.train(annotation, doc);
+			dctEventTagger.train(annotation, doc);
 			
 			//Annotate with same-sentence event-event pairs
-			SameSentenceEventTagger.train(annotation, doc);
+			sameSentenceEventTagger.train(annotation, doc);
 			
 			//Annotate with consecutive-sentence main event pairs
-			ConsecutiveEventTagger.train(annotation, doc);
+			consecutiveEventTagger.train(annotation, doc);
 			
 			if (++numFiles >= 20) break;
 		}
 		event_train_out.close();
-		TimexEventTagger.doneClassifying();
-		DCTEventTagger.doneClassifying();
-		SameSentenceEventTagger.doneClassifying();
-		ConsecutiveEventTagger.doneClassifying();
+		timexEventTagger.doneClassifying();
+		dctEventTagger.doneClassifying();
+		sameSentenceEventTagger.doneClassifying();
+		consecutiveEventTagger.doneClassifying();
 	}
 	
 	private static void addDocumentInfo(Annotation annotation, Document doc, 
@@ -137,11 +138,11 @@ public class Runner {
 	}
 	
 	private static void test() throws Exception {
-		EventTagger.loadTestClassifier();
-		TimexEventTagger.loadTestClassifier();
-		DCTEventTagger.loadTestClassifier();
-		SameSentenceEventTagger.loadTestClassifier();
-		ConsecutiveEventTagger.loadTestClassifier();
+		eventTagger.loadTestClassifier();
+		timexEventTagger.loadTestClassifier();
+		dctEventTagger.loadTestClassifier();
+		sameSentenceEventTagger.loadTestClassifier();
+		consecutiveEventTagger.loadTestClassifier();
 
 		// Test
 		int numFiles = 0;
@@ -164,20 +165,20 @@ public class Runner {
 			addDocumentInfo(annotation, doc, rawText, child.getName());
 
 			// Annotate with events
-			EventTagger.test(annotation);
+			eventTagger.test(annotation);
 
 			// Annotate with same-sentence event-timex pairs
-			TimexEventTagger.test(annotation, doc);
+			timexEventTagger.test(annotation, doc);
 			
 			
 			//Annotate with document creation time-event pairs
-			DCTEventTagger.test(annotation, doc);
+			dctEventTagger.test(annotation, doc);
 			
 			//Annotate with same-sentence event-event pairs
-			SameSentenceEventTagger.test(annotation, doc);
+			sameSentenceEventTagger.test(annotation, doc);
 			
 			//Annotate with consecutive-sentence main event pairs
-			ConsecutiveEventTagger.test(annotation, doc);
+			consecutiveEventTagger.test(annotation, doc);
 			
 			// Write this annotation
 			BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_DIR
@@ -200,6 +201,13 @@ public class Runner {
 		props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
 		//props.put("annotators", "tokenize, ssplit");
 		pipeline = new StanfordCoreNLP(props);
+		
+		// Create classifiers
+		eventTagger = new EventTagger();
+		timexEventTagger = new TimexEventTagger();
+		dctEventTagger = new DCTEventTagger();
+		sameSentenceEventTagger = new SameSentenceEventTagger();
+		consecutiveEventTagger = new ConsecutiveEventTagger();
 
 		train();
 		test();
