@@ -22,5 +22,10 @@ Figures on the dead and injured in the twin embassy bombings
 
 </TEXT>
 
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
 </TimeML>
 

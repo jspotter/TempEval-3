@@ -22,5 +22,35 @@ Security Council condemns Kenya, Tanzania bombings
 
 </TEXT>
 
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e23" eiid="ei23" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e24" eiid="ei24" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e25" eiid="ei25" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<TLINK lid="lolol0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
+<TLINK lid="lolol1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei17" origin="USER"/>
+<TLINK lid="lolol2" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
 </TimeML>
 

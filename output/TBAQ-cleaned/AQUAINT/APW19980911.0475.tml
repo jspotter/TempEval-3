@@ -21,5 +21,48 @@ Tanzania expels Iraqis, Libyan questioned in U.S. embassy bombings
 
 </TEXT>
 
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBP"/>
+<MAKEINSTANCE eventID="e23" eiid="ei23" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e24" eiid="ei24" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e25" eiid="ei25" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e27" eiid="ei27" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e28" eiid="ei28" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e29" eiid="ei29" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
+<MAKEINSTANCE eventID="e30" eiid="ei30" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e31" eiid="ei31" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e32" eiid="ei32" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e33" eiid="ei33" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e34" eiid="ei34" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e35" eiid="ei35" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e36" eiid="ei36" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBP"/>
+<MAKEINSTANCE eventID="e37" eiid="ei37" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e38" eiid="ei38" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e39" eiid="ei39" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e40" eiid="ei40" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<TLINK lid="lolol0" relType="INCLUDES" timeID="t3" relatedToEventInstance="ei3" origin="USER"/>
+<TLINK lid="lolol1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei15" origin="USER"/>
 </TimeML>
 

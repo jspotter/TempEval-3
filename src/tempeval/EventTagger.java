@@ -39,7 +39,7 @@ public class EventTagger {
 
 	private AbstractSequenceClassifier classifier = null;
 
-	private static TimeInfo getCurrentTimeInfo(String word, CoreLabel token){
+	public static TimeInfo getCurrentTimeInfo(String word) {
 
 		String extract = new String(word);
 
@@ -78,8 +78,7 @@ public class EventTagger {
 	/*
 	 * Extracts information about a single event from training data.
 	 */
-	private static EventInfo getCurrentEventInfo(String word, CoreLabel token, 
-			Document doc) {
+	public static EventInfo getCurrentEventInfo(String word, Document doc) {
 		String extract = new String(word);
 
 		String EventIdString = "eid=\"";
@@ -96,91 +95,6 @@ public class EventTagger {
 		EventInfo result = new EventInfo(currEventType, currEventId);
 		result.getAuxEventInfo(doc);
 		return result;
-	}
-
-	/*
-	 * Add event information to the provided annotation. Also add other
-	 * information, like token number and next/previous tokens.
-	 */
-	public void annotate(Annotation annotation, Document doc) {
-
-		// Keep track of current event type
-		EventInfo currEvent = null;
-		TimeInfo currTime = null;
-		String currTag = "O";
-
-		// Add event information to each event-tagged token
-		List<CoreMap> sentences = 
-				annotation.get(CoreAnnotations.SentencesAnnotation.class);
-		for(CoreMap sentence: sentences) {
-
-			CoreLabel lastToken = null;
-			AuxTokenInfo lastTokenAux = null;
-			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-
-			// Keep track of tokens to remove
-			Set<CoreLabel> tokensToRemove = new HashSet<CoreLabel>();
-
-			// Annotate each token
-			int curTokenNum = 0;
-			for (CoreLabel token: tokens) {
-				String word = token.get(TextAnnotation.class);
-
-				// Assign currTag type if we're looking at a tag
-				if(word.startsWith("<EVENT")) {
-					currTag = "EVENT";
-					currEvent = getCurrentEventInfo(word, token, doc);
-					tokensToRemove.add(token);
-				} else if(word.startsWith("<TIMEX3")) {
-					currTime = getCurrentTimeInfo(word, token);
-					currTag = "TIME";
-					tokensToRemove.add(token);
-				} else if (word.startsWith("<SIGNAL")) {
-					currTag = "SIGNAL";
-					tokensToRemove.add(token);
-					//added in "<" so we won't take TLINKS and MAKEINSTANCES
-				}else if (word.startsWith("</") || word.startsWith("<")) {
-					currTag = "O";
-					tokensToRemove.add(token);
-
-					// Otherwise, we're looking at a token
-				} else {
-
-					// Handle general token annotations
-					AuxTokenInfo aux = new AuxTokenInfo();
-					aux.tokenOffset = curTokenNum++;
-					aux.prev = lastToken;
-					aux.next = null;
-					if (lastTokenAux != null)
-						lastTokenAux.next = token;
-
-					token.set(AuxTokenInfoAnnotation.class, aux);
-
-					lastToken = token;
-					lastTokenAux = aux;
-
-					// Handle event-specific token annotations
-					if (currTag == "EVENT") {
-						token.set(EventAnnotation.class, currEvent);
-						currEvent.numTokens++;
-
-						// Handle time-specific token annotations
-					} else if (currTag == "TIME") {
-						token.set(TimeAnnotation.class, currTime);
-						currTime.numTokens++;
-
-						// Handle signal-specific token annotations
-					} else if (currTag == "SIGNAL") {
-						token.set(SignalAnnotation.class, true);
-					}
-				}
-			}
-
-			// Remove tokens corresponding to tags
-			for (CoreLabel token: tokensToRemove) {
-				tokens.remove(token);
-			}
-		}
 	}
 
 	/*

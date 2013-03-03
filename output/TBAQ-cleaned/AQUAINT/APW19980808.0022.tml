@@ -22,5 +22,34 @@ killed &QL;  &UR; Eds: CORRECTS that at least 75 dead in Kenya. &QL;  &UR; With 
 
 </TEXT>
 
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
+<TLINK lid="lolol0" relType="BEFORE" timeID="t1" relatedToEventInstance="ei6" origin="USER"/>
+<TLINK lid="lolol1" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei7" origin="USER"/>
+<TLINK lid="lolol2" relType="DURING" timeID="t1" relatedToEventInstance="ei13" origin="USER"/>
+<TLINK lid="lolol3" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei13" origin="USER"/>
+<TLINK lid="lolol4" relType="DURING" timeID="t1" relatedToEventInstance="ei18" origin="USER"/>
+<TLINK lid="lolol5" relType="INCLUDES" timeID="t3" relatedToEventInstance="ei19" origin="USER"/>
 </TimeML>
 

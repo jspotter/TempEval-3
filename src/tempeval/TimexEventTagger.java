@@ -211,8 +211,6 @@ public class TimexEventTagger {
 	 * Tests classifier
 	 */
 	public void test(Annotation annotation, Document doc) {
-
-		int nextLinkID = 0;
 		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
 
 		// Find all possible same-sentence timex event pairs
@@ -232,68 +230,11 @@ public class TimexEventTagger {
 
 			if (!guess.equals("O")) {
 				System.out.println("guessed something in file " + docInfo.filename);
-				int id = nextLinkID++;
 				TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
 				EventInfo eventInfo = pair.second.get(EventAnnotation.class);
-				LinkInfo link = new LinkInfo("" + id, guess, timeInfo,
+				LinkInfo link = new LinkInfo("-1", guess, timeInfo,
 						null, eventInfo);
 				pair.first.set(LinkInfoAnnotation.class, link);
-			}
-		}
-	}
-
-	/*
-	 * Main program to test functionality
-	 */
-	public static void main(String[] args) throws Exception {
-		TimexEventTagger tagger = new TimexEventTagger();
-		
-		System.out.println("Testing event-timex training functionality");
-		File sampleFile = new File("data/TBAQ-cleaned/AQUAINT/APW19980807.0261.tml");
-		Document doc = XMLParser.parse(sampleFile);
-
-		// Create pipeline
-		Properties props = new Properties();
-		//props.put("annotators", "tokenize, ssplit, pos, lemma, ner");
-		props.put("annotators", "tokenize, ssplit");
-		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
-		String file_text = "";
-		String curr_line;
-		BufferedReader br = new BufferedReader(new FileReader(sampleFile));
-
-		while ((curr_line = br.readLine()) != null) {
-			file_text += curr_line;
-		}
-
-		br.close();
-
-		file_text = XMLParser.getRawTextByTagName(file_text, "<TEXT>", "</TEXT>");
-		System.out.println(file_text);
-		Annotation annotation = new Annotation(file_text);
-
-		pipeline.annotate(annotation);
-		new EventTagger().annotate(annotation, doc);
-
-		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventTimexPairs(annotation);
-		Map<String, Map<String, String>> relationships = getEventTimexRelationships(doc);
-
-		System.out.println("About to print extracted information");
-
-		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
-			TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
-			EventInfo eventInfo = pair.second.get(EventAnnotation.class);
-
-			String tid = timeInfo.currTimeId;
-			String eiid = eventInfo.currEiid;
-
-			System.out.print(tid + " " + eiid + " ");
-
-			String relType = MapUtils.doubleGet(relationships, tid, eiid);
-			if (relType != null) {
-				System.out.println(relType);
-			} else {
-				System.out.println("O");
 			}
 		}
 	}

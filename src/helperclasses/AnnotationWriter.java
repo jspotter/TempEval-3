@@ -47,7 +47,8 @@ public class AnnotationWriter {
 	private static void writeText(Annotation annotation, BufferedWriter out,
 			ArrayList<EventInfo> events, ArrayList<LinkInfo> links) throws IOException {
 		
-		int nextEventID = 0;
+		// Link ID assignment happens here
+		int nextLinkID = 0;
 		
 		// Keep track of whether we're inside a tag
 		String curType = "";
@@ -79,7 +80,7 @@ public class AnnotationWriter {
 					
 				// Handle if this is an event
 				} else if (event != null && !curType.equals(event.currEventType)) {
-					out.write(" <EVENT eid=\"e" + (nextEventID++) + "\" class=\""
+					out.write(" <EVENT eid=\"" + event.currEventId + "\" class=\""
 							+ event.currEventType + "\">" + text);
 					curType = event.currEventType;
 					curEndTag = "</EVENT>";
@@ -94,6 +95,7 @@ public class AnnotationWriter {
 				
 				// Handle links
 				if (link != null) {
+					link.id = "l" + (nextLinkID++);
 					links.add(link);
 				}
 			}
