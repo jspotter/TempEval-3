@@ -310,7 +310,7 @@ public class Runner {
 
 		// Create full pipeline
 		Properties fullProps = new Properties();
-		fullProps.put("annotators", "tokenize, ssplit, pos, lemma, ner");
+		fullProps.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse");
 		//props.put("annotators", "tokenize, ssplit");
 		pipeline = new StanfordCoreNLP(fullProps);
 
