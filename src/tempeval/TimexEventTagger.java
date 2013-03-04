@@ -8,17 +8,23 @@ import dataclasses.TimeInfo;
 import edu.stanford.nlp.classify.*;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.BasicDatum;
+import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.Datum;
 import edu.stanford.nlp.pipeline.*;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.HeadTagAnnotation;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.HeadWordAnnotation;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
 import features.EventTypeFeature;
 import features.InterleavingCommaFeature;
+import features.IntervalFeature;
 import features.TimexTypeFeature;
 
 import org.w3c.dom.*;
@@ -45,6 +51,7 @@ public class TimexEventTagger {
 	private DistanceFeature distance;
 	private InterleavingCommaFeature comma;
 	private TimexTypeFeature timex;
+	private IntervalFeature interval;
 
 	public TimexEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -57,6 +64,7 @@ public class TimexEventTagger {
 		distance = new DistanceFeature();
 		comma = new InterleavingCommaFeature();
 		timex = new TimexTypeFeature();
+		interval = new IntervalFeature();
 	}
 
 	/*
@@ -85,6 +93,10 @@ public class TimexEventTagger {
 			for (CoreLabel token: tokens) {
 				EventInfo eventInfo = token.get(EventAnnotation.class);
 				TimeInfo timeInfo = token.get(TimeAnnotation.class);
+				
+				// Get parse for the sentence
+				String pos = token.get(CoreAnnotations.ParentAnnotation.class);
+				if (pos != null) System.out.println(pos);
 
 				// Handle event tokens
 				if (eventInfo != null) {
@@ -169,6 +181,7 @@ public class TimexEventTagger {
 		distance.add(features, timeToken, eventToken);
 		comma.add(features, timeToken, eventToken);
 		timex.add(features, timeToken, null);
+		interval.add(features,  timeToken, null);
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
