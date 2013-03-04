@@ -14,7 +14,7 @@ public class DocInfo {
 		this.filename = filename;
 		this.id = id;
 		this.dct = dct;
-		this.dctTimeInfo = EventTagger.getCurrentTimeInfo(dct);
+		this.dctTimeInfo = new TimeInfo(dct);
 		this.title = title;
 		this.extra = extra;
 	}

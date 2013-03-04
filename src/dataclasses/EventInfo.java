@@ -22,7 +22,7 @@ public class EventInfo{
 	public String pos;
 	public int numTokens;
 
-	public EventInfo(String currEventType, String currEventID) {
+public EventInfo(String currEventType, String currEventID) {
 		this.currEventType = currEventType;
 		this.currEventId = currEventID;
 		this.currEiid = null;
@@ -31,6 +31,32 @@ public class EventInfo{
 		this.polarity = null;
 		this.pos = null;
 		this.numTokens = 0;
+	}
+
+	
+public EventInfo(String word, Document doc) {
+		String extract = new String(word);
+
+		String EventIdString = "eid=\"";
+		String EventTypeString = "class=\"";
+
+		int start = extract.indexOf(EventIdString) + EventIdString.length();
+		int end = extract.indexOf("\"", start);
+		String currEventId = extract.substring(start, end);
+
+		start = extract.indexOf(EventTypeString) + EventTypeString.length();
+		end = extract.indexOf("\"", start);
+		String currEventType = extract.substring(start, end);
+
+		this.currEventType = currEventType;
+		this.currEventId = currEventId;
+		this.currEiid = null;
+		this.tense = null;
+		this.aspect = null;
+		this.polarity = null;
+		this.pos = null;
+		this.numTokens = 0;
+		getAuxEventInfo(doc);
 	}
 
 	public void getAuxEventInfo(Document doc) {
@@ -50,4 +76,5 @@ public class EventInfo{
 			}
 		}
 	}
+
 }

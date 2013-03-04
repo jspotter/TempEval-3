@@ -136,7 +136,7 @@ public class Runner {
 				if (nextEvent > 0 && wordIndex > nextEvent && wordIndex < nextEventEnd) {
 					String eventString = rawText.substring(nextEvent, rawText.indexOf(">", nextEvent));
 					if (currEvent == null)
-						currEvent = EventTagger.getCurrentEventInfo(eventString, doc);
+						currEvent = new EventInfo(eventString, doc);
 					token.set(EventAnnotation.class, currEvent);
 					currEvent.numTokens++;
 					
@@ -150,7 +150,7 @@ public class Runner {
 				} else if (nextTime > 0 && wordIndex > nextTime && wordIndex < nextTimeEnd) {
 					String timeString = rawText.substring(nextTime, rawText.indexOf(">", nextTime));
 					if (currTime == null)
-						currTime = EventTagger.getCurrentTimeInfo(timeString);
+						currTime = new TimeInfo(timeString);
 					token.set(TimeAnnotation.class, currTime);
 					currTime.numTokens++;
 					

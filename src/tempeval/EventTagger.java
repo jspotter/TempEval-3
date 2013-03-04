@@ -39,63 +39,6 @@ public class EventTagger {
 
 	private AbstractSequenceClassifier classifier = null;
 
-	public static TimeInfo getCurrentTimeInfo(String word) {
-
-		String extract = new String(word);
-
-		String TimeIdString = "tid=\"";
-		String TimeTypeString = "type=\"";
-		String TimeValueString = "value=\"";
-		String TimeTemporalFString = "temporalFunction=\"";
-		String TimeFunctionInDocumentString = "functionInDocument=\"";
-
-		int start = extract.indexOf(TimeIdString) + TimeIdString.length();
-		int end = extract.indexOf("\"", start);
-		String currTimeId = extract.substring(start, end);
-
-		start = extract.indexOf(TimeTypeString) + TimeTypeString.length();
-		end = extract.indexOf("\"", start);
-		String currTimeType = extract.substring(start, end);
-
-		start = extract.indexOf(TimeValueString) +TimeValueString.length();
-		end = extract.indexOf("\"", start);
-		String currTimeValue = extract.substring(start, end);
-
-		start = extract.indexOf(TimeTemporalFString) + TimeTemporalFString.length();
-		end = extract.indexOf("\"", start);
-		String currTimeTemporalF = extract.substring(start, end);
-
-		start = extract.indexOf(TimeFunctionInDocumentString) 
-				+ TimeFunctionInDocumentString.length();
-		end = extract.indexOf("\"", start);
-		String currTimeFunctionInDocument = extract.substring(start, end);
-
-
-		return new TimeInfo(currTimeId, currTimeType, currTimeValue, 
-				currTimeTemporalF, currTimeFunctionInDocument);
-	}
-
-	/*
-	 * Extracts information about a single event from training data.
-	 */
-	public static EventInfo getCurrentEventInfo(String word, Document doc) {
-		String extract = new String(word);
-
-		String EventIdString = "eid=\"";
-		String EventTypeString = "class=\"";
-
-		int start = extract.indexOf(EventIdString) + EventIdString.length();
-		int end = extract.indexOf("\"", start);
-		String currEventId = extract.substring(start, end);
-
-		start = extract.indexOf(EventTypeString) + EventTypeString.length();
-		end = extract.indexOf("\"", start);
-		String currEventType = extract.substring(start, end);
-
-		EventInfo result = new EventInfo(currEventType, currEventId);
-		result.getAuxEventInfo(doc);
-		return result;
-	}
 
 	/*
 	 * Helper method for testEventTagger

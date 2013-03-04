@@ -16,5 +16,4 @@ public class TimexTypeFeature implements TempEvalFeature {
 		TimeInfo timeInfo = token1.get(TimeAnnotation.class);
 		features.add(TIME_TYPE_STRING + "=" + timeInfo.currTimeType);
 	}
-
 }
