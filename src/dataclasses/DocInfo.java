@@ -1,8 +1,11 @@
 package dataclasses;
 
+import tempeval.EventTagger;
+
 public class DocInfo {
 	public String filename;
 	public String id;
+	public TimeInfo dctTimeInfo;
 	public String dct;
 	public String title;
 	public String extra;
@@ -11,6 +14,7 @@ public class DocInfo {
 		this.filename = filename;
 		this.id = id;
 		this.dct = dct;
+		this.dctTimeInfo = EventTagger.getCurrentTimeInfo(dct);
 		this.title = title;
 		this.extra = extra;
 	}
