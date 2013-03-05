@@ -26,13 +26,20 @@ import edu.stanford.nlp.ling.BasicDatum;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.Datum;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
+import features.EventLemmaFeature;
+import features.EventTypeFeature;
 import features.InterleavingCommaFeature;
+import features.POSFeature;
+import features.TempEvalFeature;
 import features.TimexTypeFeature;
+import features.WindowFeature;
 
 public class DCTEventTagger {
 
@@ -41,6 +48,7 @@ public class DCTEventTagger {
 	private LinearClassifier<String, String> trainClassifier, testClassifier;
 	private LinearClassifierFactory<String, String> factory;
 	private List<Datum<String, String>> trainingData;
+	private List<TempEvalFeature> featureList;
 
 	public DCTEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -49,6 +57,15 @@ public class DCTEventTagger {
 		factory.setSigma(10.0);
 
 		trainingData = new ArrayList<Datum<String, String>>();
+		featureList = new ArrayList<TempEvalFeature>();
+		
+		//featureList.add(new DistanceFeature());
+		//featureList.add(new InterleavingCommaFeature());
+		featureList.add(new WindowFeature(3, TextAnnotation.class));
+		featureList.add(new EventTypeFeature());
+		featureList.add(new POSFeature());
+		featureList.add(new EventLemmaFeature());
+		featureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		
 		//TODO declare features here
 	}
