@@ -45,15 +45,20 @@ public class WindowFeature implements TempEvalFeature {
 	}
 
 	@Override
+	//If only finding window size around one token, pass token in as token1 and pass null in for token2
 	public void add(List<String> features, CoreLabel token1, CoreLabel token2) {
 		
 		AuxTokenInfo aux1 = token1.get(AuxTokenInfoAnnotation.class);
-		AuxTokenInfo aux2 = token2.get(AuxTokenInfoAnnotation.class);
-		
 		CoreLabel left1 = aux1.prev;
 		CoreLabel right1 = aux1.next;
-		CoreLabel left2 = aux2.prev;
-		CoreLabel right2 = aux2.next;
+		CoreLabel left2 = null;
+		CoreLabel right2 = null;
+		
+		if (token2 != null){
+			 AuxTokenInfo aux2 = token2.get(AuxTokenInfoAnnotation.class);
+			 left2 = aux2.prev;
+			 right2 = aux2.next;
+		}
 		
 		for (int i = 0; i < windowSize; i++) {
 			if (left1 != null) {

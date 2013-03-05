@@ -24,5 +24,4 @@ public class EventTypeFeature implements TempEvalFeature {
 			features.add(SECOND_EVENT_TYPE_STRING + "=" + eventInfo2.currEventType);
 		}
 	}
-
 }

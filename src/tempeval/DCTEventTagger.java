@@ -26,13 +26,20 @@ import edu.stanford.nlp.ling.BasicDatum;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.Datum;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
+import features.EventLemmaFeature;
+import features.EventTypeFeature;
 import features.InterleavingCommaFeature;
+import features.POSFeature;
+import features.TempEvalFeature;
 import features.TimexTypeFeature;
+import features.WindowFeature;
 
 public class DCTEventTagger {
 
@@ -41,6 +48,7 @@ public class DCTEventTagger {
 	private LinearClassifier<String, String> trainClassifier, testClassifier;
 	private LinearClassifierFactory<String, String> factory;
 	private List<Datum<String, String>> trainingData;
+	private List<TempEvalFeature> featureList;
 
 	public DCTEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -49,8 +57,18 @@ public class DCTEventTagger {
 		factory.setSigma(10.0);
 
 		trainingData = new ArrayList<Datum<String, String>>();
+		featureList = new ArrayList<TempEvalFeature>();
 		
-		//TODO declare features here
+		//featureList.add(new DistanceFeature());
+		//featureList.add(new InterleavingCommaFeature());
+		featureList.add(new WindowFeature(3, TextAnnotation.class));
+		featureList.add(new WindowFeature(3, PartOfSpeechAnnotation.class));
+		featureList.add(new EventTypeFeature());
+		featureList.add(new POSFeature());
+		featureList.add(new EventLemmaFeature());
+
+		
+		//TODO declare more features here, relate event to any TIMEX in same sentence as explain in Llorens et. al
 	}
 
 	/*
@@ -111,7 +129,9 @@ public class DCTEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 
 		// FEATURES
-		//TODO: add features to features List
+		for (TempEvalFeature feature: featureList) {
+					feature.add(features, eventToken, null);
+		}
 
 		// LABEL
 		String label = relationships.get(eventInfo.currEiid);
@@ -129,7 +149,8 @@ public class DCTEventTagger {
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		
 		/*
-		TimeInfo dctTimeInfo = annotation.get(DocInfoAnnotation.class).dctTimeInfo;
+		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
+		TimeInfo dctTimeInfo = docInfo.dctTimeInfo;
 		Set<Pair<String, CoreLabel>> pairs = getDCTEventPairs(annotation, dctTimeInfo);
 		Map<String, String> relationships = getDCTEventRelationships(doc, dctTimeInfo);
 
