@@ -23,6 +23,7 @@ import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
 import features.EventTypeFeature;
+import features.HeadingPrepFeature;
 import features.InterleavingCommaFeature;
 import features.IntervalFeature;
 import features.TimexTypeFeature;
@@ -52,6 +53,7 @@ public class TimexEventTagger {
 	private InterleavingCommaFeature comma;
 	private TimexTypeFeature timex;
 	private IntervalFeature interval;
+	private HeadingPrepFeature head_prep;
 
 	public TimexEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -65,6 +67,7 @@ public class TimexEventTagger {
 		comma = new InterleavingCommaFeature();
 		timex = new TimexTypeFeature();
 		interval = new IntervalFeature();
+		head_prep = new HeadingPrepFeature();
 	}
 
 	/*
@@ -182,7 +185,9 @@ public class TimexEventTagger {
 		comma.add(features, timeToken, eventToken);
 		timex.add(features, timeToken, null);
 		interval.add(features,  timeToken, null);
-
+		head_prep.add(features, timeToken, null);
+		head_prep.add(features, eventToken, null);
+		
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
 		label = (label == null ? "O" : label);
