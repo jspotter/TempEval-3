@@ -129,7 +129,9 @@ public class DCTEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 
 		// FEATURES
-		//TODO: add features to features List
+		for (TempEvalFeature feature: featureList) {
+					feature.add(features, eventToken, null);
+		}
 
 		// LABEL
 		String label = relationships.get(eventInfo.currEiid);
@@ -147,7 +149,8 @@ public class DCTEventTagger {
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		
 		/*
-		TimeInfo dctTimeInfo = annotation.get(DocInfoAnnotation.class).dctTimeInfo;
+		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
+		TimeInfo dctTimeInfo = docInfo.dctTimeInfo;
 		Set<Pair<String, CoreLabel>> pairs = getDCTEventPairs(annotation, dctTimeInfo);
 		Map<String, String> relationships = getDCTEventRelationships(doc, dctTimeInfo);
 

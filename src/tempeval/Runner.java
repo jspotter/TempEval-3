@@ -230,6 +230,10 @@ public class Runner {
 
 			Annotation annotation = getAnnotation(child, doc, TRAINING);
 
+			//Need doc info for dctEventTagger
+			String rawText = getRawText(child);
+			addDocumentInfo(annotation, doc, rawText, child.getName());
+			
 			//Print out file to train classifier upon
 			EventTagger.printEventAnnotations(annotation, eventTrainOut);
 
