@@ -42,15 +42,23 @@ import java.util.*;
 
 public class SameSentenceEventTagger {
 	
-	private static final String CLASSIFIER_FILENAME = 
-			"classifiers/same-sentence-event-model.ser.gz";
+	private static final String BINARY_CLASSIFIER_FILENAME = 
+			"classifiers/same-sentence-event-model-binary.ser.gz";
+	private static final String MULTI_CLASSIFIER_FILENAME =
+			"classifiers/same-sentence-event-model-multi.ser.gz";
+	private static final boolean BINARY = true;
+	private static final boolean NOT_BINARY = false;
 	
-	private double truePositives = 0, falsePositives = 0, falseNegatives = 0;
+	private double truePositives = 0, falsePositives = 0, trueNegatives = 0, 
+			falseNegatives = 0, total = 0;
+	private double silverMatches = 0, silverMismatches = 0;
+	private double goldMatches = 0, goldMismatches = 0;
 	
-	private LinearClassifier<String, String> trainClassifier, testClassifier;
+	private LinearClassifier<String, String> binaryTrainClassifier, multiTrainClassifier,
+			binaryTestClassifier, multiTestClassifier;
 	private LinearClassifierFactory<String, String> factory;
-	private List<Datum<String, String>> trainingData;
-	private List<TempEvalFeature> featureList;
+	private List<Datum<String, String>> binaryTrainingData, multiTrainingData;
+	private List<TempEvalFeature> binaryFeatureList, multiFeatureList;
 
 	public SameSentenceEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -58,16 +66,27 @@ public class SameSentenceEventTagger {
 		factory.setVerbose(true);
 		factory.setSigma(10.0);
 
-		trainingData = new ArrayList<Datum<String, String>>();
+		binaryTrainingData = new ArrayList<Datum<String, String>>();
+		multiTrainingData = new ArrayList<Datum<String, String>>();
 		
-		featureList = new ArrayList<TempEvalFeature>();
-		featureList.add(new DistanceFeature());
-		featureList.add(new InterleavingCommaFeature());
-		featureList.add(new WindowFeature(3, TextAnnotation.class));
-		featureList.add(new EventTypeFeature());
-		featureList.add(new POSFeature());
-		featureList.add(new EventLemmaFeature());
-		featureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+		binaryFeatureList = new ArrayList<TempEvalFeature>();
+		multiFeatureList = new ArrayList<TempEvalFeature>();
+		
+		//binaryFeatureList.add(new DistanceFeature());
+		binaryFeatureList.add(new InterleavingCommaFeature());
+		//binaryFeatureList.add(new WindowFeature(3, TextAnnotation.class));
+		//binaryFeatureList.add(new EventTypeFeature());
+		//binaryFeatureList.add(new POSFeature());
+		binaryFeatureList.add(new EventLemmaFeature());
+		//binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+		
+		multiFeatureList.add(new DistanceFeature());
+		multiFeatureList.add(new InterleavingCommaFeature());
+		multiFeatureList.add(new WindowFeature(3, TextAnnotation.class));
+		multiFeatureList.add(new EventTypeFeature());
+		multiFeatureList.add(new POSFeature());
+		multiFeatureList.add(new EventLemmaFeature());
+		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 	}
 	
 	/*
@@ -145,10 +164,11 @@ public class SameSentenceEventTagger {
 	}
 	
 	/*
-	 * Creates a single datum from a training example
+	 * Creates a single datum (REL or O) from a training example
 	 */
 	private Datum<String, String> getDatum(CoreLabel eventToken1, CoreLabel eventToken2,
-			Set<Pair<CoreLabel, CoreLabel>> pairs, Map<String, Map<String, String>> relationships) {
+			Set<Pair<CoreLabel, CoreLabel>> pairs, Map<String, Map<String, String>> relationships,
+			boolean binary) {
 
 		List<String> features = new ArrayList<String>();
 
@@ -156,14 +176,19 @@ public class SameSentenceEventTagger {
 		EventInfo eventInfo2 = eventToken2.get(EventAnnotation.class);
 
 		// FEATURES
-		for (TempEvalFeature feature: featureList) {
+		for (TempEvalFeature feature: binaryFeatureList) {
 			feature.add(features, eventToken1, eventToken2);
 		}
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, eventInfo1.currEiid, 
 				eventInfo2.currEiid);
-		label = (label == null ? "O" : label);
+		//if (!binary && label == null) {
+		//	System.out.println("Called getDatum for multi on something with no class.");
+		//	System.exit(-1);
+		//}
+		
+		label = (label == null ? "O" : (binary ? "REL" : label)); //label);
 		//System.out.println(label);
 
 		return new BasicDatum<String, String>(features, label);
@@ -179,7 +204,14 @@ public class SameSentenceEventTagger {
 		Map<String, Map<String, String>> relationships = getEventRelationships(doc);
 
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
-			trainingData.add(getDatum(pair.first, pair.second, pairs, relationships));
+			Datum<String, String> binaryDatum = 
+					getDatum(pair.first, pair.second, pairs, relationships, BINARY);
+			binaryTrainingData.add(binaryDatum);
+			if (!binaryDatum.label().equals("O")) {
+				Datum<String, String> multiDatum = 
+						getDatum(pair.first, pair.second, pairs, relationships, NOT_BINARY);
+				multiTrainingData.add(multiDatum);
+			}
 		}
 	}
 	
@@ -187,15 +219,18 @@ public class SameSentenceEventTagger {
 	 * Zips classifier into file
 	 */
 	public void doneClassifying() {
-		trainClassifier = factory.trainClassifier(trainingData);
-		LinearClassifier.writeClassifier(trainClassifier, CLASSIFIER_FILENAME);
+		binaryTrainClassifier = factory.trainClassifier(binaryTrainingData);
+		multiTrainClassifier = factory.trainClassifier(multiTrainingData);
+		LinearClassifier.writeClassifier(binaryTrainClassifier, BINARY_CLASSIFIER_FILENAME);
+		LinearClassifier.writeClassifier(multiTrainClassifier, MULTI_CLASSIFIER_FILENAME);
 	}
 
 	/*
 	 * Loads test classifier from file (presumably written from training)
 	 */
 	public void loadTestClassifier() {
-		testClassifier = LinearClassifier.readClassifier(CLASSIFIER_FILENAME);
+		binaryTestClassifier = LinearClassifier.readClassifier(BINARY_CLASSIFIER_FILENAME);
+		multiTestClassifier = LinearClassifier.readClassifier(MULTI_CLASSIFIER_FILENAME);
 	}
 	
 	/*
@@ -210,43 +245,95 @@ public class SameSentenceEventTagger {
 		Map<String, Map<String, String>> relationships = getEventRelationships(doc);
 
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
-			Datum<String, String> datum = getDatum(pair.first, pair.second, pairs, relationships);
-			String guess = testClassifier.classOf(datum);
-			String correct = datum.label();
+			total++;
+			Datum<String, String> binaryDatum = 
+					getDatum(pair.first, pair.second, pairs, relationships, BINARY);
+			String binaryGuess = binaryTestClassifier.classOf(binaryDatum);
+			String binaryCorrect = binaryDatum.label();
+			
+			if (!binaryGuess.equals("O") && !binaryGuess.equals("REL")) {
+				System.out.println("bad guess: " + binaryGuess);
+				System.exit(-1);
+			}
+			
+			if (!binaryCorrect.equals("O") && !binaryCorrect.equals("REL")) {
+				System.out.println("bad correct: " + binaryCorrect);
+				System.exit(-1);
+			}
 
 			System.out.println(pair.first.get(EventAnnotation.class).currEiid + " "
 					+ pair.second.get(EventAnnotation.class).currEiid + " "
-					+ guess + " " + correct);
-			testClassifier.justificationOf(datum);
+					+ binaryGuess + " " + binaryCorrect);
+			binaryTestClassifier.justificationOf(binaryDatum);
 
-			if (!guess.equals("O")) {
+			// If we think there is some relationship
+			if (!binaryGuess.equals("O")) {
 				System.out.println("guessed something in file " + docInfo.filename);
+				
+				Datum<String, String> multiDatum =
+						getDatum(pair.first, pair.second, pairs, relationships, NOT_BINARY);
+				String multiGuess = multiTestClassifier.classOf(multiDatum);
+				String multiCorrect = multiDatum.label();
+				
+				if (multiGuess.equals(multiCorrect))
+					silverMatches++;
+				else
+					silverMismatches++;
+				
 				EventInfo info1 = pair.first.get(EventAnnotation.class);
 				EventInfo info2 = pair.second.get(EventAnnotation.class);
-				LinkInfo link = new LinkInfo("-1", guess, null,
+				LinkInfo link = new LinkInfo("-1", multiGuess, null,
 						info1, info2);
 				pair.first.set(LinkInfoAnnotation.class, link);
 			}
 			
-			if (guess.equals(correct) && !guess.equals("O"))
+			// If there actually is some relationship
+			if (!binaryCorrect.equals("O")) {
+				Datum<String, String> multiDatum =
+						getDatum(pair.first, pair.second, pairs, relationships, NOT_BINARY);
+				String multiGuess = multiTestClassifier.classOf(multiDatum);
+				String multiCorrect = multiDatum.label();
+				
+				if (multiGuess.equals(multiCorrect))
+					goldMatches++;
+				else
+					goldMismatches++;
+			}
+			
+			// Update binary stats
+			if (binaryGuess.equals("REL") && binaryCorrect.equals("REL"))
 				truePositives++;
-			else if (guess.equals("O"))
-				falseNegatives++;
-			else
+			else if (binaryGuess.equals("O") && binaryCorrect.equals("O"))
+				trueNegatives++;
+			else if (binaryGuess.equals("REL") && binaryCorrect.equals("O"))
 				falsePositives++;
+			else if (binaryGuess.equals("O") && binaryCorrect.equals("REL"))
+				falseNegatives++;
+			else {
+				System.out.println("bad matching: guess " + binaryGuess 
+						+ " correct " + binaryCorrect);
+				System.exit(-1);
+			}
 		}
 	}
 	
 	public void printStats() {
-		System.out.println("Summary\n-----");
-		System.out.println("  TP: " + truePositives);
-		System.out.println("  FP: " + falsePositives);
-		System.out.println("  FN: " + falseNegatives);
-		System.out.println("  Pr: " + (truePositives / 
+		System.out.println("Binary Summary\n-----");
+		System.out.println("     TP: " + truePositives);
+		System.out.println("     FP: " + falsePositives);
+		System.out.println("     TN: " + trueNegatives);
+		System.out.println("     FN: " + falseNegatives);
+		System.out.println("  Total: " + total);
+		System.out.println("     Pr: " + (truePositives / 
 				(truePositives + falsePositives)));
-		System.out.println("  Re: " + (truePositives / 
+		System.out.println("     Re: " + (truePositives / 
 				(truePositives + falseNegatives)));
-		System.out.println("  F1: " + ((2 * truePositives) / 
+		System.out.println("     F1: " + ((2 * truePositives) / 
 				(truePositives + falsePositives + falseNegatives)));
+		System.out.println();
+		System.out.println("     Gold matches: " + goldMatches);
+		System.out.println("  Gold mismatches: " + goldMismatches);
+		System.out.println("   Silver matches: " + silverMatches);
+		System.out.println("Silver mismatches: " + silverMismatches);
 	}
 }
