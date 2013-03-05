@@ -28,6 +28,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.time.Timex;
 import edu.stanford.nlp.time.TimeAnnotations;
 import edu.stanford.nlp.time.TimeAnnotations.TimexAnnotation;
@@ -132,6 +133,10 @@ public class Runner {
 			CoreLabel lastToken = null;
 			AuxTokenInfo lastTokenAux = null;
 
+			Tree tree = sentence.get(TreeAnnotation.class);
+			tree.indexLeaves();
+			tree.percolateHeadIndices();
+			
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
@@ -183,6 +188,8 @@ public class Runner {
 				aux.tokenOffset = mainTokenIndex++;
 				aux.prev = lastToken;
 				aux.next = null;
+				aux.tree = tree;
+				aux.tree_idx = aux.tokenOffset + 1;
 				if (lastTokenAux != null)
 					lastTokenAux.next = token;
 
