@@ -3,8 +3,10 @@ package features;
 import java.util.List;
 
 import annotationclasses.AuxTokenInfoAnnotation;
+import annotationclasses.EventAnnotation;
 import annotationclasses.TimeAnnotation;
 import dataclasses.AuxTokenInfo;
+import dataclasses.EventInfo;
 import dataclasses.TimeInfo;
 
 import edu.stanford.nlp.ling.CoreLabel;
@@ -31,20 +33,28 @@ public class DistanceFeature implements TempEvalFeature {
 	@Override
 	public void add(List<String> features, CoreLabel token1, CoreLabel token2) {
 		TimeInfo timeInfo = token1.get(TimeAnnotation.class);
-		AuxTokenInfo auxTimeInfo = token1.get(AuxTokenInfoAnnotation.class);
-		AuxTokenInfo auxEventInfo = token2.get(AuxTokenInfoAnnotation.class);
+		EventInfo eventInfo = token1.get(EventAnnotation.class);
+		
+		int firstNumTokens = 1;
+		if (timeInfo != null)
+			firstNumTokens = timeInfo.numTokens;
+		if (eventInfo != null)
+			firstNumTokens = eventInfo.numTokens;
+		
+		AuxTokenInfo auxInfo1 = token1.get(AuxTokenInfoAnnotation.class);
+		AuxTokenInfo auxInfo2 = token2.get(AuxTokenInfoAnnotation.class);
 
-		int timeOffset = auxTimeInfo.tokenOffset;
-		int eventOffset = auxEventInfo.tokenOffset;
+		int offset1 = auxInfo1.tokenOffset;
+		int offset2 = auxInfo2.tokenOffset;
 
 		//System.out.println(timeInfo.currTimeId + " " + timeOffset + " "
 		//		+ eventInfo.currEiid + " " + eventOffset);
 
 		int distance;
-		if (timeOffset < eventOffset)
-			distance = eventOffset - timeOffset - timeInfo.numTokens;
+		if (offset1 < offset2)
+			distance = offset2 - offset1 - firstNumTokens;
 		else
-			distance = timeOffset - eventOffset - timeInfo.numTokens;
+			distance = offset2 - offset1 - firstNumTokens;
 		features.add(DISTANCE_STRING + "=" + getDistanceBucket(distance));
 		//System.out.print(distance + " ");
 	}

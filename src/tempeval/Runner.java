@@ -96,6 +96,13 @@ public class Runner {
 		// Build main annotation
 		String plainText = getPlainText(doc);
 		Annotation annotation = new Annotation(plainText);
+		NodeList dcts = doc.getElementsByTagName("DCT");
+		if (dcts != null) {
+			String dct = dcts.item(0).getTextContent();
+			System.out.println("Got document date: " + dct);
+			annotation.set(CoreAnnotations.DocDateAnnotation.class, dct);
+		}
+		
 		pipeline.annotate(annotation);
 		
 		// Return early if we're training. Everything below this takes
