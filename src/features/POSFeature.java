@@ -11,12 +11,15 @@ public class POSFeature implements TempEvalFeature {
 	private static final String SECOND_POS = "__SECOND_POS__";
 
 	@Override
+	//If for single token, pass in token as token1 and null for token2
 	public void add(List<String> features, CoreLabel token1, CoreLabel token2) {
 		String pos1 = token1.get(PartOfSpeechAnnotation.class);
-		String pos2 = token2.get(PartOfSpeechAnnotation.class);
-		
 		features.add(FIRST_POS + "=" + pos1);
-		features.add(SECOND_POS + "=" + pos2);
+
+		if(token2 != null){
+			String pos2 = token2.get(PartOfSpeechAnnotation.class);
+			features.add(SECOND_POS + "=" + pos2);
+		}	
 	}
 
 }

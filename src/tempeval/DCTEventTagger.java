@@ -62,12 +62,13 @@ public class DCTEventTagger {
 		//featureList.add(new DistanceFeature());
 		//featureList.add(new InterleavingCommaFeature());
 		featureList.add(new WindowFeature(3, TextAnnotation.class));
+		featureList.add(new WindowFeature(3, PartOfSpeechAnnotation.class));
 		featureList.add(new EventTypeFeature());
 		featureList.add(new POSFeature());
 		featureList.add(new EventLemmaFeature());
-		featureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+
 		
-		//TODO declare features here
+		//TODO declare more features here, relate event to any TIMEX in same sentence as explain in Llorens et. al
 	}
 
 	/*

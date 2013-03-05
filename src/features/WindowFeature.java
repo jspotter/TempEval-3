@@ -55,7 +55,7 @@ public class WindowFeature implements TempEvalFeature {
 		CoreLabel right2 = null;
 		
 		if (token2 != null){
-			AuxTokenInfo aux2 = token2.get(AuxTokenInfoAnnotation.class);
+			 AuxTokenInfo aux2 = token2.get(AuxTokenInfoAnnotation.class);
 			 left2 = aux2.prev;
 			 right2 = aux2.next;
 		}
