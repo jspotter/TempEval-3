@@ -142,7 +142,6 @@ public class EventTagger {
 				aux.next = null;
 				aux.tree = tree;
 				aux.tree_idx = tokenIndex;
-				tokenIndex++;
 				if (lastTokenAux != null)
 					lastTokenAux.next = token;
 

@@ -38,9 +38,9 @@ public class SyntacticRelationFeature implements TempEvalFeature {
 		if (lowest_subsumer == null) System.out.println("No Subsumer!");
 		else {
 			String type = lowest_subsumer.toString().split(" ")[0];
-			if (type.equals("(NP") || type.equals("(VP") || type.equals("(PP"))
+			if (type.equals("(NP") || type.equals("(VP") || type.equals("(PP")) {
 				features.add(SYN_REL_STRING + "=" + "SAME_PHRASE");
-			else if (type.equals("(SBAR"))
+			} else if (type.equals("(SBAR"))
 				features.add(SYN_REL_STRING + "=" + "SAME_SUBORDINATE CLAUSE");
 			else if (type.equals("(SINV"))
 				features.add(SYN_REL_STRING + "=" + "SAME_INVERTED_CLAUSE");
