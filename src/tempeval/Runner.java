@@ -106,6 +106,7 @@ public class Runner {
 		
 		pipeline.annotate(annotation);
 		
+		
 		// Return early if we're training. Everything below this takes
 		// tags from the training file and adds their information to the
 		// annotation, which we should only do in training mode.
@@ -132,7 +133,7 @@ public class Runner {
 			TimeInfo currTime = null;
 			CoreLabel lastToken = null;
 			AuxTokenInfo lastTokenAux = null;
-
+			
 			Tree tree = sentence.get(TreeAnnotation.class);
 			tree.indexLeaves();
 			tree.percolateHeadIndices();

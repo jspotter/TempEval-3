@@ -24,6 +24,8 @@ import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.time.TimeAnnotations.TimexAnnotation;
 import edu.stanford.nlp.time.Timex;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.*;
 
 import edu.stanford.nlp.ie.crf.*;
@@ -101,6 +103,11 @@ public class EventTagger {
 			CoreLabel lastToken = null;
 			AuxTokenInfo lastTokenAux = null;
 			
+			int tokenIndex = 1;
+			Tree tree = sentence.get(TreeAnnotation.class);
+			tree.indexLeaves();
+			tree.percolateHeadIndices();
+			
 			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 			for (CoreLabel token: tokens) {
 				String word = token.get(TextAnnotation.class);
@@ -133,6 +140,9 @@ public class EventTagger {
 				aux.tokenOffset = curTokenNum++;
 				aux.prev = lastToken;
 				aux.next = null;
+				aux.tree = tree;
+				aux.tree_idx = tokenIndex;
+				tokenIndex++;
 				if (lastTokenAux != null)
 					lastTokenAux.next = token;
 
@@ -142,6 +152,7 @@ public class EventTagger {
 				lastTokenAux = aux;
 				
 				count++;
+				tokenIndex++;
 			}
 		}
 

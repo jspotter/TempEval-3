@@ -185,8 +185,7 @@ public class TimexEventTagger {
 		comma.add(features, timeToken, eventToken);
 		timex.add(features, timeToken, null);
 		interval.add(features,  timeToken, null);
-		head_prep.add(features, timeToken, null);
-		head_prep.add(features, eventToken, null);
+		head_prep.add(features, timeToken, eventToken);
 		
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
