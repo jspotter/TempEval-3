@@ -26,6 +26,7 @@ import features.EventTypeFeature;
 import features.HeadingPrepFeature;
 import features.InterleavingCommaFeature;
 import features.IntervalFeature;
+import features.SyntacticRelationFeature;
 import features.TimexTypeFeature;
 
 import org.w3c.dom.*;
@@ -54,6 +55,7 @@ public class TimexEventTagger {
 	private TimexTypeFeature timex;
 	private IntervalFeature interval;
 	private HeadingPrepFeature head_prep;
+	private SyntacticRelationFeature syn_rel;
 
 	public TimexEventTagger() {
 		factory = new LinearClassifierFactory<String, String>();
@@ -68,6 +70,7 @@ public class TimexEventTagger {
 		timex = new TimexTypeFeature();
 		interval = new IntervalFeature();
 		head_prep = new HeadingPrepFeature();
+		syn_rel = new SyntacticRelationFeature();
 	}
 
 	/*
@@ -181,11 +184,13 @@ public class TimexEventTagger {
 		EventInfo eventInfo = eventToken.get(EventAnnotation.class);
 
 		// FEATURES
-		distance.add(features, timeToken, eventToken);
+		//distance.add(features, timeToken, eventToken);
 		comma.add(features, timeToken, eventToken);
 		timex.add(features, timeToken, null);
 		interval.add(features,  timeToken, null);
 		head_prep.add(features, timeToken, eventToken);
+		head_prep.add(features, eventToken, timeToken);
+		syn_rel.add(features, timeToken, eventToken);
 		
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, timeInfo.currTimeId, eventInfo.currEiid);
