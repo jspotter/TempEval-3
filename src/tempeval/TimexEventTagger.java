@@ -185,7 +185,7 @@ public class TimexEventTagger {
 
 		// FEATURES
 		//distance.add(features, timeToken, eventToken);
-		comma.add(features, timeToken, eventToken);
+		//comma.add(features, timeToken, eventToken);
 		timex.add(features, timeToken, null);
 		interval.add(features,  timeToken, null);
 		head_prep.add(features, timeToken, eventToken);

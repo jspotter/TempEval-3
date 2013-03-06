@@ -61,9 +61,14 @@ public class SyntacticRelationFeature implements TempEvalFeature {
 				synRel = "SAME_SUBORDINATE CLAUSE";
 			} else if (type.equals("(SINV")) {
 				synRel = "SAME_INVERTED_CLAUSE";
-			} else {
+			} else if (type.equals("(S")){
 				synRel = "SAME_SENTENCE"; 
+			} else {
+				synRel = "OTHER";
 			}
+			//System.out.println(lowest_subsumer.toString());
+			//System.out.println(t1.toString());
+			//System.out.println(t2.toString());
 			
 			features.add(SYN_REL_STRING + "=" + synRel);
 			
