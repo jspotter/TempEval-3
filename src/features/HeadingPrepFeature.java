@@ -41,8 +41,8 @@ public class HeadingPrepFeature implements TempEvalFeature {
 				Tree cur = path.get(i);
 				if (cur.toString().length() >= 3 && cur.toString().substring(0, 3).equals("(PP")) {
 					lowest_pp = cur;
-					if (path.size() - i - 1 <= MAX_TREE_DIST)
-						features.add(HEAD_PREP_STRING + "=" + lowest_pp.firstChild().firstChild().toString().toLowerCase());
+					//if (path.size() - i - 1 <= MAX_TREE_DIST)
+					//	features.add(HEAD_PREP_STRING + "=" + lowest_pp.firstChild().firstChild().toString().toLowerCase());
 					break;
 				}
 			}
@@ -51,7 +51,7 @@ public class HeadingPrepFeature implements TempEvalFeature {
 		} else return;
 		
 		
-		/*t = getLeaf(aux2.tree, aux2.tree_idx);
+		t = getLeaf(aux2.tree, aux2.tree_idx);
 		Tree lowest_vp = null;
 		if (t != null) {
 			List<Tree> path = aux2.tree.pathNodeToNode(aux2.tree, t);
@@ -68,7 +68,7 @@ public class HeadingPrepFeature implements TempEvalFeature {
 		
 		List<Tree> path = aux1.tree.pathNodeToNode(lowest_vp, lowest_pp);
 		if (path.size() > 0 && path.size() <= MAX_TREE_DIST) {
-			features.add(HEAD_PREP_STRING + "=" + lowest_pp.firstChild().firstChild().toString());
-		}*/
+			features.add(HEAD_PREP_STRING + "=" + lowest_pp.firstChild().firstChild().toString().toLowerCase());
+		}
 	}
 }
