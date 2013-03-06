@@ -9,7 +9,9 @@ import edu.stanford.nlp.classify.*;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.ling.BasicDatum;
 import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
@@ -20,7 +22,9 @@ import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
 import features.EventLemmaFeature;
 import features.EventTypeFeature;
+import features.HeadingPrepFeature;
 import features.InterleavingCommaFeature;
+import features.IntervalFeature;
 import features.POSFeature;
 import features.TempEvalFeature;
 import features.TimexTypeFeature;
@@ -56,15 +60,20 @@ public class SameSentenceEventTagger {
 	
 	private LinearClassifier<String, String> binaryTrainClassifier, multiTrainClassifier,
 			binaryTestClassifier, multiTestClassifier;
-	private LinearClassifierFactory<String, String> factory;
+	private LinearClassifierFactory<String, String> trainFactory, testFactory;
 	private List<Datum<String, String>> binaryTrainingData, multiTrainingData;
 	private List<TempEvalFeature> binaryFeatureList, multiFeatureList;
 
 	public SameSentenceEventTagger() {
-		factory = new LinearClassifierFactory<String, String>();
-		factory.useConjugateGradientAscent();
-		factory.setVerbose(true);
-		factory.setSigma(10.0);
+		trainFactory = new LinearClassifierFactory<String, String>();
+		trainFactory.useConjugateGradientAscent();
+		trainFactory.setVerbose(true);
+		trainFactory.setSigma(10.0);
+		
+		testFactory = new LinearClassifierFactory<String, String>();
+		testFactory.useConjugateGradientAscent();
+		testFactory.setVerbose(true);
+		testFactory.setSigma(10.0);
 
 		binaryTrainingData = new ArrayList<Datum<String, String>>();
 		multiTrainingData = new ArrayList<Datum<String, String>>();
@@ -72,21 +81,23 @@ public class SameSentenceEventTagger {
 		binaryFeatureList = new ArrayList<TempEvalFeature>();
 		multiFeatureList = new ArrayList<TempEvalFeature>();
 		
-		//binaryFeatureList.add(new DistanceFeature());
+		binaryFeatureList.add(new DistanceFeature());
 		binaryFeatureList.add(new InterleavingCommaFeature());
-		//binaryFeatureList.add(new WindowFeature(3, TextAnnotation.class));
+		//binaryFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
 		//binaryFeatureList.add(new EventTypeFeature());
-		//binaryFeatureList.add(new POSFeature());
-		binaryFeatureList.add(new EventLemmaFeature());
-		//binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+		binaryFeatureList.add(new POSFeature());
+		//binaryFeatureList.add(new EventLemmaFeature());
+		binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+		binaryFeatureList.add(new HeadingPrepFeature());
 		
-		multiFeatureList.add(new DistanceFeature());
-		multiFeatureList.add(new InterleavingCommaFeature());
-		multiFeatureList.add(new WindowFeature(3, TextAnnotation.class));
+		//multiFeatureList.add(new DistanceFeature());
+		//multiFeatureList.add(new InterleavingCommaFeature());
+		multiFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
 		multiFeatureList.add(new EventTypeFeature());
 		multiFeatureList.add(new POSFeature());
 		multiFeatureList.add(new EventLemmaFeature());
 		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
+		multiFeatureList.add(new HeadingPrepFeature());
 	}
 	
 	/*
@@ -146,10 +157,11 @@ public class SameSentenceEventTagger {
 	private static Map<String, Map<String, String>> getEventRelationships(Document doc) {
 		Map<String, Map<String, String>> result = new HashMap<String, Map<String, String>>();
 
+		// Get TLINKs
 		Element root = doc.getDocumentElement();
 		Element[] tlinkElems = 
 				XMLParser.getElementsByTagNameNR(root, "TLINK");
-		for(Element e : tlinkElems) {
+		for (Element e : tlinkElems) {
 			String eventInstanceID = e.getAttribute("eventInstanceID");
 			String relatedToEventInstance = e.getAttribute("relatedToEventInstance");
 			String relType = e.getAttribute("relType");
@@ -157,6 +169,20 @@ public class SameSentenceEventTagger {
 			if (eventInstanceID.length() > 0 && relatedToEventInstance.length() > 0
 					&& relType.length() > 0) {
 				MapUtils.doublePut(result, eventInstanceID, relatedToEventInstance, relType);
+			}
+		}
+		
+		// Get SLINKs
+		Element[] slinkElems =
+				XMLParser.getElementsByTagNameNR(root, "SLINK");
+		for (Element e : slinkElems) {
+			String eventInstanceID = e.getAttribute("eventInstanceID");
+			String subordinatedEventInstance = e.getAttribute("subordinatedEventInstance");
+			String relType = e.getAttribute("relType");
+			
+			if (eventInstanceID.length() > 0 && subordinatedEventInstance.length() > 0
+					&& relType.length() > 0) {
+				MapUtils.doublePut(result, eventInstanceID, subordinatedEventInstance, relType);
 			}
 		}
 
@@ -176,13 +202,18 @@ public class SameSentenceEventTagger {
 		EventInfo eventInfo2 = eventToken2.get(EventAnnotation.class);
 
 		// FEATURES
-		for (TempEvalFeature feature: binaryFeatureList) {
+		List<TempEvalFeature> featureList = (binary ? binaryFeatureList : multiFeatureList);
+		for (TempEvalFeature feature: featureList) {
 			feature.add(features, eventToken1, eventToken2);
 		}
 
 		// LABEL
 		String label = MapUtils.doubleGet(relationships, eventInfo1.currEiid, 
 				eventInfo2.currEiid);
+		if (label == null)
+			label = MapUtils.doubleGet(relationships, eventInfo2.currEiid,
+					eventInfo1.currEiid);
+		
 		//if (!binary && label == null) {
 		//	System.out.println("Called getDatum for multi on something with no class.");
 		//	System.exit(-1);
@@ -219,8 +250,8 @@ public class SameSentenceEventTagger {
 	 * Zips classifier into file
 	 */
 	public void doneClassifying() {
-		binaryTrainClassifier = factory.trainClassifier(binaryTrainingData);
-		multiTrainClassifier = factory.trainClassifier(multiTrainingData);
+		binaryTrainClassifier = trainFactory.trainClassifier(binaryTrainingData);
+		multiTrainClassifier = testFactory.trainClassifier(multiTrainingData);
 		LinearClassifier.writeClassifier(binaryTrainClassifier, BINARY_CLASSIFIER_FILENAME);
 		LinearClassifier.writeClassifier(multiTrainClassifier, MULTI_CLASSIFIER_FILENAME);
 	}
@@ -329,7 +360,7 @@ public class SameSentenceEventTagger {
 		System.out.println("     Re: " + (truePositives / 
 				(truePositives + falseNegatives)));
 		System.out.println("     F1: " + ((2 * truePositives) / 
-				(truePositives + falsePositives + falseNegatives)));
+				(2 * truePositives + falsePositives + falseNegatives)));
 		System.out.println();
 		System.out.println("     Gold matches: " + goldMatches);
 		System.out.println("  Gold mismatches: " + goldMismatches);

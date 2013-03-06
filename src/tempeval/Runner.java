@@ -158,9 +158,10 @@ public class Runner {
 					nextEvent = rawText.indexOf("<EVENT", rawIndex);
 					nextEventEnd = rawText.indexOf("</EVENT>", rawIndex);
 					currEvent = null;
-					
+				}
+				
 				// If we're in a timex
-				} else if (nextTime > 0 && wordIndex > nextTime && wordIndex < nextTimeEnd) {
+				if (nextTime > 0 && wordIndex > nextTime && wordIndex < nextTimeEnd) {
 					String timeString = rawText.substring(nextTime, rawText.indexOf(">", nextTime));
 					if (currTime == null)
 						currTime = new TimeInfo(timeString);
@@ -172,9 +173,10 @@ public class Runner {
 					nextTime = rawText.indexOf("<TIMEX3", rawIndex);
 					nextTimeEnd = rawText.indexOf("</TIMEX3>", rawIndex);
 					currTime = null;
+				}
 				
 				// If we're in a signal
-				} else if (nextSignal > 0 && wordIndex > nextSignal && wordIndex < nextSignalEnd) {
+				if (nextSignal > 0 && wordIndex > nextSignal && wordIndex < nextSignalEnd) {
 					token.set(SignalAnnotation.class, true);
 					
 				// If we just finished a signal
@@ -221,7 +223,7 @@ public class Runner {
 
 			// Save first ten files for testing //TODO change
 			numFiles++;
-			if (numFiles < 10)
+			if (numFiles <= 10)
 				continue;
 
 			System.out.println("Training on file " + child.getName());
@@ -320,6 +322,8 @@ public class Runner {
 			// Only test on first ten files //TODO change
 			if (++numFiles >= 10) break;
 		}
+		
+		sameSentenceEventTagger.printStats();
 	}
 
 	/**
