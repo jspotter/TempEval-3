@@ -89,6 +89,7 @@ public class SameSentenceEventTagger {
 		//binaryFeatureList.add(new EventLemmaFeature());
 		binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		binaryFeatureList.add(new HeadingPrepFeature());
+		//binaryFeatureList.add(new IntervalFeature());
 		
 		//multiFeatureList.add(new DistanceFeature());
 		//multiFeatureList.add(new InterleavingCommaFeature());
@@ -98,6 +99,7 @@ public class SameSentenceEventTagger {
 		multiFeatureList.add(new EventLemmaFeature());
 		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		multiFeatureList.add(new HeadingPrepFeature());
+		//multiFeatureList.add(new IntervalFeature());
 	}
 	
 	/*
@@ -229,6 +231,19 @@ public class SameSentenceEventTagger {
 	 * Train classifier on relationships between same-sentence timexes and events.
 	 */
 	public void train(Annotation annotation, Document doc) {
+		
+		/*List<CoreMap> sentences = annotation.get(SentencesAnnotation.class);
+		for (CoreMap sentence : sentences) {
+			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
+			for (CoreLabel token : tokens) {
+				String word = token.get(TextAnnotation.class);
+				EventInfo event = token.get(EventAnnotation.class);
+				TimeInfo time = token.get(TimeAnnotation.class);
+				System.out.print(word + (event == null ? "" : "/" + event.currEventType) 
+						+ (time == null ? "" : "/" + time.currTimeType) + " ");
+			}
+		}*/
+		
 		// Find all possible same-sentence event pairs
 		// Extract JUST the links between events from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventPairs(annotation);
