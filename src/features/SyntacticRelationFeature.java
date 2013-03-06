@@ -11,8 +11,7 @@ import edu.stanford.nlp.ling.HasIndex;
 
 public class SyntacticRelationFeature implements TempEvalFeature {
 	
-	private static final String HEAD_PREP_STRING = "__HEAD_PREP__";
-	private static final int MAX_TREE_DIST = 2;
+	private static final String SYN_REL_STRING = "__SYN_REL__";
 	
 	private Tree getLeaf(Tree tree, int idx) {
 		if (tree == null) return null;
@@ -37,6 +36,16 @@ public class SyntacticRelationFeature implements TempEvalFeature {
 		Tree t2 = getLeaf(aux2.tree, aux2.tree_idx);
 		Tree lowest_subsumer = aux1.tree.joinNode(t1, t2);
 		if (lowest_subsumer == null) System.out.println("No Subsumer!");
-		else System.out.println(lowest_subsumer.toString());
+		else {
+			String type = lowest_subsumer.toString().split(" ")[0];
+			if (type.equals("(NP") || type.equals("(VP") || type.equals("(PP"))
+				features.add(SYN_REL_STRING + "=" + "SAME_PHRASE");
+			else if (type.equals("(SBAR"))
+				features.add(SYN_REL_STRING + "=" + "SAME_SUBORDINATE CLAUSE");
+			else if (type.equals("(SINV"))
+				features.add(SYN_REL_STRING + "=" + "SAME_INVERTED_CLAUSE");
+			else
+				features.add(SYN_REL_STRING + "=" + "SAME_SENTENCE"); 
+		}
 	}
 }
