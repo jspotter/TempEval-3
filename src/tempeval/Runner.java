@@ -144,7 +144,31 @@ public class Runner {
 				
 				int wordIndex = rawText.indexOf(word, rawIndex);
 				rawIndex = wordIndex + word.length();
+				
+				// END TAGS
+				
+				// If we just finished an event
+				if (nextEventEnd > 0 && wordIndex > nextEventEnd) {
+					nextEvent = rawText.indexOf("<EVENT", rawIndex);
+					nextEventEnd = rawText.indexOf("</EVENT>", rawIndex);
+					currEvent = null;
+				}
+				
+				// If we just finished a timex
+				if (nextTimeEnd > 0 && wordIndex > nextTimeEnd) {
+					nextTime = rawText.indexOf("<TIMEX3", rawIndex);
+					nextTimeEnd = rawText.indexOf("</TIMEX3>", rawIndex);
+					currTime = null;
+				}
+				
+				// If we just finished a signal
+				if (nextSignalEnd > 0 && wordIndex > nextSignalEnd) {
+					nextSignal = rawText.indexOf("<SIGNAL", rawIndex);
+					nextSignalEnd = rawText.indexOf("</SIGNAL>", rawIndex);	
+				}
 
+				// START TAGS
+				
 				// If we're in an event
 				if (nextEvent > 0 && wordIndex > nextEvent && wordIndex < nextEventEnd) {
 					String eventString = rawText.substring(nextEvent, rawText.indexOf(">", nextEvent));
@@ -152,36 +176,20 @@ public class Runner {
 						currEvent = new EventInfo(eventString, doc);
 					token.set(EventAnnotation.class, currEvent);
 					currEvent.numTokens++;
-					
-				// If we just finished an event
-				} else if (nextEventEnd > 0 && wordIndex > nextEventEnd) {
-					nextEvent = rawText.indexOf("<EVENT", rawIndex);
-					nextEventEnd = rawText.indexOf("</EVENT>", rawIndex);
-					currEvent = null;
-					
+				}
+				
 				// If we're in a timex
-				} else if (nextTime > 0 && wordIndex > nextTime && wordIndex < nextTimeEnd) {
+				if (nextTime > 0 && wordIndex > nextTime && wordIndex < nextTimeEnd) {
 					String timeString = rawText.substring(nextTime, rawText.indexOf(">", nextTime));
 					if (currTime == null)
 						currTime = new TimeInfo(timeString);
 					token.set(TimeAnnotation.class, currTime);
 					currTime.numTokens++;
-					
-				// If we just finished a timex
-				} else if (nextTimeEnd > 0 && wordIndex > nextTimeEnd) {
-					nextTime = rawText.indexOf("<TIMEX3", rawIndex);
-					nextTimeEnd = rawText.indexOf("</TIMEX3>", rawIndex);
-					currTime = null;
+				}
 				
 				// If we're in a signal
-				} else if (nextSignal > 0 && wordIndex > nextSignal && wordIndex < nextSignalEnd) {
+				if (nextSignal > 0 && wordIndex > nextSignal && wordIndex < nextSignalEnd) {
 					token.set(SignalAnnotation.class, true);
-					
-				// If we just finished a signal
-				} else if (nextSignalEnd > 0 && wordIndex > nextSignalEnd) {
-					nextSignal = rawText.indexOf("<SIGNAL", rawIndex);
-					nextSignalEnd = rawText.indexOf("</SIGNAL>", rawIndex);
-					
 				}
 				
 				// Handle general token annotations
@@ -221,7 +229,7 @@ public class Runner {
 
 			// Save first ten files for testing //TODO change
 			numFiles++;
-			if (numFiles < 10)
+			if (numFiles <= 10)
 				continue;
 
 			System.out.println("Training on file " + child.getName());
@@ -320,6 +328,8 @@ public class Runner {
 			// Only test on first ten files //TODO change
 			if (++numFiles >= 10) break;
 		}
+		
+		sameSentenceEventTagger.printStats();
 	}
 
 	/**

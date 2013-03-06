@@ -10,6 +10,8 @@ import dataclasses.EventInfo;
 
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.util.TypesafeMap;
 
 public class WindowFeature implements TempEvalFeature {
 	
@@ -62,7 +64,7 @@ public class WindowFeature implements TempEvalFeature {
 		
 		for (int i = 0; i < windowSize; i++) {
 			if (left1 != null) {
-				String value = left1.get(infoClass);
+				String value = left1.get(infoClass).toString();
 				features.add(LEFT_OF_FIRST + id + value + "=TRUE");
 				features.add(NEAR_FIRST + id + value + "=TRUE");
 				features.add(NEAR_SOMEONE + id + value + "=TRUE");
@@ -70,7 +72,7 @@ public class WindowFeature implements TempEvalFeature {
 			}
 			
 			if (right1 != null) {
-				String value = right1.get(infoClass);
+				String value = right1.get(infoClass).toString();
 				features.add(RIGHT_OF_FIRST + id + value + "=TRUE");
 				features.add(NEAR_FIRST + id + value + "=TRUE");
 				features.add(NEAR_SOMEONE + id + value + "=TRUE");
@@ -78,7 +80,7 @@ public class WindowFeature implements TempEvalFeature {
 			}
 			
 			if (left2 != null) {
-				String value = left2.get(infoClass);
+				String value = left2.get(infoClass).toString();
 				features.add(LEFT_OF_SECOND + id + value + "=TRUE");
 				features.add(NEAR_SECOND + id + value + "=TRUE");
 				features.add(NEAR_SOMEONE + id + value + "=TRUE");
@@ -86,7 +88,7 @@ public class WindowFeature implements TempEvalFeature {
 			}
 			
 			if (right2 != null) {
-				String value = right2.get(infoClass);
+				String value = right2.get(infoClass).toString();
 				features.add(RIGHT_OF_SECOND + id + value + "=TRUE");
 				features.add(NEAR_SECOND + id + value + "=TRUE");
 				features.add(NEAR_SOMEONE + id + value + "=TRUE");
