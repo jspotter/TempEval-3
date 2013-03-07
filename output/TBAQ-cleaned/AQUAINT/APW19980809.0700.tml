@@ -14,7 +14,19 @@ BC-Tanzania-Embassy Bombing, 1st Ld
 Solid construction may have kept toll low in Tanzania embassy
 bombing &amp;UR; Eds: CORRECTS 4th graf to drop extraneous word &amp;QL;  &amp;UR; With Kenya-Embassy Bombings &amp;QL;  &amp;UR; By VIJAY JOSHI &amp;QC;  &amp;UR; Associated Press Writer &amp;QC;
 </EXTRAINFO>
-<TEXT> DAR ES SALAAM, Tanzania ( AP ) _ The bomb outside the U.S. Embassy in Tanzania was so powerful that it <EVENT class="OCCURRENCE" eid="e0">shook</EVENT> furniture in homes a mile away. But the solid construction of the Israeli-built embassy may have <EVENT class="I_ACTION" eid="e1">prevented</EVENT> the carnage of a similar bomb in Kenya, an official <EVENT class="REPORTING" eid="e2">said</EVENT> <TIMEX3 tid="t1" type="DATE" value="1998-08-08">Saturday</TIMEX3>. Another reason was the location _ a quiet tree-lined neighborhood. The embassy away from the center of Dar es Salaam, Tanzania's laid-back capital of <EVENT class="OCCURRENCE" eid="e3">swaying</EVENT> palms and sparse traffic, is largely free from the congestion that <EVENT class="STATE" eid="e4">plagues</EVENT> most other major African cities.</TEXT>
+<TEXT>
+
+DAR ES SALAAM, Tanzania (AP) _
+
+The bomb outside the U.S. Embassy in Tanzania was so powerful that it <EVENT class="OCCURRENCE" eid="e0">shook</EVENT> furniture in homes a mile away.
+
+But the solid construction of the Israeli-built embassy may have <EVENT class="I_ACTION" eid="e1">prevented</EVENT> the carnage of a similar bomb in Kenya, an official <EVENT class="REPORTING" eid="e2">said</EVENT> <TIMEX3 tid="t1" type="DATE" value="1998-08-08">Saturday</TIMEX3>.
+
+Another reason was the location _ a quiet tree-lined neighborhood.
+
+The embassy away from the center of Dar es Salaam, Tanzania's laid-back capital of <EVENT class="OCCURRENCE" eid="e3">swaying</EVENT> palms and sparse traffic, is largely free from the congestion that <EVENT class="STATE" eid="e4">plagues</EVENT> most other major African cities.
+
+</TEXT>
 <MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>

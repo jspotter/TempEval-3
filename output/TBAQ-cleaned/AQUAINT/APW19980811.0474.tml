@@ -15,7 +15,17 @@ r i &amp;Cx13;  &amp;Cx11;  BC-Philippines-EmbassyBo     08-11 0113
 BC-Philippines-Embassy Bombings
 Philippine president condemns bombings in Kenya and Tanzania
 </EXTRAINFO>
-<TEXT> MANILA, Philippines ( AP ) _ Philippine President Joseph Estrada on <TIMEX3 tid="t1" type="DATE" value="1998-08-11">Tuesday</TIMEX3> <EVENT class="OCCURRENCE" eid="e0">condemned</EVENT> the <EVENT class="OCCURRENCE" eid="e1">bombings</EVENT> of the U.S. embassies in Kenya and Tanzania and <EVENT class="OCCURRENCE" eid="e2">offered</EVENT> condolences to the victims and their families.`` We <EVENT class="OCCURRENCE" eid="e3">extend</EVENT> our heartfelt sympathies to the victims of these <EVENT class="OCCURRENCE" eid="e4">outrages</EVENT> and to their families in Kenya, Tanzania and the United States,'' Estrada <EVENT class="REPORTING" eid="e5">said</EVENT> in a statement.`` No cause is so great that it can justify wanton <EVENT class="OCCURRENCE" eid="e6">murder</EVENT> and <EVENT class="OCCURRENCE" eid="e7">maiming</EVENT> of the innocent.'' In all, the <EVENT class="OCCURRENCE" eid="e8">bombings</EVENT> in Kenya and Tanzania <TIMEX3 tid="t2" type="DATE" value="1998-W32">last week</TIMEX3> <EVENT class="REPORTING" eid="e9">claimed</EVENT> at least 217 lives and <EVENT class="OCCURRENCE" eid="e10">injured</EVENT> nearly 5,000.</TEXT>
+<TEXT>
+
+MANILA, Philippines (AP) _
+
+Philippine President Joseph Estrada on <TIMEX3 tid="t1" type="DATE" value="1998-08-11">Tuesday</TIMEX3> <EVENT class="OCCURRENCE" eid="e0">condemned</EVENT> the <EVENT class="OCCURRENCE" eid="e1">bombings</EVENT> of the U.S. embassies in Kenya and Tanzania and <EVENT class="OCCURRENCE" eid="e2">offered</EVENT> condolences to the victims and their families.
+
+``We <EVENT class="OCCURRENCE" eid="e3">extend</EVENT> our heartfelt sympathies to the victims of these <EVENT class="OCCURRENCE" eid="e4">outrages</EVENT> and to their families in Kenya, Tanzania and the United States,'' Estrada <EVENT class="REPORTING" eid="e5">said</EVENT> in a statement. ``No cause is so great that it can justify wanton <EVENT class="OCCURRENCE" eid="e6">murder</EVENT> and <EVENT class="OCCURRENCE" eid="e7">maiming</EVENT> of the innocent.''
+
+In all, the <EVENT class="OCCURRENCE" eid="e8">bombings</EVENT> in Kenya and Tanzania <TIMEX3 tid="t2" type="DATE" value="1998-W32">last week</TIMEX3> <EVENT class="REPORTING" eid="e9">claimed</EVENT> at least 217 lives and <EVENT class="OCCURRENCE" eid="e10">injured</EVENT> nearly 5,000.
+
+</TEXT>
 <MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e1" eiid="ei1" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
 <MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
@@ -30,7 +40,7 @@ Philippine president condemns bombings in Kenya and Tanzania
 <TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
 <TLINK lid="l1" relType="NONE" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
 <TLINK lid="l2" relType="BEFORE" eventInstanceID="ei3" relatedToEventInstance="ei5" origin="USER"/>
-<TLINK lid="l3" relType="IAFTER" eventInstanceID="ei8" relatedToEventInstance="ei10" origin="USER"/>
-<TLINK lid="l4" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei8" origin="USER"/>
+<TLINK lid="l3" relType="BEFORE" eventInstanceID="ei8" relatedToEventInstance="ei9" origin="USER"/>
+<TLINK lid="l4" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei9" origin="USER"/>
 </TimeML>
 

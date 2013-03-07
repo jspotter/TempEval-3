@@ -14,7 +14,30 @@ BC-Embassy Bombings-Casualties-Glance,0129
 Figures on the dead and injured in the twin embassy bombings
 &amp;UR; With BC-Embassy Bombings &amp;QL;  &amp;UR; By The Associated Press &amp;QC;
 </EXTRAINFO>
-<TEXT> NAIROBI, Kenya ( AP ) _ The following are the latest figures as of <TIMEX3 tid="t1" type="DATE" value="1998-08-10">Monday</TIMEX3> for the dead and injured in the <EVENT class="OCCURRENCE" eid="e0">bombings</EVENT> of the U.S. Embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania. The source for the Kenyan figures is the Department of Relief and Rehabilitation in the office of President Daniel arap Moi. The source for the Tanzanian figures is the U.S. Embassy in Dar es Salaam. KENYA: Total Dead: 192 Americans: 12 <EVENT class="OCCURRENCE" eid="e1">Injured</EVENT>: 4,877 Hospitalized: 542 <EVENT class="OCCURRENCE" eid="e2">Treated</EVENT> and <EVENT class="OCCURRENCE" eid="e3">discharged</EVENT>: 4,257 TANZANIA: Total dead: 10 Americans: 0 <EVENT class="OCCURRENCE" eid="e4">Injured</EVENT>: 74 Hospitalized: 6</TEXT>
+<TEXT>
+
+NAIROBI, Kenya (AP) _
+
+The following are the latest figures as of <TIMEX3 tid="t1" type="DATE" value="1998-08-10">Monday</TIMEX3> for the dead and injured in the <EVENT class="OCCURRENCE" eid="e0">bombings</EVENT> of the U.S. Embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania.
+
+The source for the Kenyan figures is the Department of Relief and Rehabilitation in the office of President Daniel arap Moi.
+
+The source for the Tanzanian figures is the U.S. Embassy in Dar es Salaam.
+
+KENYA:
+Total Dead: 192
+Americans: 12
+<EVENT class="OCCURRENCE" eid="e1">Injured</EVENT>: 4,877
+Hospitalized: 542
+<EVENT class="OCCURRENCE" eid="e2">Treated</EVENT> and <EVENT class="OCCURRENCE" eid="e3">discharged</EVENT>: 4,257
+
+TANZANIA:
+Total dead: 10
+Americans: 0
+<EVENT class="OCCURRENCE" eid="e4">Injured</EVENT>: 74
+Hospitalized: 6
+
+</TEXT>
 <MAKEINSTANCE eventID="e0" eiid="ei0" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
 <MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>

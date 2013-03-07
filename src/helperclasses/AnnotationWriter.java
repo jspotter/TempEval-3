@@ -67,6 +67,8 @@ public class AnnotationWriter {
 
 		Element element = XMLUtils.createElement("TEXT");
 
+		int lastCharOffset = 0;
+		String docText = annotation.get(CoreAnnotations.TextAnnotation.class);
 		List<CoreMap> sentences = annotation.get(CoreAnnotations.SentencesAnnotation.class);
 		int tid = 1;
 		for(CoreMap sentence: sentences) {
@@ -77,11 +79,11 @@ public class AnnotationWriter {
 				Timex timex = token.get(TimexAnnotation.class);
 				EventInfo event = token.get(EventAnnotation.class);
 				LinkInfo link = token.get(LinkInfoAnnotation.class);
-				String text = token.get(CoreAnnotations.OriginalTextAnnotation.class);
+				String tokenText = token.get(CoreAnnotations.OriginalTextAnnotation.class);
 
-				//TODO fix this, and in general have better whitespace recovery
-				String space = (isPunctuation(text.charAt(0)) ? "" : " ");
 				Node tokenNode = null;
+				int annotatedBeginCharOffset = -1;
+				int annotatedEndCharOffset = -1;
 
 				// Handle if this is a timex
 				if (timex != null) {
@@ -93,6 +95,8 @@ public class AnnotationWriter {
 						tokenNode = timexElem;
 						curType = timex.timexType();
 						curTimex = timex;
+						annotatedBeginCharOffset = token.get(CoreAnnotations.CharacterOffsetBeginAnnotation.class);
+						annotatedEndCharOffset = annotatedBeginCharOffset + timex.text().length();
 					}
 					// Handle if this is an event
 				} else if (event != null /*&& !curType.equals(event.currEventType)*/) {
@@ -100,22 +104,23 @@ public class AnnotationWriter {
 					Element eventElem = XMLUtils.createElement("EVENT");
 					eventElem.setAttribute("eid", event.currEventId);
 					eventElem.setAttribute("class", event.currEventType);
-					eventElem.setTextContent(text);
+					eventElem.setTextContent(tokenText);
 					tokenNode = eventElem;
 					curType = event.currEventType;
 					curTimex = null;
 					events.add(event);
+					annotatedBeginCharOffset = token.get(CoreAnnotations.CharacterOffsetBeginAnnotation.class);
+					annotatedEndCharOffset = token.get(CoreAnnotations.CharacterOffsetEndAnnotation.class);
 					// Handle normal tokens
 				} else {
-					tokenNode = XMLUtils.createTextNode(space + text);
 					curType = "";
 					curTimex = null;
 				}
 				if (tokenNode != null) {
-					if (!curType.isEmpty()) {
-						element.appendChild(XMLUtils.createTextNode(" "));						
-					}
+					String spanText = docText.substring(lastCharOffset,annotatedBeginCharOffset);
+				    element.appendChild(XMLUtils.createTextNode(spanText));						
 					element.appendChild(tokenNode);
+					lastCharOffset = annotatedEndCharOffset;
 				}
 
 				// Handle links
@@ -124,6 +129,10 @@ public class AnnotationWriter {
 					links.add(link);
 				}
 			}
+		}
+		if (lastCharOffset < docText.length()) {
+			String spanText = docText.substring(lastCharOffset);
+			element.appendChild(XMLUtils.createTextNode(spanText));		
 		}
 		return element;
 	}
