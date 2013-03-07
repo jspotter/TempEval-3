@@ -17,6 +17,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.Datum;
 import edu.stanford.nlp.pipeline.*;
+import edu.stanford.nlp.stats.Counter;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
 import features.DistanceFeature;
@@ -26,6 +27,8 @@ import features.HeadingPrepFeature;
 import features.InterleavingCommaFeature;
 import features.IntervalFeature;
 import features.POSFeature;
+import features.SyntacticDominanceFeature;
+import features.SyntacticRelationFeature;
 import features.TempEvalFeature;
 import features.TimexTypeFeature;
 import features.WindowFeature;
@@ -39,6 +42,7 @@ import annotationclasses.LinkInfoAnnotation;
 import annotationclasses.TimeAnnotation;
 
 import helperclasses.MapUtils;
+import helperclasses.TestUtils;
 import helperclasses.XMLParser;
 
 import java.io.*;
@@ -63,8 +67,13 @@ public class SameSentenceEventTagger {
 	private LinearClassifierFactory<String, String> trainFactory, testFactory;
 	private List<Datum<String, String>> binaryTrainingData, multiTrainingData;
 	private List<TempEvalFeature> binaryFeatureList, multiFeatureList;
+	
+	private PrintWriter outWriter;
 
-	public SameSentenceEventTagger() {
+	public SameSentenceEventTagger() throws IOException {
+		File outFile = new File("extras/same-sentence-output-" + System.currentTimeMillis() + ".txt");
+		outWriter = new PrintWriter(new FileWriter(outFile));
+		
 		trainFactory = new LinearClassifierFactory<String, String>();
 		trainFactory.useConjugateGradientAscent();
 		trainFactory.setVerbose(true);
@@ -81,25 +90,34 @@ public class SameSentenceEventTagger {
 		binaryFeatureList = new ArrayList<TempEvalFeature>();
 		multiFeatureList = new ArrayList<TempEvalFeature>();
 		
+		// Here is where you add features for relationship/no relationship
+		
 		binaryFeatureList.add(new DistanceFeature());
 		binaryFeatureList.add(new InterleavingCommaFeature());
-		//binaryFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
-		//binaryFeatureList.add(new EventTypeFeature());
+		////binaryFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
+		////binaryFeatureList.add(new EventTypeFeature());
 		binaryFeatureList.add(new POSFeature());
-		//binaryFeatureList.add(new EventLemmaFeature());
+		////binaryFeatureList.add(new EventLemmaFeature());
 		binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		binaryFeatureList.add(new HeadingPrepFeature());
-		//binaryFeatureList.add(new IntervalFeature());
+		////binaryFeatureList.add(new IntervalFeature());
+		binaryFeatureList.add(new SyntacticRelationFeature());
+		binaryFeatureList.add(new SyntacticDominanceFeature());
 		
-		//multiFeatureList.add(new DistanceFeature());
-		//multiFeatureList.add(new InterleavingCommaFeature());
+		// Here is where you add features for kind of relationship
+		// (given that there is one)
+		
+		////multiFeatureList.add(new DistanceFeature());
+		////multiFeatureList.add(new InterleavingCommaFeature());
 		multiFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
 		multiFeatureList.add(new EventTypeFeature());
 		multiFeatureList.add(new POSFeature());
 		multiFeatureList.add(new EventLemmaFeature());
 		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		multiFeatureList.add(new HeadingPrepFeature());
-		//multiFeatureList.add(new IntervalFeature());
+		////multiFeatureList.add(new IntervalFeature());
+		multiFeatureList.add(new SyntacticRelationFeature());
+		multiFeatureList.add(new SyntacticDominanceFeature());
 	}
 	
 	/*
@@ -156,7 +174,8 @@ public class SameSentenceEventTagger {
 	 * the training data. Key string is eiid of first event. Second key string is
 	 * eiid of second event. Final value is relationship type.
 	 */
-	private static Map<String, Map<String, String>> getEventRelationships(Document doc) {
+	private static Map<String, Map<String, String>> getEventRelationships(Document doc,
+			Map<String, String> eiidMappings) {
 		Map<String, Map<String, String>> result = new HashMap<String, Map<String, String>>();
 
 		// Get TLINKs
@@ -170,6 +189,12 @@ public class SameSentenceEventTagger {
 
 			if (eventInstanceID.length() > 0 && relatedToEventInstance.length() > 0
 					&& relType.length() > 0) {
+				
+				if (eiidMappings != null) {
+					eventInstanceID = eiidMappings.get(eventInstanceID);
+					relatedToEventInstance = eiidMappings.get(relatedToEventInstance);
+				}
+				
 				MapUtils.doublePut(result, eventInstanceID, relatedToEventInstance, relType);
 			}
 		}
@@ -184,6 +209,12 @@ public class SameSentenceEventTagger {
 			
 			if (eventInstanceID.length() > 0 && subordinatedEventInstance.length() > 0
 					&& relType.length() > 0) {
+				
+				if (eiidMappings != null) {
+					eventInstanceID = eiidMappings.get(eventInstanceID);
+					subordinatedEventInstance = eiidMappings.get(subordinatedEventInstance);
+				}
+				
 				MapUtils.doublePut(result, eventInstanceID, subordinatedEventInstance, relType);
 			}
 		}
@@ -202,6 +233,10 @@ public class SameSentenceEventTagger {
 
 		EventInfo eventInfo1 = eventToken1.get(EventAnnotation.class);
 		EventInfo eventInfo2 = eventToken2.get(EventAnnotation.class);
+		AuxTokenInfo aux1 = eventToken1.get(AuxTokenInfoAnnotation.class);
+		AuxTokenInfo aux2 = eventToken2.get(AuxTokenInfoAnnotation.class);
+		
+		assert (aux1.tokenOffset < aux2.tokenOffset);
 
 		// FEATURES
 		List<TempEvalFeature> featureList = (binary ? binaryFeatureList : multiFeatureList);
@@ -231,23 +266,10 @@ public class SameSentenceEventTagger {
 	 * Train classifier on relationships between same-sentence timexes and events.
 	 */
 	public void train(Annotation annotation, Document doc) {
-		
-		/*List<CoreMap> sentences = annotation.get(SentencesAnnotation.class);
-		for (CoreMap sentence : sentences) {
-			List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
-			for (CoreLabel token : tokens) {
-				String word = token.get(TextAnnotation.class);
-				EventInfo event = token.get(EventAnnotation.class);
-				TimeInfo time = token.get(TimeAnnotation.class);
-				System.out.print(word + (event == null ? "" : "/" + event.currEventType) 
-						+ (time == null ? "" : "/" + time.currTimeType) + " ");
-			}
-		}*/
-		
 		// Find all possible same-sentence event pairs
 		// Extract JUST the links between events from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventPairs(annotation);
-		Map<String, Map<String, String>> relationships = getEventRelationships(doc);
+		Map<String, Map<String, String>> relationships = getEventRelationships(doc, null);
 
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
 			Datum<String, String> binaryDatum = 
@@ -282,41 +304,55 @@ public class SameSentenceEventTagger {
 	/*
 	 * Tests classifier
 	 */
-	public void test(Annotation annotation, Document doc) {
+	public void test(Annotation annotation, Annotation goldenAnnotation, Document doc) 
+			throws IOException {
 		DocInfo docInfo = annotation.get(DocInfoAnnotation.class);
 
 		// Find all possible same-sentence timex event pairs
 		// Extract JUST the links between events and timex's from parsed XML (doc)
 		Set<Pair<CoreLabel, CoreLabel>> pairs = getEventPairs(annotation);
-		Map<String, Map<String, String>> relationships = getEventRelationships(doc);
+		Map<String, String> eiidMappings = TestUtils.getEiidMappings(annotation, goldenAnnotation);
+		Map<String, Map<String, String>> relationships = getEventRelationships(doc, eiidMappings);
 
+		// For each pari
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
 			total++;
+			
+			// Get guess and correct for "REL" or "O"
 			Datum<String, String> binaryDatum = 
 					getDatum(pair.first, pair.second, pairs, relationships, BINARY);
 			String binaryGuess = binaryTestClassifier.classOf(binaryDatum);
+			binaryTestClassifier.justificationOf(binaryDatum, outWriter);
+			Counter<String> probs = binaryTestClassifier.probabilityOf(binaryDatum);
+			double scoreOfNone = probs.getCount("O");
+			
+			// Break ties by saying "O"
+			if (scoreOfNone > 0.4999 && scoreOfNone < 0.5001)
+				binaryGuess = "O";
 			String binaryCorrect = binaryDatum.label();
 			
+			// Stupid error checking
 			if (!binaryGuess.equals("O") && !binaryGuess.equals("REL")) {
 				System.out.println("bad guess: " + binaryGuess);
 				System.exit(-1);
 			}
-			
 			if (!binaryCorrect.equals("O") && !binaryCorrect.equals("REL")) {
 				System.out.println("bad correct: " + binaryCorrect);
 				System.exit(-1);
 			}
-
-			System.out.println(pair.first.get(EventAnnotation.class).currEiid + " "
-					+ pair.second.get(EventAnnotation.class).currEiid + " "
-					+ binaryGuess + " " + binaryCorrect);
-			binaryTestClassifier.justificationOf(binaryDatum);
+			
+			// Get all this junk
+			EventInfo info1 = pair.first.get(EventAnnotation.class);
+			EventInfo info2 = pair.second.get(EventAnnotation.class);
+			AuxTokenInfo aux1 = pair.first.get(AuxTokenInfoAnnotation.class);
+			AuxTokenInfo aux2 = pair.second.get(AuxTokenInfoAnnotation.class);
+			String word1 = pair.first.get(TextAnnotation.class);
+			String word2 = pair.second.get(TextAnnotation.class);
 
 			// If we think there is some relationship
-			if (!binaryGuess.equals("O")) {
-				System.out.println("guessed something in file " + docInfo.filename);
-				
-				Datum<String, String> multiDatum =
+			Datum<String, String> multiDatum = null;
+			if (!binaryGuess.equals("O")) {				
+				multiDatum =
 						getDatum(pair.first, pair.second, pairs, relationships, NOT_BINARY);
 				String multiGuess = multiTestClassifier.classOf(multiDatum);
 				String multiCorrect = multiDatum.label();
@@ -326,8 +362,6 @@ public class SameSentenceEventTagger {
 				else
 					silverMismatches++;
 				
-				EventInfo info1 = pair.first.get(EventAnnotation.class);
-				EventInfo info2 = pair.second.get(EventAnnotation.class);
 				LinkInfo link = new LinkInfo("-1", multiGuess, null,
 						info1, info2);
 				pair.first.set(LinkInfoAnnotation.class, link);
@@ -335,27 +369,47 @@ public class SameSentenceEventTagger {
 			
 			// If there actually is some relationship
 			if (!binaryCorrect.equals("O")) {
-				Datum<String, String> multiDatum =
+				multiDatum =
 						getDatum(pair.first, pair.second, pairs, relationships, NOT_BINARY);
 				String multiGuess = multiTestClassifier.classOf(multiDatum);
+				multiTestClassifier.justificationOf(multiDatum, outWriter);
 				String multiCorrect = multiDatum.label();
 				
-				if (multiGuess.equals(multiCorrect))
+				if (multiGuess.equals(multiCorrect)) {
 					goldMatches++;
-				else
+					outWriter.write("Gold Match: " + word1 + " " + word2 + " (" +
+							multiGuess + ")\n");
+					outWriter.write(aux1.tree.toString() + "\n");
+				} else {
 					goldMismatches++;
+					outWriter.write("Gold Mismatch: " + word1 + " " + word2 + " (" +
+							multiGuess + ", " + multiCorrect + ")\n");
+					outWriter.write(aux1.tree.toString() + "\n");
+				}
 			}
 			
 			// Update binary stats
-			if (binaryGuess.equals("REL") && binaryCorrect.equals("REL"))
+			if (binaryGuess.equals("REL") && binaryCorrect.equals("REL")) {
 				truePositives++;
-			else if (binaryGuess.equals("O") && binaryCorrect.equals("O"))
+				outWriter.write("Precisely: event " + info1.currEiid 
+						+ " (" + word1 + ") and event " + info2.currEiid + " ("
+						+ word2 + ") [" + multiDatum.label() + "] - " + docInfo.filename + "\n");
+				outWriter.write(aux1.tree.toString() + "\n");
+			} else if (binaryGuess.equals("O") && binaryCorrect.equals("O"))
 				trueNegatives++;
-			else if (binaryGuess.equals("REL") && binaryCorrect.equals("O"))
+			else if (binaryGuess.equals("REL") && binaryCorrect.equals("O")) {
 				falsePositives++;
-			else if (binaryGuess.equals("O") && binaryCorrect.equals("REL"))
+				outWriter.write("Precision error: event " + info1.currEiid 
+						+ " (" + word1 + ") and event " + info2.currEiid + " ("
+						+ word2 + ") - " + docInfo.filename + "\n");
+				outWriter.write(aux1.tree.toString() + "\n");
+			} else if (binaryGuess.equals("O") && binaryCorrect.equals("REL")) {
 				falseNegatives++;
-			else {
+				outWriter.write("Recall error: event " + info1.currEiid 
+						+ " (" + word1 + ") and event " + info2.currEiid + " ("
+						+ word2 + ") [" + multiDatum.label() + "] - " + docInfo.filename + "\n");
+				outWriter.write(aux1.tree.toString() + "\n");
+			} else {
 				System.out.println("bad matching: guess " + binaryGuess 
 						+ " correct " + binaryCorrect);
 				System.exit(-1);
@@ -363,23 +417,26 @@ public class SameSentenceEventTagger {
 		}
 	}
 	
-	public void printStats() {
-		System.out.println("Binary Summary\n-----");
-		System.out.println("     TP: " + truePositives);
-		System.out.println("     FP: " + falsePositives);
-		System.out.println("     TN: " + trueNegatives);
-		System.out.println("     FN: " + falseNegatives);
-		System.out.println("  Total: " + total);
-		System.out.println("     Pr: " + (truePositives / 
-				(truePositives + falsePositives)));
-		System.out.println("     Re: " + (truePositives / 
-				(truePositives + falseNegatives)));
-		System.out.println("     F1: " + ((2 * truePositives) / 
-				(2 * truePositives + falsePositives + falseNegatives)));
-		System.out.println();
-		System.out.println("     Gold matches: " + goldMatches);
-		System.out.println("  Gold mismatches: " + goldMismatches);
-		System.out.println("   Silver matches: " + silverMatches);
-		System.out.println("Silver mismatches: " + silverMismatches);
+	public void printStats() throws IOException {
+		String stats = "Binary Summary\n-----\n" +
+				"     TP: " + truePositives + "\n" +
+				"     FP: " + falsePositives + "\n" +
+				"     TN: " + trueNegatives + "\n" +
+				"     FN: " + falseNegatives + "\n" +
+				"  Total: " + total + "\n" +
+				"     Pr: " + (truePositives / 
+						(truePositives + falsePositives)) + "\n" +
+				"     Re: " + (truePositives / 
+						(truePositives + falseNegatives)) + "\n" +
+				"     F1: " + ((2 * truePositives) / 
+						(2 * truePositives + falsePositives + falseNegatives)) + "\n\n" +
+				"     Gold matches: " + goldMatches + "\n" +
+				"  Gold mismatches: " + goldMismatches + "\n" +
+				"   Silver matches: " + silverMatches + "\n" +
+				"Silver mismatches: " + silverMismatches + "\n";
+		
+		outWriter.write(stats);
+		outWriter.close();
+		System.out.println(stats);
 	}
 }

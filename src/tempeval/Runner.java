@@ -300,6 +300,7 @@ public class Runner {
 
 			// Do initial annotation
 			Annotation annotation = getAnnotation(child, doc, NOT_TRAINING);
+			Annotation goldenAnnotation = getAnnotation(child, doc, TRAINING);
 
 			// Add document information
 			addDocumentInfo(annotation, doc, rawText, child.getName());
@@ -314,7 +315,7 @@ public class Runner {
 			dctEventTagger.test(annotation, doc);
 
 			//Annotate with same-sentence event-event pairs
-			sameSentenceEventTagger.test(annotation, doc);
+			sameSentenceEventTagger.test(annotation, goldenAnnotation, doc);
 
 			//Annotate with consecutive-sentence main event pairs
 			consecutiveEventTagger.test(annotation, doc);
