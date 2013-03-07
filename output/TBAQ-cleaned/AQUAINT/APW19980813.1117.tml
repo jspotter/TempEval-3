@@ -6,51 +6,51 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-13" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-13</TIMEX3></DCT>
 
 <TITLE>Security Council condemns Kenya, Tanzania bombings</TITLE>
-
 <EXTRAINFO>
 APW19980813.1117  NEWS STORY  08/13/1998 17:42:00
-w1081 &Cx1f; wstm-
-r i &Cx13;  &Cx11;  BC-UN-EmbassyBombing 1stLd-Writethru   08-13 0234
+w1081 &amp;Cx1f; wstm-
+r i &amp;Cx13;  &amp;Cx11;  BC-UN-EmbassyBombing 1stLd-Writethru   08-13 0234
 BC-UN-Embassy Bombing, 1st Ld-Writethru,0234
 Security Council condemns Kenya, Tanzania bombings
-&UR; Eds: UPDATES with council adopting resolution; final resolutionsponsored by US, Tanzania and Kenya, quotes from US. &QL;
+&amp;UR; Eds: UPDATES with council adopting resolution; final resolutionsponsored by US, Tanzania and Kenya, quotes from US. &amp;QL;
 </EXTRAINFO>
-
-<TEXT>
-
- UNITED NATIONS -LRB- AP -RRB- _ The Security Council <EVENT eid="e0" class="OCCURRENCE">condemned</EVENT> the <EVENT eid="e1" class="OCCURRENCE">bombing</EVENT> of the U.S. embassies in Kenya and Tanzania on <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-4">Thursday</TIMEX3> and <EVENT eid="e2" class="REPORTING">called</EVENT> on all states to <EVENT eid="e3" class="OCCURRENCE">cooperate</EVENT> with authorities in <EVENT eid="e4" class="OCCURRENCE">finding</EVENT> those responsible. A <EVENT eid="e5" class="OCCURRENCE">resolution</EVENT>, co-sponsored by Kenya, Tanzania and the United States and unanimously <EVENT eid="e6" class="OCCURRENCE">adopted</EVENT>,`` <EVENT eid="e7" class="OCCURRENCE">expresses</EVENT> its deep sorrow, sympathy and condolences to the families of the innocent victims of the terrorist bomb <EVENT eid="e8" class="OCCURRENCE">attacks</EVENT> at this difficult time.'' It strongly <EVENT eid="e9" class="OCCURRENCE">condemns</EVENT> the`` terrorist bomb <EVENT eid="e10" class="OCCURRENCE">attacks</EVENT>.'' And it <EVENT eid="e11" class="OCCURRENCE">stresses</EVENT> that every nation`` has the duty to <EVENT eid="e12" class="OCCURRENCE">refrain</EVENT> from <EVENT eid="e13" class="OCCURRENCE">organizing</EVENT>, <EVENT eid="e14" class="OCCURRENCE">instigating</EVENT>, <EVENT eid="e15" class="OCCURRENCE">assisting</EVENT> or <EVENT eid="e16" class="OCCURRENCE">participating</EVENT> in terrorist acts in another state.'' The almost simultaneous <EVENT eid="e17" class="OCCURRENCE">attacks <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7 at the U.S. embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania, <EVENT eid="e18" class="OCCURRENCE">killed</EVENT> 257 people and <EVENT eid="e19" class="OCCURRENCE">injured</EVENT> more than 5,500.`` The <EVENT eid="e20" class="OCCURRENCE">incidents</EVENT> of <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7 underscore that terrorists know no boundaries, and that the <EVENT eid="e21" class="OCCURRENCE">suppression</EVENT> of international terrorism, the <EVENT eid="e22" class="OCCURRENCE">arrest</EVENT>, the <EVENT eid="e23" class="OCCURRENCE">conviction</EVENT> and the <EVENT eid="e24" class="OCCURRENCE">punishment</EVENT> of its perpetrators are essential to the <EVENT eid="e25" class="OCCURRENCE">maintenance</EVENT> of international peace and security,'' <EVENT eid="e26" class="REPORTING">said</EVENT> the U.S. Deputy Ambassador Peter Burleigh.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e5" eiid="ei5" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e8" eiid="ei8" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e10" eiid="ei10" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e12" eiid="ei12" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e17" eiid="ei17" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e20" eiid="ei20" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e21" eiid="ei21" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e22" eiid="ei22" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e23" eiid="ei23" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e24" eiid="ei24" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e25" eiid="ei25" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<TLINK lid="lolol0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
-<TLINK lid="lolol1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei17" origin="USER"/>
-<TLINK lid="lolol2" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
+<TEXT> UNITED NATIONS ( AP ) _ The Security Council <EVENT class="OCCURRENCE" eid="e0">condemned</EVENT> the <EVENT class="OCCURRENCE" eid="e1">bombing</EVENT> of the U.S. embassies in Kenya and Tanzania on <TIMEX3 tid="t1" type="DATE" value="1998-08-13">Thursday</TIMEX3> and <EVENT class="REPORTING" eid="e2">called</EVENT> on all states to <EVENT class="OCCURRENCE" eid="e3">cooperate</EVENT> with authorities in <EVENT class="OCCURRENCE" eid="e4">finding</EVENT> those responsible. A <EVENT class="OCCURRENCE" eid="e5">resolution</EVENT>, co-sponsored by Kenya, Tanzania and the United States and unanimously <EVENT class="OCCURRENCE" eid="e6">adopted</EVENT>,`` <EVENT class="OCCURRENCE" eid="e7">expresses</EVENT> its deep sorrow, sympathy and condolences to the families of the innocent victims of the terrorist bomb <EVENT class="OCCURRENCE" eid="e8">attacks</EVENT> at this difficult time.'' It strongly <EVENT class="OCCURRENCE" eid="e9">condemns</EVENT> the`` terrorist bomb <EVENT class="OCCURRENCE" eid="e10">attacks</EVENT>.'' And it <EVENT class="OCCURRENCE" eid="e11">stresses</EVENT> that every nation`` has the duty to <EVENT class="OCCURRENCE" eid="e12">refrain</EVENT> from <EVENT class="OCCURRENCE" eid="e13">organizing</EVENT>, <EVENT class="OCCURRENCE" eid="e14">instigating</EVENT>, <EVENT class="OCCURRENCE" eid="e15">assisting</EVENT> or <EVENT class="OCCURRENCE" eid="e16">participating</EVENT> in terrorist acts in another state.'' The almost simultaneous <EVENT class="OCCURRENCE" eid="e17">attacks</EVENT> <TIMEX3 tid="t2" type="DATE" value="1998-08-07">Aug. 7</TIMEX3> at the U.S. embassies in Nairobi, Kenya, and Dar es Salaam, Tanzania, <EVENT class="OCCURRENCE" eid="e18">killed</EVENT> 257 people and <EVENT class="OCCURRENCE" eid="e19">injured</EVENT> more than 5,500.`` The <EVENT class="OCCURRENCE" eid="e20">incidents</EVENT> of <TIMEX3 tid="t3" type="DATE" value="1998-08-07">Aug. 7</TIMEX3> underscore that terrorists know no boundaries, and that the <EVENT class="OCCURRENCE" eid="e21">suppression</EVENT> of international terrorism, the <EVENT class="OCCURRENCE" eid="e22">arrest</EVENT>, the <EVENT class="OCCURRENCE" eid="e23">conviction</EVENT> and the <EVENT class="OCCURRENCE" eid="e24">punishment</EVENT> of its perpetrators are essential to the <EVENT class="OCCURRENCE" eid="e25">maintenance</EVENT> of international peace and security,'' <EVENT class="REPORTING" eid="e26">said</EVENT> the U.S. Deputy Ambassador Peter Burleigh.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e23" eiid="ei23" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e24" eiid="ei24" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e25" eiid="ei25" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<TLINK lid="l0" relType="NONE" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
+<TLINK lid="l1" relType="IS_INCLUDED" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
+<TLINK lid="l2" relType="NONE" eventInstanceID="ei12" relatedToEventInstance="ei13" origin="USER"/>
+<TLINK lid="l3" relType="NONE" eventInstanceID="ei13" relatedToEventInstance="ei15" origin="USER"/>
+<TLINK lid="l4" relType="NONE" eventInstanceID="ei14" relatedToEventInstance="ei15" origin="USER"/>
+<TLINK lid="l5" relType="IAFTER" eventInstanceID="ei17" relatedToEventInstance="ei18" origin="USER"/>
+<TLINK lid="l6" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei17" origin="USER"/>
+<TLINK lid="l7" relType="SIMULTANEOUS" eventInstanceID="ei18" relatedToEventInstance="ei19" origin="USER"/>
+<TLINK lid="l8" relType="IAFTER" eventInstanceID="ei20" relatedToEventInstance="ei26" origin="USER"/>
+<TLINK lid="l9" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
 </TimeML>
 

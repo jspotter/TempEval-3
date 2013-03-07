@@ -6,48 +6,44 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-20" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-20</TIMEX3></DCT>
 
 <TITLE>New Zealand expresses understanding over U.S. missile attacks</TITLE>
-
 <EXTRAINFO>
 APW19980820.1428 
  NEWS STORY 
  08/20/1998 22:52:00
-w2161 &Cx1f; wstm-
-u i &Cx13;  &Cx11;  BC-NewZealand-US-Bombing     08-20 0203
+w2161 &amp;Cx1f; wstm-
+u i &amp;Cx13;  &amp;Cx11;  BC-NewZealand-US-Bombing     08-20 0203
 BC-New Zealand-US-Bombings
 New Zealand expresses understanding over U.S. missile attacks
 </EXTRAINFO>
-
-<TEXT>
-
- WELLINGTON, New Zealand -LRB- AP -RRB- _ The United States had the right to <EVENT eid="e0" class="OCCURRENCE">defend</EVENT> its citizens against terrorist <EVENT eid="e1" class="OCCURRENCE">actions</EVENT>, New Zealand <EVENT eid="e2" class="REPORTING">said <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3> in response to U.S. missile <EVENT eid="e3" class="OCCURRENCE">attacks</EVENT> on alleged terrorist sites in Sudan and Afghanistan. Foreign Minister Don McKinnon <EVENT eid="e4" class="REPORTING">said</EVENT> that terrorist <EVENT eid="e5" class="OCCURRENCE">bombings <TIMEX3 tid="t1" type="DATE" value="null">this</TIMEX3> month of U.S. embassies in Nairobi, Kenya and Dar es Salaam, Tanzania,`` <EVENT eid="e6" class="OCCURRENCE">show</EVENT> that terrorism is an indiscriminate killer of innocent people.'' Retaliating <TIMEX3 tid="t1" type="DURATION" value="P13D">13</TIMEX3> days after the deadly embassy <EVENT eid="e7" class="OCCURRENCE">bombings</EVENT> in East Africa, U.S. forces <TIMEX3 tid="t2" type="DATE" value="XXXX-WXX-4">Thursday <EVENT eid="e8" class="ASPECTUAL">launched</EVENT> cruise missile <EVENT eid="e9" class="OCCURRENCE">strikes</EVENT> against alleged terrorist camps in Afghanistan and a chemical plant in Sudan.`` Countries have the right to <EVENT eid="e10" class="OCCURRENCE">defend</EVENT> themselves and their citizens against terrorism and New Zealand <EVENT eid="e11" class="OCCURRENCE">appreciates</EVENT> and <EVENT eid="e12" class="I_STATE">understands</EVENT> the steps the United States has <EVENT eid="e13" class="OCCURRENCE">taken</EVENT>,'' McKinnon <EVENT eid="e14" class="REPORTING">said</EVENT>. The embassy <EVENT eid="e15" class="OCCURRENCE">bombings</EVENT>, on <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7, <EVENT eid="e16" class="OCCURRENCE">killed</EVENT> 247 people in Kenya and 10 in Tanzania. More than 5,500 people were <EVENT eid="e17" class="OCCURRENCE">injured</EVENT>, mostly Kenyans. McKinnon's spokeswoman <EVENT eid="e18" class="REPORTING">said</EVENT> the United States had`` very good intelligence'' linking the sites <EVENT eid="e19" class="OCCURRENCE">struck <TIMEX3 tid="t1" type="TIME" value="TNI">overnight</TIMEX3> with the embassy <EVENT eid="e20" class="OCCURRENCE">attacks</EVENT>.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e5" eiid="ei5" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBP"/>
-<MAKEINSTANCE eventID="e7" eiid="ei7" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e9" eiid="ei9" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e10" eiid="ei10" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e12" eiid="ei12" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e15" eiid="ei15" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e20" eiid="ei20" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<TLINK lid="lolol0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
-<TLINK lid="lolol1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei5" origin="USER"/>
-<TLINK lid="lolol2" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei8" origin="USER"/>
-<TLINK lid="lolol3" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei15" origin="USER"/>
-<TLINK lid="lolol4" relType="DURING" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
+<TEXT> WELLINGTON, New Zealand ( AP ) _ The United States had the right to <EVENT class="OCCURRENCE" eid="e0">defend</EVENT> its citizens against terrorist <EVENT class="OCCURRENCE" eid="e1">actions</EVENT>, New Zealand <EVENT class="REPORTING" eid="e2">said</EVENT> <TIMEX3 tid="t1" type="DATE" value="1998-08-14">Friday</TIMEX3> in response to U.S. missile <EVENT class="OCCURRENCE" eid="e3">attacks</EVENT> on alleged terrorist sites in Sudan and Afghanistan. Foreign Minister Don McKinnon <EVENT class="REPORTING" eid="e4">said</EVENT> that terrorist <EVENT class="OCCURRENCE" eid="e5">bombings</EVENT> <TIMEX3 tid="t2" type="DATE" value="1998-08">this month</TIMEX3> of U.S. embassies in Nairobi, Kenya and Dar es Salaam, Tanzania,`` <EVENT class="OCCURRENCE" eid="e6">show</EVENT> that terrorism is an indiscriminate killer of innocent people.'' Retaliating <TIMEX3 tid="t3" type="DURATION" value="P13D">13 days</TIMEX3> after the deadly embassy <EVENT class="OCCURRENCE" eid="e7">bombings</EVENT> in East Africa, U.S. forces <TIMEX3 tid="t4" type="DATE" value="1998-08-20">Thursday</TIMEX3> <EVENT class="ASPECTUAL" eid="e8">launched</EVENT> cruise missile <EVENT class="OCCURRENCE" eid="e9">strikes</EVENT> against alleged terrorist camps in Afghanistan and a chemical plant in Sudan.`` Countries have the right to <EVENT class="OCCURRENCE" eid="e10">defend</EVENT> themselves and their citizens against terrorism and New Zealand <EVENT class="OCCURRENCE" eid="e11">appreciates</EVENT> and <EVENT class="I_STATE" eid="e12">understands</EVENT> the steps the United States has <EVENT class="OCCURRENCE" eid="e13">taken</EVENT>,'' McKinnon <EVENT class="REPORTING" eid="e14">said</EVENT>. The embassy <EVENT class="OCCURRENCE" eid="e15">bombings</EVENT>, on <TIMEX3 tid="t5" type="DATE" value="1998-08-07">Aug. 7</TIMEX3>, <EVENT class="OCCURRENCE" eid="e16">killed</EVENT> 247 people in Kenya and 10 in Tanzania. More than 5,500 people were <EVENT class="OCCURRENCE" eid="e17">injured</EVENT>, mostly Kenyans. McKinnon's spokeswoman <EVENT class="REPORTING" eid="e18">said</EVENT> the United States had`` very good intelligence'' linking the sites <EVENT class="OCCURRENCE" eid="e19">struck</EVENT> <TIMEX3 tid="t6" type="TIME" value="1998-08-20TNI">overnight</TIMEX3> with the embassy <EVENT class="OCCURRENCE" eid="e20">attacks</EVENT>.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<TLINK lid="l0" relType="AFTER" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
+<TLINK lid="l1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei3" origin="USER"/>
+<TLINK lid="l2" relType="NONE" eventInstanceID="ei4" relatedToEventInstance="ei5" origin="USER"/>
+<TLINK lid="l3" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei4" origin="USER"/>
+<TLINK lid="l4" relType="BEGINS" timeID="t1" relatedToEventInstance="ei7" origin="USER"/>
+<TLINK lid="l5" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei9" origin="USER"/>
+<TLINK lid="l6" relType="IS_INCLUDED" timeID="t1" relatedToEventInstance="ei16" origin="USER"/>
+<TLINK lid="l7" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
 </TimeML>
 

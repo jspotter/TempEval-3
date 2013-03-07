@@ -56,6 +56,7 @@ public class EventTagger {
 				CRFClassifier.getClassifierNoExceptions(CRF_CLASSIFIER_FILENAME);
 	}
 	
+	// Tense: [PAST, PRESENT, FUTURE, INFINITIVE, PRESPART, PASTPART, NONE]
 	private static String getTense(String pos) {
 		if (pos.equals("VB"))
 			return "INFINITIVE";
@@ -69,9 +70,22 @@ public class EventTagger {
 			return "PRESENT";
 		if (pos.equals("VBZ"))
 			return "PRESENT";
-		return "UNKNOWN";
+		return "NONE";
 	}
 
+	// Map from Penn Treebank POS to TempEval3 POS
+	// POS: [ADJECTIVE, NOUN, VERB, PREPOSITION, OTHER, UNKNOWN, PREP]
+	private static String getPos(String pos) {
+		if (pos.startsWith("V"))
+			return "VERB";
+		if (pos.startsWith("N"))
+			return "NOUN";
+		if (pos.startsWith("JJ"))
+			return "ADJECTIVE";
+		if (pos.equals("TO") || pos.equals("IN"))
+			return "PREPOSITION";
+		return "OTHER";
+	}
 	/*
 	 * Method to run at test that given our annotations will annotate tokens classified as Events with the appropriate EventInfo object
 	 * Must call loadTestClassifier first!
@@ -122,7 +136,7 @@ public class EventTagger {
 					info.currEiid = "ei" + id;
 					info.aspect = "NONE";	//TODO fix
 					info.polarity = "POS";	//TODO fix
-					info.pos = pos;
+					info.pos = getPos(pos);
 					info.tense = getTense(pos);
 					token.set(EventAnnotation.class, info);
 				}

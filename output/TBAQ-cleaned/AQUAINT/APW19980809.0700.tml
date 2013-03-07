@@ -6,27 +6,20 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-09" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-09</TIMEX3></DCT>
 
 <TITLE>Solid construction may have kept toll low in Tanzania embassy bombing</TITLE>
-
 <EXTRAINFO>
 APW19980809.0700  NEWS STORY  08/09/1998 16:30:00
-w1195 &Cx1f; wstm-
-u i &Cx13;  &Cx11;  BC-Tanzania-EmbassyBombi 1stLd   08-09 0145
+w1195 &amp;Cx1f; wstm-
+u i &amp;Cx13;  &amp;Cx11;  BC-Tanzania-EmbassyBombi 1stLd   08-09 0145
 BC-Tanzania-Embassy Bombing, 1st Ld
 Solid construction may have kept toll low in Tanzania embassy
-bombing &UR; Eds: CORRECTS 4th graf to drop extraneous word &QL;  &UR; With Kenya-Embassy Bombings &QL;  &UR; By VIJAY JOSHI &QC;  &UR; Associated Press Writer &QC;
+bombing &amp;UR; Eds: CORRECTS 4th graf to drop extraneous word &amp;QL;  &amp;UR; With Kenya-Embassy Bombings &amp;QL;  &amp;UR; By VIJAY JOSHI &amp;QC;  &amp;UR; Associated Press Writer &amp;QC;
 </EXTRAINFO>
-
-<TEXT>
-
- DAR ES SALAAM, Tanzania -LRB- AP -RRB- _ The bomb outside the U.S. Embassy in Tanzania was so powerful that it <EVENT eid="e0" class="OCCURRENCE">shook</EVENT> furniture in homes a mile away. But the solid construction of the Israeli-built embassy may have <EVENT eid="e1" class="I_ACTION">prevented</EVENT> the carnage of a similar bomb in Kenya, an official <EVENT eid="e2" class="REPORTING">said <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-6">Saturday</TIMEX3>. Another reason was the location _ a quiet tree-lined neighborhood. The embassy away from the center of Dar es Salaam, Tanzania's laid-back capital of <EVENT eid="e3" class="OCCURRENCE">swaying</EVENT> palms and sparse traffic, is largely free from the congestion that <EVENT eid="e4" class="STATE">plagues</EVENT> most other major African cities.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<TLINK lid="lolol0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
+<TEXT> DAR ES SALAAM, Tanzania ( AP ) _ The bomb outside the U.S. Embassy in Tanzania was so powerful that it <EVENT class="OCCURRENCE" eid="e0">shook</EVENT> furniture in homes a mile away. But the solid construction of the Israeli-built embassy may have <EVENT class="I_ACTION" eid="e1">prevented</EVENT> the carnage of a similar bomb in Kenya, an official <EVENT class="REPORTING" eid="e2">said</EVENT> <TIMEX3 tid="t1" type="DATE" value="1998-08-08">Saturday</TIMEX3>. Another reason was the location _ a quiet tree-lined neighborhood. The embassy away from the center of Dar es Salaam, Tanzania's laid-back capital of <EVENT class="OCCURRENCE" eid="e3">swaying</EVENT> palms and sparse traffic, is largely free from the congestion that <EVENT class="STATE" eid="e4">plagues</EVENT> most other major African cities.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
 </TimeML>
 

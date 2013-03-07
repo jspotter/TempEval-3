@@ -6,63 +6,66 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-09-11" temporalFunction="false" functionInDocument="CREATION_TIME">1998-09-11</TIMEX3></DCT>
 
 <TITLE>Tanzania expels Iraqis, Libyan questioned in U.S. embassy bombings</TITLE>
-
 <EXTRAINFO>
 APW19980911.0475  NEWS STORY  09/11/1998 08:36:00
-w1124 &Cx1f; wstm-
-u i &Cx13;  &Cx11;  BC-Tanzania-EmbassyBombi     09-11 0352
+w1124 &amp;Cx1f; wstm-
+u i &amp;Cx13;  &amp;Cx11;  BC-Tanzania-EmbassyBombi     09-11 0352
 BC-Tanzania-Embassy Bombing
 Tanzania expels Iraqis, Libyan questioned in U.S. embassy bombings
 </EXTRAINFO>
-
-<TEXT>
-
- DAR ES SALAAM, Tanzania -LRB- AP -RRB- _ Tanzania <EVENT eid="e0" class="OCCURRENCE">expelled</EVENT> five Iraqis and a Libyan who were <EVENT eid="e1" class="OCCURRENCE">questioned</EVENT> by the FBI and police in connection of the <EVENT eid="e2" class="OCCURRENCE">bombing</EVENT> of two U.S. embassies in East Africa <TIMEX3 tid="t1" type="DATE" value="null">last</TIMEX3> month, a newspaper <EVENT eid="e3" class="REPORTING">reported <TIMEX3 tid="t3" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3>. Immigration officials <EVENT eid="e4" class="OCCURRENCE">escorted</EVENT> the Libyan, Atif Issa Enhamed, to the airport and <EVENT eid="e5" class="OCCURRENCE">put</EVENT> him on a <EVENT eid="e6" class="OCCURRENCE">flight</EVENT> to an undisclosed Middle East destination, <EVENT eid="e7" class="REPORTING">said</EVENT> Uhuru, or Freedom, a Swahili newspaper owned by the ruling Chama Cha Mapinduzi party. Five Iraqis, whose names were not <EVENT eid="e8" class="I_ACTION">disclosed</EVENT>, also were <EVENT eid="e9" class="OCCURRENCE">deported</EVENT>, the newspaper <EVENT eid="e10" class="REPORTING">said</EVENT>. It <EVENT eid="e11" class="REPORTING">gave</EVENT> no reason for the <EVENT eid="e12" class="OCCURRENCE">expulsions</EVENT> and Tanzania's criminal investigation and immigration departments could not be <EVENT eid="e13" class="OCCURRENCE">reached</EVENT> for comment. Nearly simultaneous <EVENT eid="e14" class="OCCURRENCE">bombings</EVENT> at U.S. embassies in Dar es Salaam, Tanzania, and Nairobi, Kenya, on <TIMEX3 tid="t1" type="DATE" value="XXXX-08-07">Aug.</TIMEX3> 7 <EVENT eid="e15" class="OCCURRENCE">killed</EVENT> 258 people, including 12 Americans, and <EVENT eid="e16" class="OCCURRENCE">injured</EVENT> more than 5,500 people. Of those <EVENT eid="e17" class="OCCURRENCE">killed</EVENT>, 11 were <EVENT eid="e18" class="OCCURRENCE">killed</EVENT> in Tanzania. Two key suspects in the Kenya <EVENT eid="e19" class="OCCURRENCE">bombing</EVENT> have been <EVENT eid="e20" class="OCCURRENCE">handed</EVENT> over to the United States for <EVENT eid="e21" class="OCCURRENCE">trial</EVENT>. American authorities <EVENT eid="e22" class="I_ACTION">allege</EVENT> the <EVENT eid="e23" class="OCCURRENCE">attacks</EVENT> were plotted by Saudi terrorist Osama bin Laden. On <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-7">Sunday</TIMEX3>, Tanzanian police and FBI agents <EVENT eid="e24" class="REPORTING">said</EVENT> they had made`` extraordinary <EVENT eid="e25" class="OCCURRENCE">discoveries</EVENT>,'' having <EVENT eid="e26" class="OCCURRENCE">determined</EVENT> what the Dar es Salaam bomb was made of and who <EVENT eid="e27" class="OCCURRENCE">carried</EVENT> it to the embassy. They <EVENT eid="e28" class="OCCURRENCE">refused</EVENT> to <EVENT eid="e29" class="OCCURRENCE">provide</EVENT> details. Media reports in Tanzania have <EVENT eid="e30" class="REPORTING">said</EVENT> the ingredients for the bombs had <EVENT eid="e31" class="OCCURRENCE">originated</EVENT> in the Middle East and were <EVENT eid="e32" class="OCCURRENCE">transferred</EVENT> by sea via the Comoro Islands to Tanzania. Reports in Kenya <EVENT eid="e33" class="REPORTING">said</EVENT> the components of the bomb that <EVENT eid="e34" class="OCCURRENCE">exploded</EVENT> in Nairobi were <EVENT eid="e35" class="OCCURRENCE">transported</EVENT> by road from Tanzania to Kenya. The East African nations <EVENT eid="e36" class="STATE">share</EVENT> a long and mostly unguarded border. On <TIMEX3 tid="t1" type="DATE" value="XXXX-09-02">Sept.</TIMEX3> 2, police in the Comoros archipelago, off the Tanzanian coast, <EVENT eid="e37" class="OCCURRENCE">raided</EVENT> two homes and <EVENT eid="e38" class="OCCURRENCE">searched</EVENT> for a suspect in the <EVENT eid="e39" class="OCCURRENCE">bombings</EVENT> identified as Abdallah Mohammed Fadhul, a Comorian Muslim who had lived with his wife in Sudan until shortly after the <EVENT eid="e40" class="OCCURRENCE">bombings</EVENT>.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e6" eiid="ei6" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e10" eiid="ei10" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e12" eiid="ei12" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e14" eiid="ei14" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e19" eiid="ei19" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e21" eiid="ei21" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBP"/>
-<MAKEINSTANCE eventID="e23" eiid="ei23" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e24" eiid="ei24" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e25" eiid="ei25" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e27" eiid="ei27" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e28" eiid="ei28" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e29" eiid="ei29" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e30" eiid="ei30" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e31" eiid="ei31" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e32" eiid="ei32" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e33" eiid="ei33" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e34" eiid="ei34" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e35" eiid="ei35" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e36" eiid="ei36" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBP"/>
-<MAKEINSTANCE eventID="e37" eiid="ei37" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e38" eiid="ei38" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e39" eiid="ei39" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e40" eiid="ei40" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<TLINK lid="lolol0" relType="INCLUDES" timeID="t3" relatedToEventInstance="ei3" origin="USER"/>
-<TLINK lid="lolol1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei15" origin="USER"/>
+<TEXT> DAR ES SALAAM, Tanzania ( AP ) _ Tanzania <EVENT class="OCCURRENCE" eid="e0">expelled</EVENT> five Iraqis and a Libyan who were <EVENT class="OCCURRENCE" eid="e1">questioned</EVENT> by the FBI and police in connection of the <EVENT class="OCCURRENCE" eid="e2">bombing</EVENT> of two U.S. embassies in East Africa <TIMEX3 tid="t1" type="DATE" value="1998-08">last month</TIMEX3>, a newspaper <EVENT class="REPORTING" eid="e3">reported</EVENT> <TIMEX3 tid="t2" type="DATE" value="1998-09-11">Friday</TIMEX3>. Immigration officials <EVENT class="OCCURRENCE" eid="e4">escorted</EVENT> the Libyan, Atif Issa Enhamed, to the airport and <EVENT class="OCCURRENCE" eid="e5">put</EVENT> him on a <EVENT class="OCCURRENCE" eid="e6">flight</EVENT> to an undisclosed Middle East destination, <EVENT class="REPORTING" eid="e7">said</EVENT> Uhuru, or Freedom, a Swahili newspaper owned by the ruling Chama Cha Mapinduzi party. Five Iraqis, whose names were not <EVENT class="I_ACTION" eid="e8">disclosed</EVENT>, also were <EVENT class="OCCURRENCE" eid="e9">deported</EVENT>, the newspaper <EVENT class="REPORTING" eid="e10">said</EVENT>. It <EVENT class="REPORTING" eid="e11">gave</EVENT> no reason for the <EVENT class="OCCURRENCE" eid="e12">expulsions</EVENT> and Tanzania's criminal investigation and immigration departments could not be <EVENT class="OCCURRENCE" eid="e13">reached</EVENT> for comment. Nearly simultaneous <EVENT class="OCCURRENCE" eid="e14">bombings</EVENT> at U.S. embassies in Dar es Salaam, Tanzania, and Nairobi, Kenya, on <TIMEX3 tid="t3" type="DATE" value="1998-08-07">Aug. 7</TIMEX3> <EVENT class="OCCURRENCE" eid="e15">killed</EVENT> 258 people, including 12 Americans, and <EVENT class="OCCURRENCE" eid="e16">injured</EVENT> more than 5,500 people. Of those <EVENT class="OCCURRENCE" eid="e17">killed</EVENT>, 11 were <EVENT class="OCCURRENCE" eid="e18">killed</EVENT> in Tanzania. Two key suspects in the Kenya <EVENT class="OCCURRENCE" eid="e19">bombing</EVENT> have been <EVENT class="OCCURRENCE" eid="e20">handed</EVENT> over to the United States for <EVENT class="OCCURRENCE" eid="e21">trial</EVENT>. American authorities <EVENT class="I_ACTION" eid="e22">allege</EVENT> the <EVENT class="OCCURRENCE" eid="e23">attacks</EVENT> were plotted by Saudi terrorist Osama bin Laden. On <TIMEX3 tid="t4" type="DATE" value="1998-09-13">Sunday</TIMEX3>, Tanzanian police and FBI agents <EVENT class="REPORTING" eid="e24">said</EVENT> they had made`` extraordinary <EVENT class="OCCURRENCE" eid="e25">discoveries</EVENT>,'' having <EVENT class="OCCURRENCE" eid="e26">determined</EVENT> what the Dar es Salaam bomb was made of and who <EVENT class="OCCURRENCE" eid="e27">carried</EVENT> it to the embassy. They <EVENT class="OCCURRENCE" eid="e28">refused</EVENT> to <EVENT class="OCCURRENCE" eid="e29">provide</EVENT> details. Media reports in Tanzania have <EVENT class="REPORTING" eid="e30">said</EVENT> the ingredients for the bombs had <EVENT class="OCCURRENCE" eid="e31">originated</EVENT> in the Middle East and were <EVENT class="OCCURRENCE" eid="e32">transferred</EVENT> by sea via the Comoro Islands to Tanzania. Reports in Kenya <EVENT class="REPORTING" eid="e33">said</EVENT> the components of the bomb that <EVENT class="OCCURRENCE" eid="e34">exploded</EVENT> in Nairobi were <EVENT class="OCCURRENCE" eid="e35">transported</EVENT> by road from Tanzania to Kenya. The East African nations <EVENT class="STATE" eid="e36">share</EVENT> a long and mostly unguarded border. On <TIMEX3 tid="t5" type="DATE" value="1998-09-02">Sept. 2</TIMEX3>, police in the Comoros archipelago, off the Tanzanian coast, <EVENT class="OCCURRENCE" eid="e37">raided</EVENT> two homes and <EVENT class="OCCURRENCE" eid="e38">searched</EVENT> for a suspect in the <EVENT class="OCCURRENCE" eid="e39">bombings</EVENT> identified as Abdallah Mohammed Fadhul, a Comorian Muslim who had lived with his wife in Sudan until shortly after the <EVENT class="OCCURRENCE" eid="e40">bombings</EVENT>.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e23" eiid="ei23" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e24" eiid="ei24" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e25" eiid="ei25" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e26" eiid="ei26" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e27" eiid="ei27" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e28" eiid="ei28" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e29" eiid="ei29" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e30" eiid="ei30" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e31" eiid="ei31" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e32" eiid="ei32" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e33" eiid="ei33" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e34" eiid="ei34" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e35" eiid="ei35" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e36" eiid="ei36" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e37" eiid="ei37" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e38" eiid="ei38" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e39" eiid="ei39" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e40" eiid="ei40" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<TLINK lid="l0" relType="BEFORE" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
+<TLINK lid="l1" relType="BEFORE" eventInstanceID="ei1" relatedToEventInstance="ei2" origin="USER"/>
+<TLINK lid="l2" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
+<TLINK lid="l3" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei0" origin="USER"/>
+<TLINK lid="l4" relType="IAFTER" eventInstanceID="ei14" relatedToEventInstance="ei16" origin="USER"/>
+<TLINK lid="l5" relType="SIMULTANEOUS" eventInstanceID="ei15" relatedToEventInstance="ei16" origin="USER"/>
+<TLINK lid="l6" relType="BEFORE" eventInstanceID="ei25" relatedToEventInstance="ei26" origin="USER"/>
+<TLINK lid="l7" relType="NONE" eventInstanceID="ei26" relatedToEventInstance="ei27" origin="USER"/>
+<TLINK lid="l8" relType="NONE" eventInstanceID="ei28" relatedToEventInstance="ei29" origin="USER"/>
+<TLINK lid="l9" relType="NONE" eventInstanceID="ei34" relatedToEventInstance="ei35" origin="USER"/>
+<TLINK lid="l10" relType="IS_INCLUDED" timeID="t1" relatedToEventInstance="ei38" origin="USER"/>
+<TLINK lid="l11" relType="SIMULTANEOUS" eventInstanceID="ei37" relatedToEventInstance="ei38" origin="USER"/>
 </TimeML>
 

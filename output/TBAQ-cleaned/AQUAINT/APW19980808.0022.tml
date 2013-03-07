@@ -6,50 +6,43 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-08" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-08</TIMEX3></DCT>
 
 <TITLE>Bomb blasts rock U.S. embassies in Tanzania, Kenya</TITLE>
-
 <EXTRAINFO>
 APW19980808.0022  NEWS STORY  08/08/1998 00:53:00
-w1425 &Cx1f; wstm-
-u i &Cx13;  &Cx11;  BC-Kenya-EmbassyBombings 2ndLd   08-08 0257
+w1425 &amp;Cx1f; wstm-
+u i &amp;Cx13;  &amp;Cx11;  BC-Kenya-EmbassyBombings 2ndLd   08-08 0257
 BC-Kenya-Embassy Bombings, 2nd Ld,0256
 Bomb blasts rock U.S. embassies in Tanzania, Kenya; at least 82
-killed &QL;  &UR; Eds: CORRECTS that at least 75 dead in Kenya. &QL;  &UR; With Bombing Scenes, Kenya-Tanzania-Thumbnails, Terror Attacks &QL;  &UR; AP Photos NAI101-125, ROM108, JOH1, LON104-107; AP GraphicKENYA,KENYA2,KENYA3,KENYA TANZANIA &QL;  &UR; By KARIN DAVIES &QC;  &UR; Associated Press Writer &QC;
+killed &amp;QL;  &amp;UR; Eds: CORRECTS that at least 75 dead in Kenya. &amp;QL;  &amp;UR; With Bombing Scenes, Kenya-Tanzania-Thumbnails, Terror Attacks &amp;QL;  &amp;UR; AP Photos NAI101-125, ROM108, JOH1, LON104-107; AP GraphicKENYA,KENYA2,KENYA3,KENYA TANZANIA &amp;QL;  &amp;UR; By KARIN DAVIES &amp;QC;  &amp;UR; Associated Press Writer &amp;QC;
 </EXTRAINFO>
-
-<TEXT>
-
- NAIROBI, Kenya -LRB- AP -RRB- _ Terrorist <EVENT eid="e0" class="OCCURRENCE">bombings</EVENT> at U.S. embassies in Kenya and Tanzania <EVENT eid="e1" class="OCCURRENCE">blew</EVENT> apart buildings and buses, <EVENT eid="e2" class="OCCURRENCE">trapping</EVENT> people under slabs of concrete and twisted steel that rescuers <EVENT eid="e3" class="OCCURRENCE">cleared</EVENT> with cranes, blow torches and bare hands. At least 82 were <EVENT eid="e4" class="OCCURRENCE">killed</EVENT> and more than 1,700 <EVENT eid="e5" class="OCCURRENCE">injured</EVENT>, officials <EVENT eid="e6" class="REPORTING">said</EVENT> as <TIMEX3 tid="t1" type="TIME" value="MO">dawn <EVENT eid="e7" class="OCCURRENCE">broke <TIMEX3 tid="t2" type="DATE" value="XXXX-WXX-6">Saturday</TIMEX3>. Dozens of people were still <EVENT eid="e8" class="OCCURRENCE">missing</EVENT>, however, and the death toll was <EVENT eid="e9" class="I_STATE">expected</EVENT> to <EVENT eid="e10" class="OCCURRENCE">rise</EVENT>, they <EVENT eid="e11" class="REPORTING">said</EVENT>. The suspected car <EVENT eid="e12" class="OCCURRENCE">bombings</EVENT> occurred 700 kilometers -LRB- 450 miles -RRB- from each other but just <TIMEX3 tid="t1" type="DURATION" value="PTXM">minutes</TIMEX3> apart on <TIMEX3 tid="t2" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3>, <EVENT eid="e13" class="OCCURRENCE">turning</EVENT> busy streets in two African capitals into bloody piles of concrete and knots of steel.`` This <EVENT eid="e14" class="OCCURRENCE">appears</EVENT> to have been a very well-coordinated, very well-planned <EVENT eid="e15" class="OCCURRENCE">attack</EVENT> _ clearly not the work of amateurs,'' U.S. National Security Council spokesman P.J. Crowley <EVENT eid="e16" class="REPORTING">said</EVENT> in Washington. No one has <EVENT eid="e17" class="REPORTING">claimed</EVENT> responsibility. The <EVENT eid="e18" class="OCCURRENCE">blast</EVENT> in Nairobi occurred at <TIMEX3 tid="t1" type="TIME" value="T10:35">about</TIMEX3> 10:35 <TIMEX3 tid="t1" type="TIME" value="T10:35">a.m.</TIMEX3> -LRB- <TIMEX3 tid="t2" type="DATE" value="0735">0735</TIMEX3> GMT -RRB- <TIMEX3 tid="t3" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3>, <EVENT eid="e19" class="OCCURRENCE">toppling</EVENT> a crowded building toward the embassy and a street packed with cars, trucks and buses. At least 75 people were <EVENT eid="e20" class="OCCURRENCE">killed</EVENT> and 1,643 <EVENT eid="e21" class="OCCURRENCE">wounded</EVENT> there, Red Cross and ambulance officials <EVENT eid="e22" class="REPORTING">said</EVENT>.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e10" eiid="ei10" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e12" eiid="ei12" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NNS"/>
-<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESENT" aspect="NONE" polarity="POS" pos="VBZ"/>
-<MAKEINSTANCE eventID="e15" eiid="ei15" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e18" eiid="ei18" tense="UNKNOWN" aspect="NONE" polarity="POS" pos="NN"/>
-<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e21" eiid="ei21" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<TLINK lid="lolol0" relType="BEFORE" timeID="t1" relatedToEventInstance="ei6" origin="USER"/>
-<TLINK lid="lolol1" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei7" origin="USER"/>
-<TLINK lid="lolol2" relType="DURING" timeID="t1" relatedToEventInstance="ei13" origin="USER"/>
-<TLINK lid="lolol3" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei13" origin="USER"/>
-<TLINK lid="lolol4" relType="DURING" timeID="t1" relatedToEventInstance="ei18" origin="USER"/>
-<TLINK lid="lolol5" relType="INCLUDES" timeID="t3" relatedToEventInstance="ei19" origin="USER"/>
+<TEXT> NAIROBI, Kenya ( AP ) _ Terrorist <EVENT class="OCCURRENCE" eid="e0">bombings</EVENT> at U.S. embassies in Kenya and Tanzania <EVENT class="OCCURRENCE" eid="e1">blew</EVENT> apart buildings and buses, <EVENT class="OCCURRENCE" eid="e2">trapping</EVENT> people under slabs of concrete and twisted steel that rescuers <EVENT class="OCCURRENCE" eid="e3">cleared</EVENT> with cranes, blow torches and bare hands. At least 82 were <EVENT class="OCCURRENCE" eid="e4">killed</EVENT> and more than 1,700 <EVENT class="OCCURRENCE" eid="e5">injured</EVENT>, officials <EVENT class="REPORTING" eid="e6">said</EVENT> as <TIMEX3 tid="t1" type="DATE" value="1998-08-08">dawn</TIMEX3> <EVENT class="OCCURRENCE" eid="e7">broke</EVENT> <TIMEX3 tid="t2" type="DATE" value="1998-08-08">Saturday</TIMEX3>. Dozens of people were still <EVENT class="OCCURRENCE" eid="e8">missing</EVENT>, however, and the death toll was <EVENT class="I_STATE" eid="e9">expected</EVENT> to <EVENT class="OCCURRENCE" eid="e10">rise</EVENT>, they <EVENT class="REPORTING" eid="e11">said</EVENT>. The suspected car <EVENT class="OCCURRENCE" eid="e12">bombings</EVENT> occurred 700 kilometers ( 450 miles ) from each other but just <TIMEX3 tid="t3" type="DURATION" value="PTXM">minutes</TIMEX3> apart on <TIMEX3 tid="t4" type="DATE" value="1998-08-07">Friday</TIMEX3>, <EVENT class="OCCURRENCE" eid="e13">turning</EVENT> busy streets in two African capitals into bloody piles of concrete and knots of steel.`` This <EVENT class="OCCURRENCE" eid="e14">appears</EVENT> to have been a very well-coordinated, very well-planned <EVENT class="OCCURRENCE" eid="e15">attack</EVENT> _ clearly not the work of amateurs,'' U.S. National Security Council spokesman P.J. Crowley <EVENT class="REPORTING" eid="e16">said</EVENT> in Washington. No one has <EVENT class="REPORTING" eid="e17">claimed</EVENT> responsibility. The <EVENT class="OCCURRENCE" eid="e18">blast</EVENT> in Nairobi occurred at <TIMEX3 tid="t5" type="TIME" value="1998-08-08T10:35">about 10:35 a.m.</TIMEX3> ( <TIMEX3 tid="t6" type="DATE" value="0735">0735</TIMEX3> GMT ) <TIMEX3 tid="t7" type="DATE" value="1998-08-07">Friday</TIMEX3>, <EVENT class="OCCURRENCE" eid="e19">toppling</EVENT> a crowded building toward the embassy and a street packed with cars, trucks and buses. At least 75 people were <EVENT class="OCCURRENCE" eid="e20">killed</EVENT> and 1,643 <EVENT class="OCCURRENCE" eid="e21">wounded</EVENT> there, Red Cross and ambulance officials <EVENT class="REPORTING" eid="e22">said</EVENT>.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e11" eiid="ei11" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e12" eiid="ei12" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e13" eiid="ei13" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e14" eiid="ei14" tense="PRESENT" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e15" eiid="ei15" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e16" eiid="ei16" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e17" eiid="ei17" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e18" eiid="ei18" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
+<MAKEINSTANCE eventID="e19" eiid="ei19" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e20" eiid="ei20" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e21" eiid="ei21" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e22" eiid="ei22" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei6" origin="USER"/>
+<TLINK lid="l1" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei7" origin="USER"/>
+<TLINK lid="l2" relType="NONE" eventInstanceID="ei9" relatedToEventInstance="ei10" origin="USER"/>
+<TLINK lid="l3" relType="DURING" timeID="t1" relatedToEventInstance="ei12" origin="USER"/>
+<TLINK lid="l4" relType="IS_INCLUDED" timeID="t2" relatedToEventInstance="ei12" origin="USER"/>
+<TLINK lid="l5" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei19" origin="USER"/>
 </TimeML>
 

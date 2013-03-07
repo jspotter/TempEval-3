@@ -6,33 +6,28 @@
 <DCT><TIMEX3 tid="t0" type="TIME" value="1998-08-07" temporalFunction="false" functionInDocument="CREATION_TIME">1998-08-07</TIMEX3></DCT>
 
 <TITLE>Explosions rock U.S. embassies in Tanzania, Kenya</TITLE>
-
 <EXTRAINFO>
 APW19980807.0261  NEWS STORY  08/07/1998 06:18:00
-w2213 &Cx1f; wstm-
-u i &Cx13;  &Cx11;  URGENT     08-07 0122
+w2213 &amp;Cx1f; wstm-
+u i &amp;Cx13;  &amp;Cx11;  URGENT     08-07 0122
 URGENT
 BC-Kenya-Explosion, 5th Ld-Writethru
-&UR; Explosions rock U.S. embassies in Tanzania, Kenya &QL;  &UR; Eds: UPDATES with explosion near U.S. Embassy in Tanzania. &QL;  &UR; AP Photos Planned &QL;  &UR; By CHEGE MBITIRU &QC;  &UR; Associated Press Writer &QC;
+&amp;UR; Explosions rock U.S. embassies in Tanzania, Kenya &amp;QL;  &amp;UR; Eds: UPDATES with explosion near U.S. Embassy in Tanzania. &amp;QL;  &amp;UR; AP Photos Planned &amp;QL;  &amp;UR; By CHEGE MBITIRU &amp;QC;  &amp;UR; Associated Press Writer &amp;QC;
 </EXTRAINFO>
-
-<TEXT>
-
- NAIROBI, Kenya -LRB- AP -RRB- _ Suspected bombs <EVENT eid="e0" class="OCCURRENCE">exploded</EVENT> outside the U.S. embassies in the Kenyan and Tanzanian capitals <TIMEX3 tid="t1" type="DATE" value="XXXX-WXX-5">Friday</TIMEX3>, <EVENT eid="e1" class="OCCURRENCE">killing</EVENT> dozens of people, witnesses <EVENT eid="e2" class="REPORTING">said</EVENT>. The American ambassador to Kenya was among hundreds <EVENT eid="e3" class="OCCURRENCE">injured</EVENT>, a local TV <EVENT eid="e4" class="REPORTING">said</EVENT>.`` It was definitely a bomb,'' <EVENT eid="e5" class="REPORTING">said</EVENT> a U.S. Embassy official in Nairobi, who <EVENT eid="e6" class="OCCURRENCE">refused</EVENT> to <EVENT eid="e7" class="OCCURRENCE">identify</EVENT> himself.`` You can <EVENT eid="e8" class="PERCEPTION">see</EVENT> a huge crater behind the building, and a bomb <EVENT eid="e9" class="OCCURRENCE">went</EVENT> off at the embassy in Tanzania at the same time,'' he <EVENT eid="e10" class="REPORTING">said</EVENT>.
-
-</TEXT>
-
-<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PRESPART" aspect="NONE" polarity="POS" pos="VBG"/>
-<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VBN"/>
-<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e7" eiid="ei7" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e8" eiid="ei8" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VB"/>
-<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<MAKEINSTANCE eventID="e10" eiid="ei10" tense="PAST" aspect="NONE" polarity="POS" pos="VBD"/>
-<TLINK lid="lolol0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei1" origin="USER"/>
+<TEXT> NAIROBI, Kenya ( AP ) _ Suspected bombs <EVENT class="OCCURRENCE" eid="e0">exploded</EVENT> outside the U.S. embassies in the Kenyan and Tanzanian capitals <TIMEX3 tid="t1" type="DATE" value="1998-08-07">Friday</TIMEX3>, <EVENT class="OCCURRENCE" eid="e1">killing</EVENT> dozens of people, witnesses <EVENT class="REPORTING" eid="e2">said</EVENT>. The American ambassador to Kenya was among hundreds <EVENT class="OCCURRENCE" eid="e3">injured</EVENT>, a local TV <EVENT class="REPORTING" eid="e4">said</EVENT>.`` It was definitely a bomb,'' <EVENT class="REPORTING" eid="e5">said</EVENT> a U.S. Embassy official in Nairobi, who <EVENT class="OCCURRENCE" eid="e6">refused</EVENT> to <EVENT class="OCCURRENCE" eid="e7">identify</EVENT> himself.`` You can <EVENT class="PERCEPTION" eid="e8">see</EVENT> a huge crater behind the building, and a bomb <EVENT class="OCCURRENCE" eid="e9">went</EVENT> off at the embassy in Tanzania at the same time,'' he <EVENT class="REPORTING" eid="e10">said</EVENT>.</TEXT>
+<MAKEINSTANCE eventID="e0" eiid="ei0" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e1" eiid="ei1" tense="PRESPART" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e2" eiid="ei2" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e3" eiid="ei3" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e4" eiid="ei4" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e5" eiid="ei5" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e6" eiid="ei6" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e7" eiid="ei7" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e8" eiid="ei8" tense="INFINITIVE" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<MAKEINSTANCE eventID="e10" eiid="ei10" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
+<TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
+<TLINK lid="l1" relType="NONE" eventInstanceID="ei5" relatedToEventInstance="ei7" origin="USER"/>
+<TLINK lid="l2" relType="NONE" eventInstanceID="ei6" relatedToEventInstance="ei7" origin="USER"/>
 </TimeML>
 
