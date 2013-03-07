@@ -45,9 +45,9 @@ Security Council condemns Kenya, Tanzania bombings
 <TLINK lid="l0" relType="NONE" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
 <TLINK lid="l1" relType="IS_INCLUDED" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
 <TLINK lid="l2" relType="NONE" eventInstanceID="ei12" relatedToEventInstance="ei13" origin="USER"/>
-<TLINK lid="l3" relType="NONE" eventInstanceID="ei13" relatedToEventInstance="ei15" origin="USER"/>
+<TLINK lid="l3" relType="NONE" eventInstanceID="ei13" relatedToEventInstance="ei14" origin="USER"/>
 <TLINK lid="l4" relType="NONE" eventInstanceID="ei14" relatedToEventInstance="ei15" origin="USER"/>
-<TLINK lid="l5" relType="IAFTER" eventInstanceID="ei17" relatedToEventInstance="ei18" origin="USER"/>
+<TLINK lid="l5" relType="IAFTER" eventInstanceID="ei17" relatedToEventInstance="ei19" origin="USER"/>
 <TLINK lid="l6" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei17" origin="USER"/>
 <TLINK lid="l7" relType="SIMULTANEOUS" eventInstanceID="ei18" relatedToEventInstance="ei19" origin="USER"/>
 <TLINK lid="l8" relType="IAFTER" eventInstanceID="ei20" relatedToEventInstance="ei26" origin="USER"/>

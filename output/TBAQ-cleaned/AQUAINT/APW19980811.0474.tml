@@ -27,10 +27,10 @@ Philippine president condemns bombings in Kenya and Tanzania
 <MAKEINSTANCE eventID="e8" eiid="ei8" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
 <MAKEINSTANCE eventID="e9" eiid="ei9" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e10" eiid="ei10" tense="NONE" aspect="NONE" polarity="POS" pos="ADJECTIVE"/>
-<TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
+<TLINK lid="l0" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei0" origin="USER"/>
 <TLINK lid="l1" relType="NONE" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
 <TLINK lid="l2" relType="BEFORE" eventInstanceID="ei3" relatedToEventInstance="ei5" origin="USER"/>
-<TLINK lid="l3" relType="BEFORE" eventInstanceID="ei8" relatedToEventInstance="ei9" origin="USER"/>
-<TLINK lid="l4" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei9" origin="USER"/>
+<TLINK lid="l3" relType="IAFTER" eventInstanceID="ei8" relatedToEventInstance="ei10" origin="USER"/>
+<TLINK lid="l4" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei8" origin="USER"/>
 </TimeML>
 

@@ -42,7 +42,7 @@ killed &amp;QL;  &amp;UR; Eds: CORRECTS that at least 75 dead in Kenya. &amp;QL;
 <TLINK lid="l1" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei7" origin="USER"/>
 <TLINK lid="l2" relType="NONE" eventInstanceID="ei9" relatedToEventInstance="ei10" origin="USER"/>
 <TLINK lid="l3" relType="DURING" timeID="t1" relatedToEventInstance="ei12" origin="USER"/>
-<TLINK lid="l4" relType="IS_INCLUDED" timeID="t2" relatedToEventInstance="ei12" origin="USER"/>
+<TLINK lid="l4" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei13" origin="USER"/>
 <TLINK lid="l5" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei19" origin="USER"/>
 </TimeML>
 

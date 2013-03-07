@@ -95,7 +95,8 @@ public class AnnotationWriter {
 						curTimex = timex;
 					}
 					// Handle if this is an event
-				} else if (event != null && !curType.equals(event.currEventType)) {
+				} else if (event != null /*&& !curType.equals(event.currEventType)*/) {
+					// TODO: Handle events with multiple tokens?
 					Element eventElem = XMLUtils.createElement("EVENT");
 					eventElem.setAttribute("eid", event.currEventId);
 					eventElem.setAttribute("class", event.currEventType);

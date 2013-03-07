@@ -38,12 +38,12 @@ New Zealand expresses understanding over U.S. missile attacks
 <MAKEINSTANCE eventID="e19" eiid="ei19" tense="PAST" aspect="NONE" polarity="POS" pos="VERB"/>
 <MAKEINSTANCE eventID="e20" eiid="ei20" tense="NONE" aspect="NONE" polarity="POS" pos="NOUN"/>
 <TLINK lid="l0" relType="AFTER" eventInstanceID="ei0" relatedToEventInstance="ei1" origin="USER"/>
-<TLINK lid="l1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei3" origin="USER"/>
+<TLINK lid="l1" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei2" origin="USER"/>
 <TLINK lid="l2" relType="NONE" eventInstanceID="ei4" relatedToEventInstance="ei5" origin="USER"/>
-<TLINK lid="l3" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei4" origin="USER"/>
+<TLINK lid="l3" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei5" origin="USER"/>
 <TLINK lid="l4" relType="BEGINS" timeID="t1" relatedToEventInstance="ei7" origin="USER"/>
 <TLINK lid="l5" relType="INCLUDES" timeID="t2" relatedToEventInstance="ei9" origin="USER"/>
 <TLINK lid="l6" relType="IS_INCLUDED" timeID="t1" relatedToEventInstance="ei16" origin="USER"/>
-<TLINK lid="l7" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei20" origin="USER"/>
+<TLINK lid="l7" relType="INCLUDES" timeID="t1" relatedToEventInstance="ei19" origin="USER"/>
 </TimeML>
 
