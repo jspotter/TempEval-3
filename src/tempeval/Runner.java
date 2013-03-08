@@ -39,6 +39,8 @@ public class Runner {
 
 	private static final String TRAIN_DIR = 
 			"data/TBAQ-cleaned/AQUAINT";
+	private static final String TEST_DIR =
+			"data/TBAQ-cleaned/TimeBank";
 	private static final String OUTPUT_DIR =
 			"output/TBAQ-cleaned/AQUAINT";
 
@@ -54,6 +56,8 @@ public class Runner {
 	private static DCTEventTagger dctEventTagger;
 	private static SameSentenceEventTagger sameSentenceEventTagger;
 	private static ConsecutiveEventTagger consecutiveEventTagger;
+	
+	private static int numTraining, numTesting;
 
 	/*
 	 * Gets entire contents of training file.
@@ -226,11 +230,10 @@ public class Runner {
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
-
-			// Save first ten files for testing //TODO change
+			
 			numFiles++;
-			if (numFiles <= 10)
-				continue;
+			if (numFiles > numTraining)
+				break;
 
 			System.out.println("Training on file " + child.getName());
 
@@ -257,8 +260,6 @@ public class Runner {
 
 			//Annotate with consecutive-sentence main event pairs
 			consecutiveEventTagger.train(annotation, doc);
-
-			if (numFiles >= 20) break;
 		}
 		eventTrainOut.close();
 		timexEventTagger.doneClassifying();
@@ -287,10 +288,14 @@ public class Runner {
 
 		// Test
 		int numFiles = 0;
-		File directory = new File(TRAIN_DIR);
+		File directory = new File(TEST_DIR);
 		for (File child : directory.listFiles()) {
 			if (child.getName().startsWith("."))
 				continue;
+			
+			numFiles++;
+			if (numFiles > numTesting)
+				break;
 
 			System.out.println("Testing on file " + child.getName());
 
@@ -325,9 +330,6 @@ public class Runner {
 					+ "/" + child.getName()));
 			AnnotationWriter.writeAnnotation(annotation, out);
 			out.close();
-
-			// Only test on first ten files //TODO change
-			if (++numFiles >= 10) break;
 		}
 		
 		sameSentenceEventTagger.printStats();
@@ -337,6 +339,15 @@ public class Runner {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
+		
+		// Args
+		if (args.length != 2) {
+			System.out.println("Usage: java Runner [num_train_files] [num_test_files]");
+			System.exit(-1);
+		}
+		
+		numTraining = Integer.parseInt(args[0]);
+		numTesting = Integer.parseInt(args[1]);
 
 		// Create full pipeline
 		Properties fullProps = new Properties();

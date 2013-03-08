@@ -24,6 +24,7 @@ import features.DistanceFeature;
 import features.EventLemmaFeature;
 import features.EventTypeFeature;
 import features.HeadingPrepFeature;
+import features.HeadingPrepFeature2;
 import features.InterleavingCommaFeature;
 import features.IntervalFeature;
 import features.POSFeature;
@@ -92,30 +93,43 @@ public class SameSentenceEventTagger {
 		
 		// Here is where you add features for relationship/no relationship
 		
-		binaryFeatureList.add(new DistanceFeature());
+		outWriter.write(""
+				//+ "distance\n"
+				+ "comma\n"
+				+ "lemmawindow\n"
+				//+ "eventtype\n"
+				+ "pos\n"
+				+ "lemma\n"
+				+ "poswindow\n"
+				+ "headingprep\n"
+				//+ "interval\n"
+				+ "syntacticrel\n"
+				+ "syntacticdom\n"
+				);
+		//binaryFeatureList.add(new DistanceFeature());
 		binaryFeatureList.add(new InterleavingCommaFeature());
-		////binaryFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
-		////binaryFeatureList.add(new EventTypeFeature());
+		binaryFeatureList.add(new WindowFeature(2, LemmaAnnotation.class));
+		//binaryFeatureList.add(new EventTypeFeature());
 		binaryFeatureList.add(new POSFeature());
-		////binaryFeatureList.add(new EventLemmaFeature());
+		binaryFeatureList.add(new EventLemmaFeature());
 		binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
-		binaryFeatureList.add(new HeadingPrepFeature());
-		////binaryFeatureList.add(new IntervalFeature());
+		binaryFeatureList.add(new HeadingPrepFeature2());
+		//binaryFeatureList.add(new IntervalFeature());
 		binaryFeatureList.add(new SyntacticRelationFeature());
 		binaryFeatureList.add(new SyntacticDominanceFeature());
 		
 		// Here is where you add features for kind of relationship
 		// (given that there is one)
 		
-		////multiFeatureList.add(new DistanceFeature());
-		////multiFeatureList.add(new InterleavingCommaFeature());
-		multiFeatureList.add(new WindowFeature(3, LemmaAnnotation.class));
+		//multiFeatureList.add(new DistanceFeature());
+		//multiFeatureList.add(new InterleavingCommaFeature());
+		multiFeatureList.add(new WindowFeature(2, LemmaAnnotation.class));
 		multiFeatureList.add(new EventTypeFeature());
 		multiFeatureList.add(new POSFeature());
 		multiFeatureList.add(new EventLemmaFeature());
 		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
-		multiFeatureList.add(new HeadingPrepFeature());
-		////multiFeatureList.add(new IntervalFeature());
+		multiFeatureList.add(new HeadingPrepFeature2());
+		//multiFeatureList.add(new IntervalFeature());
 		multiFeatureList.add(new SyntacticRelationFeature());
 		multiFeatureList.add(new SyntacticDominanceFeature());
 	}
@@ -314,7 +328,7 @@ public class SameSentenceEventTagger {
 		Map<String, String> eiidMappings = TestUtils.getEiidMappings(annotation, goldenAnnotation);
 		Map<String, Map<String, String>> relationships = getEventRelationships(doc, eiidMappings);
 
-		// For each pari
+		// For each pair
 		for (Pair<CoreLabel, CoreLabel> pair: pairs) {
 			total++;
 			

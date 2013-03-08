@@ -23,19 +23,17 @@ public class WindowFeature implements TempEvalFeature {
 	private static final String NEAR_SECOND = "__NEAR_SECOND__";
 	private static final String NEAR_SOMEONE = "__NEAR_SOMEONE__";
 	
-	private static int nextID = 0;
-	private int id;
-	
 	/*
 	 * Number of words examined in either direction.
 	 */
 	private int windowSize = 0;
 	private Class infoClass = TextAnnotation.class;
+	String id;
 	
 	public WindowFeature(int size, Class infoClass) {
 		windowSize = size;
 		this.infoClass = infoClass;
-		this.id = nextID++;
+		id = infoClass.getName();
 	}
 	
 	public void setWindowSize(int size) {
