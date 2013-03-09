@@ -68,7 +68,7 @@ public class TimexEventTagger {
 		distance = new DistanceFeature();
 		comma = new InterleavingCommaFeature();
 		timex = new TimexTypeFeature();
-		interval = new IntervalFeature();
+		interval = new IntervalFeature(2);
 		head_prep = new HeadingPrepFeature();
 		syn_rel = new SyntacticRelationFeature();
 	}
