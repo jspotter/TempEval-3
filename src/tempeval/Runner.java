@@ -216,6 +216,27 @@ public class Runner {
 		return annotation;
 	}
 
+	
+	private static void findIntervalStrings(Document doc, HashSet<String> interval_strings) throws IOException{
+		Element root = doc.getDocumentElement();
+
+		Element [] signals = XMLParser.getElementsByTagNameNR(XMLParser.getElementByTagNameNR(root, "TEXT"), "SIGNAL");
+		for(Element e : signals) {
+				interval_strings.add(e.getTextContent());
+		}
+	}
+	
+	private static void printIntervalStrings(HashSet<String> interval_strings) throws IOException{
+		
+		BufferedWriter out = new BufferedWriter(new FileWriter("interval_strings.txt"));
+		for(String s : interval_strings){
+			out.write(s);
+			out.write('\n');
+			out.flush();
+		}
+		out.close();
+	}
+	
 	/*
 	 * Builds up annotation object with built in CoreNLP annotations as
 	 * well as events.
@@ -223,6 +244,7 @@ public class Runner {
 	private static void train() throws Exception {
 
 		BufferedWriter eventTrainOut = new BufferedWriter(new FileWriter(EVENT_TRAIN_FILE));
+		HashSet<String> interval_strings = new HashSet<String>();
 
 		// Read each training file in training directory
 		int numFiles = 0;
@@ -239,7 +261,10 @@ public class Runner {
 
 			// Parse XML
 			Document doc = XMLParser.parse(child);
-
+			
+			//find all tokens inbetween SIGNAL tags to use for interval feature
+			//findIntervalStrings(doc, interval_strings);
+			
 			Annotation annotation = getAnnotation(child, doc, TRAINING);
 
 			//Need doc info for dctEventTagger
@@ -266,6 +291,8 @@ public class Runner {
 		dctEventTagger.doneClassifying();
 		sameSentenceEventTagger.doneClassifying();
 		consecutiveEventTagger.doneClassifying();
+		
+		printIntervalStrings(interval_strings);
 	}
 
 	private static void addDocumentInfo(Annotation annotation, Document doc, 
