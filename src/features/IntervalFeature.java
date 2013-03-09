@@ -35,6 +35,7 @@ public class IntervalFeature implements TempEvalFeature {
 				if(interval_strings.contains(s.toLowerCase())){
 					features.add(INTERVAL_STRING + "=" + i + s.toLowerCase());
 				}
+				prev = prev.get(AuxTokenInfoAnnotation.class).prev;
 			}
 		}
 	}
