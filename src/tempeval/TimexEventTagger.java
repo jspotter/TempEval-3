@@ -254,9 +254,10 @@ public class TimexEventTagger {
 				System.out.println("guessed something in file " + docInfo.filename);
 				TimeInfo timeInfo = pair.first.get(TimeAnnotation.class);
 				EventInfo eventInfo = pair.second.get(EventAnnotation.class);
-				LinkInfo link = new LinkInfo();
+				LinkInfo link = pair.second.get(LinkInfoAnnotation.class);
+				if(link == null) link = new LinkInfo();
 				link.addLink("-1", guess, timeInfo, null, eventInfo);
-				pair.first.set(LinkInfoAnnotation.class, link);
+				pair.second.set(LinkInfoAnnotation.class, link);
 			}
 		}
 	}
