@@ -12,6 +12,7 @@ import annotationclasses.LinkInfoAnnotation;
 import dataclasses.DocInfo;
 import dataclasses.EventInfo;
 import dataclasses.LinkInfo;
+import dataclasses.LinkInfo.Link;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
@@ -78,7 +79,7 @@ public class AnnotationWriter {
 				// Get information from token
 				Timex timex = token.get(TimexAnnotation.class);
 				EventInfo event = token.get(EventAnnotation.class);
-				LinkInfo link = token.get(LinkInfoAnnotation.class);
+				LinkInfo linkInfo = token.get(LinkInfoAnnotation.class);
 				String tokenText = token.get(CoreAnnotations.OriginalTextAnnotation.class);
 
 				Node tokenNode = null;
@@ -124,9 +125,11 @@ public class AnnotationWriter {
 				}
 
 				// Handle links
-				if (link != null) {
-					link.id = "l" + (nextLinkID++);
-					links.add(link);
+				if (linkInfo != null) {
+					for (Link link : linkInfo.getLinks())
+						link.id = "l" + (nextLinkID++);
+					
+					links.add(linkInfo);
 				}
 			}
 		}
@@ -149,16 +152,18 @@ public class AnnotationWriter {
 
 	private static void writeTimexEventLinks(ArrayList<LinkInfo> links, BufferedWriter out)
 			throws IOException {
-		for (LinkInfo link: links) {
-			String instanceString = "";
-			if (link.time != null)
-				instanceString = "timeID=\"" + link.time.currTimeId + "\"";
-			else
-				instanceString = "eventInstanceID=\"" + link.eventInstance.currEiid + "\"";
-
-			out.write("<TLINK lid=\"" + link.id + "\" relType=\"" + link.type
-					+ "\" " + instanceString + " relatedToEventInstance=\"" + link.relatedTo.currEiid
-					+ "\" origin=\"USER\"/>\n"); //TODO fix origin
+		for (LinkInfo linkInfo: links) {
+			for (Link link : linkInfo.getLinks()) {
+				String instanceString = "";
+				if (link.time != null)
+					instanceString = "timeID=\"" + link.time.currTimeId + "\"";
+				else
+					instanceString = "eventInstanceID=\"" + link.eventInstance.currEiid + "\"";
+	
+				out.write("<TLINK lid=\"" + link.id + "\" relType=\"" + link.type
+						+ "\" " + instanceString + " relatedToEventInstance=\"" + link.relatedTo.currEiid
+						+ "\" origin=\"USER\"/>\n"); //TODO fix origin
+			}
 		}
 	}
 

@@ -102,7 +102,7 @@ public class SameSentenceEventTagger {
 				+ "lemma\n"
 				+ "poswindow\n"
 				+ "headingprep\n"
-				//+ "interval\n"
+				+ "interval\n"
 				+ "syntacticrel\n"
 				+ "syntacticdom\n"
 				);
@@ -114,7 +114,7 @@ public class SameSentenceEventTagger {
 		binaryFeatureList.add(new EventLemmaFeature());
 		binaryFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		binaryFeatureList.add(new HeadingPrepFeature2());
-		//binaryFeatureList.add(new IntervalFeature());
+		binaryFeatureList.add(new IntervalFeature(3));
 		binaryFeatureList.add(new SyntacticRelationFeature());
 		binaryFeatureList.add(new SyntacticDominanceFeature());
 		
@@ -129,7 +129,7 @@ public class SameSentenceEventTagger {
 		multiFeatureList.add(new EventLemmaFeature());
 		multiFeatureList.add(new WindowFeature(2, PartOfSpeechAnnotation.class));
 		multiFeatureList.add(new HeadingPrepFeature2());
-		//multiFeatureList.add(new IntervalFeature());
+		multiFeatureList.add(new IntervalFeature(3));
 		multiFeatureList.add(new SyntacticRelationFeature());
 		multiFeatureList.add(new SyntacticDominanceFeature());
 	}
@@ -376,9 +376,13 @@ public class SameSentenceEventTagger {
 				else
 					silverMismatches++;
 				
-				LinkInfo link = new LinkInfo("-1", multiGuess, null,
+				LinkInfo linkInfo = pair.first.get(LinkInfoAnnotation.class);
+				if (linkInfo == null) {
+					LinkInfo link = new LinkInfo();
+					pair.first.set(LinkInfoAnnotation.class, link);
+				}
+				linkInfo.addLink("-1", multiGuess, null,
 						info1, info2);
-				pair.first.set(LinkInfoAnnotation.class, link);
 			}
 			
 			// If there actually is some relationship

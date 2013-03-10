@@ -21,7 +21,7 @@ public class LinkInfo {
 		return links;
 	}
 	
-	private class Link {
+	public class Link {
 
 		public String id;
 		public String type;
